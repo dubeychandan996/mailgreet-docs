@@ -1,0 +1,377 @@
+# Email Automation Guide
+
+This comprehensive guide explains how to create, manage, and optimize automated email workflows in MailerLite.
+
+## Understanding Email Automation
+
+### What is Email Automation?
+
+Email automation allows you to send timely, relevant emails to subscribers based on specific triggers, actions, or schedules. With automation, you can:
+
+- Send personalized emails at the right moment
+- Nurture leads through your sales funnel
+- Onboard new subscribers or customers
+- Re-engage inactive subscribers
+- Celebrate milestones and special occasions
+- Provide targeted content based on subscriber behavior
+
+### Benefits of Automation
+
+- **Time Efficiency**: Set up once, let it run continuously
+- **Consistency**: Deliver a uniform experience to all subscribers
+- **Personalization**: Tailor content based on subscriber data and behavior
+- **Segmentation**: Target specific subscriber groups with relevant messaging
+- **Engagement**: Reach subscribers when they're most likely to engage
+- **Analytics**: Track performance and optimize over time
+
+## Automation Basics
+
+### Types of Automated Workflows
+
+MailerLite offers several automation types:
+
+1. **Welcome Series**: Introduce new subscribers to your brand
+2. **Abandoned Cart**: Recover potential lost sales
+3. **Post-Purchase**: Follow up after purchases to build loyalty
+4. **Re-engagement**: Win back inactive subscribers
+5. **Date-based**: Birthday, anniversary, or subscription renewal emails
+6. **Behavior-based**: Triggered by specific subscriber actions
+7. **Educational Series**: Deliver a sequence of informational emails
+
+### Automation Triggers
+
+Each automation begins with a trigger that initiates the workflow:
+
+- **Group-based Triggers**:
+  - When a subscriber joins a specific group
+  - When a subscriber is removed from a group
+  - When a subscriber's field is updated
+
+- **Activity-based Triggers**:
+  - When a subscriber opens a specific campaign
+  - When a subscriber clicks a specific link
+  - When a subscriber completes a form
+  - When a subscriber visits a specific webpage
+
+- **Date-based Triggers**:
+  - On a subscriber's birthday
+  - On an anniversary date
+  - On a specific date
+  - Recurring on certain days/months
+
+- **E-commerce Triggers**:
+  - After a purchase
+  - When a cart is abandoned
+  - When a product is viewed but not purchased
+  - After order fulfillment
+
+## Building Your First Automation
+
+### Planning Your Workflow
+
+Before creating an automation:
+
+1. Define your goal (what you want to achieve)
+2. Identify your target audience (who should receive these emails)
+3. Decide on triggers (what starts the automation)
+4. Plan your email sequence (how many emails and their timing)
+5. Prepare your content (what will each email contain)
+6. Determine success metrics (how you'll measure effectiveness)
+
+### Creating a Basic Automation
+
+1. Navigate to **Automation** in the sidebar
+2. Click **Create Workflow**
+3. Select a workflow type or start from scratch
+4. Name your workflow (for internal reference)
+5. Choose a trigger that will start the automation
+6. Configure trigger settings
+7. Add steps to your workflow (emails, conditions, delays)
+8. Design your email content for each email step
+9. Set delays between steps
+10. Save and activate your workflow
+
+### Workflow Steps
+
+Build your automation with these elements:
+
+- **Email**: A message sent to subscribers
+- **Delay**: Time between steps (minutes, hours, days, weeks)
+- **Condition**: Split path based on subscriber data or behavior
+- **Action**: Perform tasks like moving subscribers between groups
+- **Integration**: Trigger actions in connected third-party services
+
+## Creating Common Automation Workflows
+
+### Welcome Series Automation
+
+Introduce new subscribers to your brand:
+
+1. **Trigger**: Subscriber joins a group (typically via signup form)
+2. **Email 1**: Welcome message and subscription confirmation (immediate)
+3. **Delay**: 2 days
+4. **Email 2**: Introduce your brand story and values
+5. **Delay**: 3 days
+6. **Email 3**: Showcase popular products/content
+7. **Delay**: 4 days
+8. **Email 4**: Special offer or valuable content piece
+
+### Abandoned Cart Recovery
+
+Recover potential lost sales:
+
+1. **Trigger**: Cart abandoned (via e-commerce integration)
+2. **Delay**: 1 hour
+3. **Email 1**: Reminder of items in cart with product images
+4. **Condition**: Check if purchase completed
+   - If Yes: End workflow
+   - If No: Continue
+5. **Delay**: A day
+6. **Email 2**: Address common objections + social proof
+7. **Delay**: 3 days
+8. **Email 3**: Offer discount or incentive to complete purchase
+
+### Re-engagement Campaign
+
+Win back inactive subscribers:
+
+1. **Trigger**: Subscriber hasn't opened emails in 90+ days
+2. **Email 1**: "We miss you" message with best content/offers
+3. **Condition**: Check if email opened
+   - If Yes: Move to "Re-engaged" group and end workflow
+   - If No: Continue
+4. **Delay**: 7 days
+5. **Email 2**: Survey asking for feedback
+6. **Delay**: 7 days
+7. **Email 3**: Final attempt with special offer
+8. **Condition**: Check if engaged
+   - If Yes: Move to "Re-engaged" group
+   - If No: Move to "Inactive" group for potential removal
+
+### Birthday or Anniversary Email
+
+Celebrate special occasions:
+
+1. **Trigger**: Subscriber's birthday field matches current date
+2. **Email**: Birthday greeting with special offer or gift
+3. **Delay**: 7 days
+4. **Action**: Remove from birthday campaign group (if used)
+
+### Educational Course or Sequence
+
+Deliver a series of educational content:
+
+1. **Trigger**: Subscriber signs up for course/sequence
+2. **Email 1**: Introduction and course overview
+3. **Delay**: 3 days
+4. **Email 2**: Lesson 1 content
+5. **Delay**: 3 days
+6. **Email 3**: Lesson 2 content
+7. **Delay**: 3 days
+8. **Email 4**: Lesson 3 content
+9. **Delay**: 3 days
+10. **Email 5**: Course completion and next steps
+
+## Advanced Automation Techniques
+
+### Using Conditions for Personalization
+
+Create dynamic paths based on subscriber attributes or actions:
+
+1. Add a **Condition** step to your workflow
+2. Set the condition based on:
+   - Subscriber data (field values, group membership)
+   - Email engagement (opened/clicked specific emails)
+   - Purchase behavior (bought specific products)
+3. Create separate paths for different conditions
+4. Design tailored content for each path
+
+Example: Segmenting by interest
+- Condition: Check which link they clicked in previous email
+- Path A: Interested in Product Type A → Send Product A content
+- Path B: Interested in Product Type B → Send Product B content
+
+### Automation Filters
+
+Refine who enters your workflow with filters:
+
+1. When creating your automation, click **Add Filter**
+2. Choose from filter options:
+   - Subscriber fields (location, age, etc.)
+   - Group membership
+   - Custom fields
+   - Previous engagement
+3. Combine multiple filters with AND/OR logic
+4. Only subscribers matching your filters will enter the workflow
+
+### Integrating with E-commerce
+
+Connect your store for powerful e-commerce automations:
+
+1. Set up your e-commerce integration in **Integrations**
+2. Create automations based on shop activity:
+   - Post-purchase thank you and follow-up
+   - Product recommendations based on purchase history
+   - Review requests after delivery date
+   - Replenishment reminders for consumable products
+
+### Multi-Channel Integrations
+
+Extend your automations beyond email:
+
+1. Connect third-party services via **Integrations**
+2. Use automation actions to:
+   - Add subscribers to SMS campaigns
+   - Update CRM records
+   - Create tasks in project management tools
+   - Log data to Google Sheets
+   - Trigger custom webhooks
+
+## Managing Automations
+
+### Monitoring Performance
+
+Track how your automations are performing:
+
+1. Go to **Automation** and select your workflow
+2. View the dashboard for:
+   - Active subscribers (currently in workflow)
+   - Completed (moved through entire workflow)
+   - Email performance (open, click, bounce rates)
+   - Step-by-step analytics
+   - Conversion tracking (if goals are set)
+
+### Editing Active Workflows
+
+Make changes to existing automations:
+
+1. Navigate to your workflow
+2. Click **Edit** to make changes
+3. Options for editing active workflows:
+   - **Pause workflow**: Stops new subscribers from entering
+   - **Continue editing**: Makes changes while workflow remains active
+   - **Edit and restart**: Resets the workflow for all subscribers
+4. Edit steps, content, delays, or conditions
+5. Save your changes
+
+### A/B Testing Automations
+
+Optimize your workflows with testing:
+
+1. Duplicate your existing workflow
+2. Make a specific change to test (subject line, content, timing)
+3. Rename to identify the test variant
+4. Activate both versions
+5. Divide your trigger group evenly between workflows
+6. Monitor performance for 2-4 weeks
+7. Implement winning variation and pause the underperforming one
+
+### Troubleshooting Common Issues
+
+**Subscribers not entering workflow**
+- Verify trigger is properly configured
+- Check if subscribers meet filter criteria
+- Ensure workflow is activated
+- Confirm subscribers haven't already completed this workflow
+
+**Emails not sending**
+- Check for scheduling issues (working hours settings)
+- Verify delay settings are correct
+- Ensure emails in workflow are properly designed
+- Check for conditions that might be excluding subscribers
+
+**Poor engagement metrics**
+- Review email content and relevance
+- Check timing and frequency of emails
+- Test subject lines and preview text
+- Ensure proper segmentation of audience
+
+## Automation Best Practices
+
+### Planning Effective Workflows
+
+Create automations that deliver results:
+
+- Start with your business goals, then design workflows to support them
+- Map customer journeys to identify key touchpoints
+- Focus on solving customer problems or answering questions
+- Keep workflows focused on a single purpose
+- Design for the subscriber's timeline, not yours
+- Create content specifically for automation (don't just reuse campaigns)
+
+### Email Timing and Frequency
+
+Optimize when your automated emails arrive:
+
+- Allow sufficient time between emails (typically 2-7 days for nurture sequences)
+- Consider your audience's schedule and habits
+- Use "Working Hours" settings to avoid sending at inappropriate times
+- Monitor engagement to refine timing
+- Respect time zones when possible
+- Don't overlap multiple automations targeting the same subscribers
+
+### Content Best Practices
+
+Create engaging automation content:
+
+- Maintain consistent branding across all emails
+- Personalize beyond just using the subscriber's name
+- Make each email valuable on its own
+- Create logical progression between emails in a sequence
+- Use conversational, friendly language
+- Include clear call-to-action in each email
+- Test different content formats (text, images, video)
+
+### Measuring Success
+
+Determine if your automations are working:
+
+- Set specific goals for each workflow
+- Track completion rates and drop-off points
+- Monitor engagement metrics (opens, clicks)
+- Measure conversion rates for key actions
+- Compare automation performance to regular campaigns
+- Calculate ROI for sales-focused automations
+- A/B test to continually improve
+
+## Advanced Concepts
+
+### Workflow Optimization Tips
+
+Take your automations to the next level:
+
+- Use lead scoring to track engagement across automations
+- Implement progressive profiling to gather more subscriber data
+- Create "choose your own adventure" paths with conditional branches
+- Incorporate occasional surprises or special offers
+- Use behavior-based triggers to create hyper-relevant experiences
+- Set up re-entry conditions for cyclical automations
+- Create internal notifications for certain subscriber actions
+
+### Personalization at Scale
+
+Deliver individualized experiences automatically:
+
+- Use dynamic content blocks based on subscriber data
+- Incorporate predictive product recommendations
+- Personalize send times based on individual open history
+- Customize images based on subscriber preferences
+- Use AI-powered content optimization (available on higher plans)
+- Create micro-segments for highly targeted automation paths
+
+### Compliance Considerations
+
+Stay legal with your automated emails:
+
+- Include unsubscribe options in every email
+- Ensure you have proper permission before adding to automations
+- Document how and when consent was obtained
+- Be transparent about automated nature of emails when appropriate
+- Follow email sending regulations (GDPR, CAN-SPAM, CASL)
+- Regularly clean your list of disengaged subscribers
+
+## Conclusion
+
+Email automation is a powerful tool for delivering the right message to the right person at the right time. By implementing strategic workflows, you can nurture relationships with subscribers throughout their journey with your brand, saving time while providing a more personalized experience.
+
+Remember that automation is not "set it and forget it" — regularly review performance, test new approaches, and refine your workflows to continually improve results. 

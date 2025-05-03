@@ -21,6 +21,79 @@
               "development"
             ]
           },
+
+          {
+            "group": "Campaigns",
+            "pages": [
+              "create-campaign",
+              "campaign-types",
+              "testing-campaigns",
+              "scheduling"
+            ]
+          },
+
+          {
+            "group": "Subscribers",
+            "pages": [
+              "managing-subscribers",
+              "importing-subscribers",
+              "segmentation",
+              "custom-fields"
+            ]
+          },
+
+          {
+            "group": "Templates",
+            "pages": [
+              "pre-built-templates",
+              "creating-custom-templates",
+              "template-editor"
+            ]
+          },
+
+          {
+            "group": "Automation",
+            "pages": [
+              "creating-workflows",
+              "triggers-and-actions",
+              "automation-templates"
+            ]
+          },
+
+          {
+            "group": "Analytics",
+            "pages": [
+              "campaign-reports",
+              "subscriber-growth",
+              "engagement-metrics"
+            ]
+          },
+
+          {
+            "group": "Integrations",
+            "pages": [
+              "available-integrations",
+              "setting-up-integrations"
+            ]
+          },
+
+          {
+            "group": "Settings",
+            "pages": [
+              "account-settings",
+              "billing-and-plans",
+              "team-management"
+            ]
+          },
+
+          {
+            "group": "Troubleshooting",
+            "pages": [
+              "common-issues",
+              "support-resources"
+            ]
+          },
+
           {
             "group": "Essentials",
             "pages": [
@@ -76,8 +149,8 @@
     }
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/logo/mailgreet_logo.png",
+    "dark": "/logo/mailgreet_logo.png"
   },
   "navbar": {
     "links": [

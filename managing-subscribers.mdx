@@ -1,0 +1,322 @@
+hi# Subscriber Management Guide
+
+This guide provides detailed information on managing your subscriber lists, segments, and groups in MailerLite.
+
+## Understanding Subscribers
+
+### Types of Subscribers
+
+MailerLite classifies subscribers into different categories:
+
+- **Active**: Engaged subscribers who have opened or clicked your emails recently
+- **Unconfirmed**: Subscribers who haven't confirmed their subscription (for double opt-in)
+- **Unsubscribed**: People who have opted out of your emails
+- **Bounced**: Email addresses that have hard-bounced (permanently undeliverable)
+- **Junk**: Addresses marked as spam traps or known problematic domains
+
+### Subscriber Data Fields
+
+Standard fields available for all subscribers:
+- Email address (required)
+- First name
+- Last name
+- Company
+- Phone
+- Country
+- City
+- Address
+- Zip/Postal code
+- Birthday
+- Gender
+- IP address
+- Signup source
+
+## Managing Your Subscriber List
+
+### Viewing Subscribers
+
+1. Navigate to the **Subscribers** section in the sidebar
+2. The main view shows all active subscribers
+3. Use filters to narrow down by:
+   - Subscription date
+   - Groups
+   - Fields
+   - Activity (opened, clicked)
+   - Location
+   - Email client
+
+### Adding Individual Subscribers
+
+To add subscribers manually:
+
+1. Go to **Subscribers**
+2. Click **Add Subscriber**
+3. Enter email address (required) and any other information
+4. Select the appropriate group(s)
+5. Choose whether to send a confirmation email
+6. Click **Save**
+
+### Bulk Importing Subscribers
+
+Import multiple subscribers at once:
+
+1. Go to **Subscribers** and click **Import**
+2. Choose your import method:
+   - Upload file (CSV, TXT, XLS, XLSX)
+   - Copy/paste data
+   - Import from another service
+3. Map your data columns to MailerLite fields
+4. Select subscriber groups
+5. Choose import settings:
+   - Update existing subscribers
+   - Skip duplicate subscribers
+   - Send confirmation emails
+6. Review and confirm the import
+
+### Required Format for Import Files
+
+For successful imports, your file should:
+- Include headers as the first row
+- Have "email" as a column header for email addresses
+- Use UTF-8 encoding for special characters
+- Not exceed 100,000 subscribers per import
+
+Example CSV format:
+```
+email,first_name,last_name,company
+john@example.com,John,Smith,ABC Inc.
+jane@example.com,Jane,Doe,XYZ Corp.
+```
+
+### Exporting Subscribers
+
+To back up or transfer your subscriber data:
+
+1. Go to **Subscribers**
+2. Select the subscribers you want to export or click "Select all"
+3. Click **Export**
+4. Choose your file format (CSV or XLSX)
+5. Select which fields to include
+6. Confirm the export
+
+## Subscriber Groups
+
+### Creating and Managing Groups
+
+Groups help organize subscribers by source, interest, or purpose:
+
+1. Navigate to **Subscribers** > **Groups**
+2. Click **Create Group**
+3. Enter a group name and description
+4. Configure group settings:
+   - Double opt-in requirement
+   - Custom confirmation email
+   - Welcome email
+5. Click **Save Group**
+
+### Moving Subscribers Between Groups
+
+To reassign subscribers to different groups:
+
+1. Select subscribers from your list
+2. Click **Actions** > **Move to group**
+3. Select the destination group
+4. Choose whether to remove from current groups
+5. Confirm the move
+
+### Copying Subscribers to Groups
+
+To add subscribers to additional groups:
+
+1. Select subscribers from your list
+2. Click **Actions** > **Copy to group**
+3. Select the destination group(s)
+4. Confirm the copy
+
+### Removing Subscribers from Groups
+
+To remove subscribers from specific groups:
+
+1. Select the group from the sidebar
+2. Select subscribers to remove
+3. Click **Actions** > **Remove from group**
+4. Confirm removal
+
+## Subscriber Segments
+
+### Understanding Segments vs. Groups
+
+- **Groups**: Static collections of subscribers manually assigned or based on signup form
+- **Segments**: Dynamic, rule-based collections that update automatically based on criteria
+
+### Creating Segments
+
+Create targeted segments based on subscriber data or behavior:
+
+1. Go to **Subscribers** > **Segments**
+2. Click **Create Segment**
+3. Name your segment
+4. Add conditions using the segment builder:
+   - Subscriber fields (name, email, location, etc.)
+   - Campaign activity (opened, clicked, etc.)
+   - Group membership
+   - Signup date
+   - Custom fields
+5. Combine conditions with AND/OR logic
+6. Save your segment
+
+### Example Segment Conditions
+
+- Subscribers who opened a specific campaign
+- Subscribers who clicked on a specific link
+- Subscribers from a specific country
+- Subscribers who joined after a certain date
+- Subscribers who haven't opened any emails in 90 days
+- Subscribers who have completed a purchase (custom field)
+
+### Using Segments
+
+Segments can be used for:
+- Targeted campaign sending
+- Re-engagement campaigns
+- Cleaning your list
+- Analyzing subscriber behavior
+- Creating lookalike audiences for advertising
+
+## Custom Fields
+
+### Adding Custom Fields
+
+Extend subscriber data with custom fields:
+
+1. Go to **Subscribers** > **Fields**
+2. Click **Add New Field**
+3. Select the field type:
+   - Text field
+   - Number
+   - Date
+   - Dropdown
+   - Radio button
+   - Checkbox
+4. Enter a field name
+5. Add default value (optional)
+6. Save the field
+
+### Common Custom Field Uses
+
+- Purchase history
+- Product preferences
+- Subscription tier
+- Member since date
+- Lead score
+- Registration source
+- Survey responses
+- Customer ID
+
+### Using Custom Fields in Campaigns
+
+1. In the email editor, click where you want to insert the field
+2. Select **Personalization**
+3. Choose your custom field from the dropdown
+4. Add fallback text for subscribers without data in that field
+
+## Subscriber Management Best Practices
+
+### List Hygiene
+
+Maintain a healthy subscriber list by:
+- Regularly removing inactive subscribers (no opens in 6+ months)
+- Cleaning bounced email addresses
+- Running re-engagement campaigns before removing inactives
+- Verifying email addresses at signup
+- Using double opt-in for new subscribers
+
+### Segmentation Strategy
+
+Improve engagement with effective segmentation:
+- Segment by engagement level (highly engaged, moderately engaged, dormant)
+- Create interest-based segments from click behavior
+- Develop customer journey segments (new subscribers, regulars, VIPs)
+- Use geographic segments for time-zone appropriate sending
+- Build behavior-triggered segments (abandoned cart, browsed item)
+
+### Privacy Compliance
+
+Stay compliant with email regulations:
+- Always get explicit consent before sending marketing emails
+- Include an unsubscribe link in every email
+- Honor unsubscribe requests promptly
+- Document when and how consent was obtained
+- Provide privacy policy information
+- Comply with local regulations (GDPR, CAN-SPAM, CASL, etc.)
+
+## Subscription Forms
+
+### Types of Forms
+
+MailerLite offers various form types:
+- **Embedded Forms**: Added directly into your website
+- **Pop-up Forms**: Appear over your site content
+- **Promotion Boxes**: Highlight special offers
+- **Subscribe Buttons**: Minimal, compact forms
+- **Landing Pages**: Standalone subscription pages
+
+### Creating a Subscription Form
+
+1. Go to **Forms** in the sidebar
+2. Select your form type
+3. Choose a template or start from scratch
+4. Customize the design using the drag-and-drop editor
+5. Configure form settings:
+   - Fields to include (required vs. optional)
+   - Success message
+   - Double opt-in settings
+   - Redirect URL
+   - Group assignment
+6. Get the embed code or URL to use on your site
+
+### Form Best Practices
+
+- Keep forms simple with minimal required fields
+- Clearly state what subscribers will receive
+- Include privacy policy information
+- Use compelling call-to-action text
+- Consider offering an incentive (discount, content)
+- Test form placement for optimal conversion
+
+## Troubleshooting
+
+### Common Subscriber Issues
+
+**High Unsubscribe Rates**
+- Audit your sending frequency
+- Review content relevance
+- Check for permission issues
+- Segment your list for better targeting
+
+**Low Engagement**
+- Clean inactive subscribers
+- Improve subject lines
+- Enhance content quality
+- Test sending times
+- Segment for relevance
+
+**Import Errors**
+- Check file format (CSV, encoding)
+- Verify required headers
+- Reduce file size if too large
+- Fix formatting issues in data
+
+**Bounced Emails**
+- Remove invalid addresses
+- Verify email addresses at signup
+- Use double opt-in
+- Check for typos in domains
+
+### Getting Support
+
+If you encounter issues managing subscribers:
+- Check the MailerLite Knowledge Base
+- Contact support via live chat
+- Email support@mailerlite.com
+- Post questions in the community forum 
