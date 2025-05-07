@@ -3,66 +3,146 @@ title: 'Quickstart'
 description: 'Start building awesome documentation in under 5 minutes'
 ---
 
-## Setup your development
+# Getting Started with Mailgreet
 
-Learn how to update your docs locally and deploy them to the public.
+Welcome to Mailgreet! This guide will help you set up your account and get familiar with the basic features of our email marketing platform.
 
-### Edit and preview
+## Account Setup
 
-<AccordionGroup>
-  <Accordion icon="github" title="Clone your docs locally">
-    During the onboarding process, we created a repository on your Github with
-    your docs content. You can find this repository on our
-    [dashboard](https://dashboard.mintlify.com). To clone the repository
-    locally, follow these
-    [instructions](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
-    in your terminal.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Preview changes">
-    Previewing helps you make sure your changes look as intended. We built a
-    command line interface to render these changes locally. 
-    1. Install the
-    [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview the
-    documentation changes locally with this command: ``` npm i -g mintlify ```
-    2. Run the following command at the root of your documentation (where
-    `docs.json` is): ``` mintlify dev ```
-    <Note>
-      If you’re currently using the legacy ```mint.json``` configuration file, please update the Mintlify CLI:
+### Creating Your Account
 
+1. Visit the Mailgreet website and click "Sign Up"
+2. Enter your email address, create a password, and provide your name
+3. Verify your email address by clicking the link sent to your inbox
+4. Complete your account profile with company information
 
-      ```npm i -g mintlify@latest```
-      And run the new upgrade command in your docs repository:
+### Setting Up Your Brand
 
-      ```mintlify upgrade```
-      You should now be using the new ```docs.json``` configuration file. Feel free to delete the ```mint.json``` file from your repository.
-    </Note>
-  </Accordion>
-</AccordionGroup>
+Customize your account with your brand elements:
 
-### Deploy your changes
+1. Go to **Settings** > **Account Settings**
+2. Upload your company logo (recommended size: 200x50px)
+3. Set your brand colors (primary and accent colors)
+4. Configure your default sender information:
+   - From name (e.g., Your Company Name)
+   - From email address (preferably your domain email)
+   - Default reply-to address
 
-<AccordionGroup>
+### Verifying Your Domain
 
-<Accordion icon="message-bot" title="Install our Github app">
-  Our Github app automatically deploys your changes to your docs site, so you
-  don't need to manage deployments yourself. You can find the link to install on
-  your [dashboard](https://dashboard.mintlify.com). Once the bot has been
-  successfully installed, there should be a check mark next to the commit hash
-  of the repo.
-</Accordion>
-<Accordion icon="rocket" title="Push your changes">
-  [Commit and push your changes to
-  Git](https://docs.github.com/en/get-started/using-git/pushing-commits-to-a-remote-repository#about-git-push)
-  for your changes to update in your docs site. If you push and don't see that
-  the Github app successfully deployed your changes, you can also manually
-  update your docs through our [dashboard](https://dashboard.mintlify.com).
-</Accordion>
+To improve deliverability, verify your sending domain:
 
-</AccordionGroup>
+1. Navigate to **Settings** > **Domains**
+2. Click "Add Domain" and enter your domain name
+3. Follow the instructions to add the required DNS records
+4. Wait for verification to complete (may take up to 24-48 hours)
 
-## Update your docs
+## Importing Your First Subscribers
 
-Add content directly in your files with MDX syntax and React components. You can use any of our components, or even build your own.
+### Preparing Your Subscriber List
+
+Before importing:
+- Ensure you have permission to email your contacts
+- Prepare a clean CSV file with proper column headers
+- Include at minimum: email address, first name (optional), last name (optional)
+
+### Import Process
+
+1. Go to the **Subscribers** section
+2. Click "Import Subscribers"
+3. Choose your import method (Upload file, Copy/paste, or Import from another service)
+4. Map the fields to match our system fields
+5. Select a group for these subscribers or create a new one
+6. Review and confirm the import
+
+### Creating Subscriber Groups
+
+Organize your subscribers into logical groups:
+
+1. In the **Subscribers** section, click "Groups"
+2. Click "Create Group"
+3. Name your group (e.g., "Newsletter Subscribers," "Customers," "Leads")
+4. Add a description for your team's reference
+5. Choose group settings (double opt-in requirements, welcome emails)
+
+## Creating Your First Campaign
+
+### Selecting a Template
+
+1. Go to the **Campaigns** section and click "Create Campaign"
+2. Select "Regular Campaign"
+3. Choose a template from our gallery or start from scratch
+4. Select "Recent Templates" to use a previously created template
+
+### Designing Your Email
+
+Use our drag-and-drop editor to design your email:
+
+1. Add your logo to the header
+2. Edit the headline and main content text
+3. Insert images by uploading or choosing from our gallery
+4. Add buttons with clear call-to-action text
+5. Include your social media links and contact information
+
+### Personalizing Your Content
+
+Make your emails more engaging with personalization:
+
+1. Use the merge tags dropdown to add personalization fields
+2. Add the subscriber's name: `{$first_name}`
+3. Include conditional content blocks for different subscriber segments
+4. Preview your email with test subscriber data
+
+### Campaign Settings
+
+Before sending, configure these important settings:
+
+1. Set your subject line and preview text
+2. Configure sender information (or use your default)
+3. Enable/disable tracking options
+4. Choose which subscriber groups will receive this campaign
+5. Set up A/B testing if desired (Pro plan and above)
+
+### Testing Your Campaign
+
+Always test before sending:
+
+1. Click "Preview & Test"
+2. Send a test email to yourself and colleagues
+3. Check the email on different devices (desktop and mobile)
+4. Test all links to ensure they work correctly
+5. Run a spam test to check deliverability
+
+### Scheduling or Sending
+
+When you're ready:
+
+1. Click "Schedule" to set a future delivery time
+2. Choose the date and time
+3. Select time zone settings
+4. Alternatively, click "Send Now" to deliver immediately
+
+## Understanding Analytics
+
+After sending your campaign, track its performance:
+
+1. View the campaign dashboard for overall metrics
+2. Monitor open rates (industry average: 15-25%)
+3. Track click-through rates (industry average: 2-5%)
+4. Identify which links received the most clicks
+5. Check for any bounces or unsubscribes
+
+## Next Steps
+
+After mastering the basics, explore these features:
+
+- **Automation**: Set up welcome sequences and triggered emails
+- **Segments**: Create targeted subscriber segments based on behavior
+- **Forms**: Add subscription forms to your website
+- **Integrations**: Connect with your e-commerce platform or CRM
+- **Templates**: Create reusable custom templates
+
+Remember, our support team is available to help you through live chat or email if you have any questions! 
 
 <CardGroup>
 
