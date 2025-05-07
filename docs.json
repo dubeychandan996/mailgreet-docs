@@ -149,8 +149,8 @@
     }
   },
   "logo": {
-    "light": "/logo/mailgreet_logo.png",
-    "dark": "/logo/mailgreet_logo.png"
+    "light": "/logo/light-logo.png",
+    "dark": "/logo/dark-logo.png"
   },
   "navbar": {
     "links": [
