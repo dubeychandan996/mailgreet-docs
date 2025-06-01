@@ -43,6 +43,14 @@
           },
 
           {
+            "group": "Verifications",
+            "pages": [
+              "email-verification",
+              "phone-verification"              
+            ]
+          },
+
+          {
             "group": "Templates",
             "pages": [
               "pre-built-templates",
