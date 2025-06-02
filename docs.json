@@ -36,7 +36,8 @@
             "group": "Subscribers",
             "pages": [
               "managing-subscribers",
-              "importing-subscribers",
+              "import-subscribers",
+              "export-subscribers",
               "groups-and-segment",
               "custom-fields"
             ]
@@ -46,7 +47,8 @@
             "group": "Verifications",
             "pages": [
               "email-verification",
-              "phone-verification"              
+              "phone-verification",
+              "purchase-verification"        
             ]
           },
 
