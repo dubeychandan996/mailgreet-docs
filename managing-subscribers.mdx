@@ -35,7 +35,21 @@ Standard fields available for all subscribers:
 
 ### Viewing Subscribers
 
-1. Navigate to the **Subscribers** section in the sidebar
+To view existing subscribers:-
+
+1. Navigate to the [Subscribers](https://mailgreet.com/dashboard/subscribers) section in the sidebar.
+
+<img
+  className="block dark:hidden"
+  src="/images/imported-subscribers-light.png"
+  alt="Exported Subscribers Light"
+/>
+<img
+  className="hidden dark:block"
+  src="/images/imported-subscribers-dark.png"
+  alt="Exported Subscribers Dark"
+/>
+
 2. The main view shows all active subscribers
 3. Use filters to narrow down by:
    - Subscription date
@@ -45,33 +59,43 @@ Standard fields available for all subscribers:
    - Location
    - Email client
 
-### Adding Individual Subscribers
+### Add Individual Subscribers
 
-To add subscribers manually:
+To add subscribers manually:-
 
-1. Go to **Subscribers**
-2. Click **Add Subscriber**
-3. Enter email address (required) and any other information
-4. Select the appropriate group(s)
-5. Choose whether to send a confirmation email
-6. Click **Save**
+1. Navigate to the [Subscribers](https://mailgreet.com/dashboard/subscribers) section in the sidebar.
+2. Click **Add Subscriber** button.
+3. The **Add new subscriber** dialog box will appear.
+
+<img
+  className="block dark:hidden"
+  src="/images/add-new-subscriber-dialogbox-light.png"
+  alt="Add New Subscriber Dialogbox Light"
+/>
+<img
+  className="hidden dark:block"
+  src="/images/add-new-subscriber-dialogbox-dark.png"
+  alt="Add New Subscriber Dialogbox Dark"
+/>
+
+3. Enter **email address** (required), **First name**, **Last name**.
+4. Select the appropriate group(s).
+5. Click on the **Add Subscriber** button.
+6. The email address will be automatically verified upon signup and the new subscriber will be shown as the topmost entry in the **All Subscribers** section.
+7. Now, you have successfully added a new subscriber.
+
+
+
 
 ### Bulk Importing Subscribers
 
-Import multiple subscribers at once:
+<CardGroup>
 
-1. Go to **Subscribers** and click **Import**
-2. Choose your import method:
-   - Upload file (CSV, TXT, XLS, XLSX)
-   - Copy/paste data
-   - Import from another service
-3. Map your data columns to MailGreet fields
-4. Select subscriber groups
-5. Choose import settings:
-   - Update existing subscribers
-   - Skip duplicate subscribers
-   - Send confirmation emails
-6. Review and confirm the import
+<Card title="Import Subscribers" icon="file" href="/import-subscribers">
+  This guide will teach you how to import multiple subscribers at once. 
+</Card>
+
+</CardGroup>
 
 ### Required Format for Import Files
 
@@ -90,39 +114,35 @@ jane@example.com,Jane,Doe,XYZ Corp.
 
 ### Exporting Subscribers
 
-To back up or transfer your subscriber data:
+<CardGroup>
 
-1. Go to **Subscribers**
-2. Select the subscribers you want to export or click "Select all"
-3. Click **Export**
-4. Choose your file format (CSV or XLSX)
-5. Select which fields to include
-6. Confirm the export
+<Card title="Export Subscribers" icon="file" href="/export-subscribers">
+  This guide will teach you how to export multiple subscribers at once. 
+</Card>
+
+</CardGroup>
 
 ## Subscriber Groups
 
 ### Creating and Managing Groups
 
-Groups help organize subscribers by source, interest, or purpose:
+<CardGroup>
 
-1. Navigate to **Subscribers** > **Groups**
-2. Click **Create Group**
-3. Enter a group name and description
-4. Configure group settings:
-   - Double opt-in requirement
-   - Custom confirmation email
-   - Welcome email
-5. Click **Save Group**
+<Card title="Create Group" icon="file" href="/groups-and-segment#create-a-group">
+  This guide will teach you how to create a group. 
+</Card>
+
+</CardGroup>
 
 ### Moving Subscribers Between Groups
 
-To reassign subscribers to different groups:
+<CardGroup>
 
-1. Select subscribers from your list
-2. Click **Actions** > **Move to group**
-3. Select the destination group
-4. Choose whether to remove from current groups
-5. Confirm the move
+<Card title="Move Subscriber between Groups" icon="file" href="/groups-and-segment#change-group-of-subscriber">
+  This guide will teach you how to move subscriber between groups. 
+</Card>
+
+</CardGroup>
 
 ### Copying Subscribers to Groups
 
