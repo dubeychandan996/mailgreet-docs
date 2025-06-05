@@ -17,6 +17,7 @@
             "group": "Get Started",
             "pages": [
               "introduction",
+              "setup-an-account",
               "quickstart"
             ]
           },
@@ -35,9 +36,19 @@
             "group": "Subscribers",
             "pages": [
               "managing-subscribers",
-              "importing-subscribers",
-              "segmentation",
+              "import-subscribers",
+              "export-subscribers",
+              "groups-and-segment",
               "custom-fields"
+            ]
+          },
+
+          {
+            "group": "Verifications",
+            "pages": [
+              "email-verification",
+              "phone-verification",
+              "purchase-credits"        
             ]
           },
 

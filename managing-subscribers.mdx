@@ -35,7 +35,21 @@ Standard fields available for all subscribers:
 
 ### Viewing Subscribers
 
-1. Navigate to the **Subscribers** section in the sidebar
+To view existing subscribers:-
+
+1. Navigate to the [Subscribers](https://mailgreet.com/dashboard/subscribers) section in the sidebar.
+
+<img
+  className="block dark:hidden"
+  src="/images/imported-subscribers-light.png"
+  alt="Exported Subscribers Light"
+/>
+<img
+  className="hidden dark:block"
+  src="/images/imported-subscribers-dark.png"
+  alt="Exported Subscribers Dark"
+/>
+
 2. The main view shows all active subscribers
 3. Use filters to narrow down by:
    - Subscription date
@@ -45,33 +59,43 @@ Standard fields available for all subscribers:
    - Location
    - Email client
 
-### Adding Individual Subscribers
+### Add Individual Subscribers
 
-To add subscribers manually:
+To add subscribers manually:-
 
-1. Go to **Subscribers**
-2. Click **Add Subscriber**
-3. Enter email address (required) and any other information
-4. Select the appropriate group(s)
-5. Choose whether to send a confirmation email
-6. Click **Save**
+1. Navigate to the [Subscribers](https://mailgreet.com/dashboard/subscribers) section in the sidebar.
+2. Click **Add Subscriber** button.
+3. The **Add new subscriber** dialog box will appear.
+
+<img
+  className="block dark:hidden"
+  src="/images/add-new-subscriber-dialogbox-light.png"
+  alt="Add New Subscriber Dialogbox Light"
+/>
+<img
+  className="hidden dark:block"
+  src="/images/add-new-subscriber-dialogbox-dark.png"
+  alt="Add New Subscriber Dialogbox Dark"
+/>
+
+3. Enter **email address** (required), **First name**, **Last name**.
+4. Select the appropriate group(s).
+5. Click on the **Add Subscriber** button.
+6. The email address will be automatically verified upon signup and the new subscriber will be shown as the topmost entry in the **All Subscribers** section.
+7. Now, you have successfully added a new subscriber.
+
+
+
 
 ### Bulk Importing Subscribers
 
-Import multiple subscribers at once:
+<CardGroup>
 
-1. Go to **Subscribers** and click **Import**
-2. Choose your import method:
-   - Upload file (CSV, TXT, XLS, XLSX)
-   - Copy/paste data
-   - Import from another service
-3. Map your data columns to MailGreet fields
-4. Select subscriber groups
-5. Choose import settings:
-   - Update existing subscribers
-   - Skip duplicate subscribers
-   - Send confirmation emails
-6. Review and confirm the import
+<Card title="Import Subscribers" icon="file" href="/import-subscribers">
+  This guide will teach you how to import multiple subscribers at once. 
+</Card>
+
+</CardGroup>
 
 ### Required Format for Import Files
 
@@ -90,57 +114,47 @@ jane@example.com,Jane,Doe,XYZ Corp.
 
 ### Exporting Subscribers
 
-To back up or transfer your subscriber data:
+<CardGroup>
 
-1. Go to **Subscribers**
-2. Select the subscribers you want to export or click "Select all"
-3. Click **Export**
-4. Choose your file format (CSV or XLSX)
-5. Select which fields to include
-6. Confirm the export
+<Card title="Export Subscribers" icon="file" href="/export-subscribers">
+  This guide will teach you how to export multiple subscribers at once. 
+</Card>
+
+</CardGroup>
 
 ## Subscriber Groups
 
 ### Creating and Managing Groups
 
-Groups help organize subscribers by source, interest, or purpose:
+<CardGroup>
 
-1. Navigate to **Subscribers** > **Groups**
-2. Click **Create Group**
-3. Enter a group name and description
-4. Configure group settings:
-   - Double opt-in requirement
-   - Custom confirmation email
-   - Welcome email
-5. Click **Save Group**
+<Card title="Create Group" icon="file" href="/groups-and-segment#create-a-group">
+  This guide will teach you how to create a group. 
+</Card>
+
+</CardGroup>
 
 ### Moving Subscribers Between Groups
 
-To reassign subscribers to different groups:
+<CardGroup>
 
-1. Select subscribers from your list
-2. Click **Actions** > **Move to group**
-3. Select the destination group
-4. Choose whether to remove from current groups
-5. Confirm the move
+<Card title="Move Subscriber between Groups" icon="file" href="/groups-and-segment#change-group-of-subscriber">
+  This guide will teach you how to move subscriber between groups. 
+</Card>
 
-### Copying Subscribers to Groups
-
-To add subscribers to additional groups:
-
-1. Select subscribers from your list
-2. Click **Actions** > **Copy to group**
-3. Select the destination group(s)
-4. Confirm the copy
+</CardGroup>
 
 ### Removing Subscribers from Groups
 
 To remove subscribers from specific groups:
 
-1. Select the group from the sidebar
-2. Select subscribers to remove
-3. Click **Actions** > **Remove from group**
-4. Confirm removal
+1. Navigate to the [Subscribers](https://mailgreet.com/dashboard/subscribers) page.
+2. Click on the **All subscribers** tab.
+3. Click on the particular subscriber in the **All Subscribers** section which you want to remove from the group.
+4. In the **Subscriber Information** section, click on the **Edit** button.
+5. A **Edit Subscriber** dialog box will appear.
+6. In the **Groups** section, deselect the chosen group to remove the subscriber from this particular group.
+7. Click on **Save Changes** button.
 
 ## Subscriber Segments
 
@@ -153,17 +167,13 @@ To remove subscribers from specific groups:
 
 Create targeted segments based on subscriber data or behavior:
 
-1. Go to **Subscribers** > **Segments**
-2. Click **Create Segment**
-3. Name your segment
-4. Add conditions using the segment builder:
-   - Subscriber fields (name, email, location, etc.)
-   - Campaign activity (opened, clicked, etc.)
-   - Group membership
-   - Signup date
-   - Custom fields
-5. Combine conditions with AND/OR logic
-6. Save your segment
+<CardGroup>
+
+<Card title="Creating Segments" icon="file" href="/groups-and-segment#create-a-segment">
+  This guide will teach you how to create segments. 
+</Card>
+
+</CardGroup>
 
 ### Example Segment Conditions
 
@@ -187,20 +197,13 @@ Segments can be used for:
 
 ### Adding Custom Fields
 
-Extend subscriber data with custom fields:
+<CardGroup>
 
-1. Go to **Subscribers** > **Fields**
-2. Click **Add New Field**
-3. Select the field type:
-   - Text field
-   - Number
-   - Date
-   - Dropdown
-   - Radio button
-   - Checkbox
-4. Enter a field name
-5. Add default value (optional)
-6. Save the field
+<Card title="Creating/Adding Custom Fields" icon="file" href="custom-fields#create-a-custom-field">
+  This guide will teach you how to create/add custom fields. 
+</Card>
+
+</CardGroup>
 
 ### Common Custom Field Uses
 
@@ -220,36 +223,7 @@ Extend subscriber data with custom fields:
 3. Choose your custom field from the dropdown
 4. Add fallback text for subscribers without data in that field
 
-## Subscriber Management Best Practices
-
-### List Hygiene
-
-Maintain a healthy subscriber list by:
-- Regularly removing inactive subscribers (no opens in 6+ months)
-- Cleaning bounced email addresses
-- Running re-engagement campaigns before removing inactives
-- Verifying email addresses at signup
-- Using double opt-in for new subscribers
-
-### Segmentation Strategy
-
-Improve engagement with effective segmentation:
-- Segment by engagement level (highly engaged, moderately engaged, dormant)
-- Create interest-based segments from click behavior
-- Develop customer journey segments (new subscribers, regulars, VIPs)
-- Use geographic segments for time-zone appropriate sending
-- Build behavior-triggered segments (abandoned cart, browsed item)
-
-### Privacy Compliance
-
-Stay compliant with email regulations:
-- Always get explicit consent before sending marketing emails
-- Include an unsubscribe link in every email
-- Honor unsubscribe requests promptly
-- Document when and how consent was obtained
-- Provide privacy policy information
-- Comply with local regulations (GDPR, CAN-SPAM, CASL, etc.)
-
+{/*
 ## Subscription Forms
 
 ### Types of Forms
@@ -283,6 +257,7 @@ MailGreet offers various form types:
 - Use compelling call-to-action text
 - Consider offering an incentive (discount, content)
 - Test form placement for optimal conversion
+*/}
 
 ## Troubleshooting
 
