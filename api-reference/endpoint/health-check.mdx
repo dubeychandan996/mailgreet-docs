@@ -1,0 +1,137 @@
+---
+title: 'API Health Check'
+api: 'GET https://api.mailgreet.com/api/health'
+description: 'Check if the API is running and available'
+---
+
+## Overview
+
+Check if the MailGreet API is running and available. This endpoint is **public** and does not require authentication, making it ideal for uptime monitoring and health checks.
+
+<Note>
+  This is the only endpoint that doesn't require an API key. Use it for monitoring services like UptimeRobot, Pingdom, or custom health checks.
+</Note>
+
+## Authentication
+
+<Info>
+  **No authentication required.** This endpoint is publicly accessible.
+</Info>
+
+## Base URL
+
+This endpoint uses a different base URL than other API endpoints:
+
+```
+https://api.mailgreet.com/api/health
+```
+
+## Response
+
+<ResponseField name="status" type="string">
+  API status: `ok` when healthy
+</ResponseField>
+
+<ResponseField name="message" type="string">
+  Status message confirming the API is running
+</ResponseField>
+
+<ResponseField name="timestamp" type="string">
+  ISO 8601 timestamp of the health check
+</ResponseField>
+
+<ResponseField name="version" type="string">
+  Current API version
+</ResponseField>
+
+<RequestExample>
+
+```bash cURL
+curl -X GET "https://api.mailgreet.com/api/health"
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.mailgreet.com/api/health');
+const data = await response.json();
+console.log(data);
+```
+
+```python Python
+import requests
+
+response = requests.get('https://api.mailgreet.com/api/health')
+print(response.json())
+```
+
+```php PHP
+<?php
+$ch = curl_init();
+
+curl_setopt_array($ch, [
+    CURLOPT_URL => 'https://api.mailgreet.com/api/health',
+    CURLOPT_RETURNTRANSFER => true
+]);
+
+$response = curl_exec($ch);
+curl_close($ch);
+
+echo $response;
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json 200 - Healthy
+{
+  "status": "ok",
+  "message": "MailGreet Laravel API is running",
+  "timestamp": "2026-01-18T14:00:00Z",
+  "version": "1.0.0"
+}
+```
+
+```json 503 - Service Unavailable
+{
+  "status": "down",
+  "message": "Service temporarily unavailable"
+}
+```
+
+</ResponseExample>
+
+## Use Cases
+
+<CardGroup cols={2}>
+  <Card title="Uptime Monitoring" icon="clock">
+    Configure your monitoring service to ping this endpoint every minute
+  </Card>
+  <Card title="Load Balancer" icon="server">
+    Use as a health check endpoint for your load balancer configuration
+  </Card>
+  <Card title="Status Page" icon="signal">
+    Integrate with your status page to show API availability
+  </Card>
+  <Card title="CI/CD Pipeline" icon="code-branch">
+    Check API availability before running integration tests
+  </Card>
+</CardGroup>
+
+## Monitoring Setup Examples
+
+### UptimeRobot
+
+```
+URL: https://api.mailgreet.com/api/health
+Method: GET
+Expected Status: 200
+Check Interval: 60 seconds
+```
+
+### Pingdom
+
+```
+Check Type: HTTP
+URL: https://api.mailgreet.com/api/health
+Response should contain: "status": "ok"
+```

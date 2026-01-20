@@ -1,0 +1,240 @@
+---
+title: 'Update Subscriber'
+api: 'PUT https://api.mailgreet.com/api/v1/external/subscribers/{subscriberId}'
+description: 'Update an existing subscriber profile'
+---
+
+## Overview
+
+Update a subscriber's profile information including their name, phone number, status, custom fields, and group memberships. Only include the fields you want to update.
+
+## Authentication
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token. Format: `Bearer YOUR_API_KEY`
+</ParamField>
+
+## Path Parameters
+
+<ParamField path="subscriberId" type="string" required>
+  The unique identifier (UUID) of the subscriber to update.
+  
+  Example: `550e8400-e29b-41d4-a716-446655440000`
+</ParamField>
+
+## Request Body
+
+<Note>
+  Only include the fields you want to update. Unspecified fields will remain unchanged.
+</Note>
+
+<ParamField body="first_name" type="string">
+  Updated first name.
+</ParamField>
+
+<ParamField body="last_name" type="string">
+  Updated last name.
+</ParamField>
+
+<ParamField body="phone" type="string">
+  Updated phone number.
+</ParamField>
+
+<ParamField body="status" type="string">
+  Updated status. Options:
+  - `active` - Subscriber can receive emails
+  - `unsubscribed` - Subscriber has opted out
+</ParamField>
+
+<ParamField body="group_ids" type="array">
+  Array of group UUIDs. **This will replace all current group memberships.**
+</ParamField>
+
+<ParamField body="custom_fields" type="object">
+  Object containing custom field key-value pairs. **Merges with existing custom fields.**
+</ParamField>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Indicates if the update was successful
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  The updated subscriber object
+</ResponseField>
+
+<RequestExample>
+
+```bash cURL
+curl -X PUT "https://api.mailgreet.com/api/v1/external/subscribers/550e8400-e29b-41d4-a716-446655440000" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "first_name": "Jane",
+    "last_name": "Smith",
+    "phone": "+0987654321",
+    "custom_fields": {
+      "company": "New Company Inc",
+      "role": "CEO"
+    }
+  }'
+```
+
+```javascript JavaScript
+const subscriberId = '550e8400-e29b-41d4-a716-446655440000';
+
+const response = await fetch(
+  `https://api.mailgreet.com/api/v1/external/subscribers/${subscriberId}`,
+  {
+    method: 'PUT',
+    headers: {
+      'Authorization': 'Bearer YOUR_API_KEY',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      first_name: 'Jane',
+      last_name: 'Smith',
+      phone: '+0987654321',
+      custom_fields: {
+        company: 'New Company Inc',
+        role: 'CEO'
+      }
+    })
+  }
+);
+
+const data = await response.json();
+console.log(data);
+```
+
+```python Python
+import requests
+
+subscriber_id = '550e8400-e29b-41d4-a716-446655440000'
+
+payload = {
+    'first_name': 'Jane',
+    'last_name': 'Smith',
+    'phone': '+0987654321',
+    'custom_fields': {
+        'company': 'New Company Inc',
+        'role': 'CEO'
+    }
+}
+
+response = requests.put(
+    f'https://api.mailgreet.com/api/v1/external/subscribers/{subscriber_id}',
+    headers={
+        'Authorization': 'Bearer YOUR_API_KEY',
+        'Content-Type': 'application/json'
+    },
+    json=payload
+)
+
+print(response.json())
+```
+
+```php PHP
+<?php
+$subscriberId = '550e8400-e29b-41d4-a716-446655440000';
+
+$payload = json_encode([
+    'first_name' => 'Jane',
+    'last_name' => 'Smith',
+    'phone' => '+0987654321',
+    'custom_fields' => [
+        'company' => 'New Company Inc',
+        'role' => 'CEO'
+    ]
+]);
+
+$ch = curl_init();
+
+curl_setopt_array($ch, [
+    CURLOPT_URL => "https://api.mailgreet.com/api/v1/external/subscribers/{$subscriberId}",
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CUSTOMREQUEST => 'PUT',
+    CURLOPT_POSTFIELDS => $payload,
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer YOUR_API_KEY',
+        'Content-Type: application/json'
+    ]
+]);
+
+$response = curl_exec($ch);
+curl_close($ch);
+
+echo $response;
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json 200 - Success
+{
+  "success": true,
+  "data": {
+    "id": "550e8400-e29b-41d4-a716-446655440000",
+    "email": "john@example.com",
+    "first_name": "Jane",
+    "last_name": "Smith",
+    "phone": "+0987654321",
+    "status": "active",
+    "custom_fields": {
+      "company": "New Company Inc",
+      "role": "CEO"
+    },
+    "updated_at": "2026-01-18T14:00:00Z"
+  }
+}
+```
+
+```json 404 - Not Found
+{
+  "success": false,
+  "error": "Subscriber not found"
+}
+```
+
+```json 400 - Validation Error
+{
+  "success": false,
+  "error": "Validation failed",
+  "data": {
+    "status": ["The status must be one of: active, unsubscribed."]
+  }
+}
+```
+
+</ResponseExample>
+
+## Examples
+
+### Unsubscribe a Subscriber
+
+```bash
+curl -X PUT "https://api.mailgreet.com/api/v1/external/subscribers/550e8400-e29b-41d4-a716-446655440000" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"status": "unsubscribed"}'
+```
+
+### Add to Groups
+
+```bash
+curl -X PUT "https://api.mailgreet.com/api/v1/external/subscribers/550e8400-e29b-41d4-a716-446655440000" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "group_ids": [
+      "group-uuid-1",
+      "group-uuid-2"
+    ]
+  }'
+```
+
+<Warning>
+  Setting `group_ids` will **replace** all current group memberships. To add a subscriber to additional groups without removing existing ones, first fetch the current groups and include them in the array.
+</Warning>

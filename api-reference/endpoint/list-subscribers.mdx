@@ -1,0 +1,248 @@
+---
+title: 'List Subscribers'
+api: 'GET https://api.mailgreet.com/api/v1/external/subscribers'
+description: 'Retrieve a paginated list of all your subscribers'
+---
+
+## Overview
+
+Retrieve a paginated list of all subscribers in your MailGreet account. Use query parameters to filter, search, and paginate the results.
+
+## Authentication
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token. Format: `Bearer YOUR_API_KEY`
+</ParamField>
+
+## Query Parameters
+
+<ParamField query="page" type="integer" default="1">
+  Page number for pagination.
+</ParamField>
+
+<ParamField query="per_page" type="integer" default="20">
+  Number of items per page. Maximum: 100.
+</ParamField>
+
+<ParamField query="status" type="string">
+  Filter subscribers by status. Options:
+  - `active` - Active subscribers
+  - `unsubscribed` - Unsubscribed subscribers
+  - `bounced` - Bounced email addresses
+  - `complained` - Subscribers who marked emails as spam
+</ParamField>
+
+<ParamField query="search" type="string">
+  Search by email address, first name, or last name. Case-insensitive.
+</ParamField>
+
+<ParamField query="group_id" type="string">
+  Filter subscribers by group ID (UUID format).
+</ParamField>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Indicates if the request was successful
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  <Expandable title="data properties">
+    <ResponseField name="subscribers" type="array">
+      Array of subscriber objects
+      <Expandable title="Subscriber object">
+        <ResponseField name="id" type="string">
+          Unique identifier (UUID)
+        </ResponseField>
+        <ResponseField name="email" type="string">
+          Email address
+        </ResponseField>
+        <ResponseField name="first_name" type="string">
+          First name
+        </ResponseField>
+        <ResponseField name="last_name" type="string">
+          Last name
+        </ResponseField>
+        <ResponseField name="status" type="string">
+          Subscriber status
+        </ResponseField>
+        <ResponseField name="created_at" type="string">
+          ISO 8601 timestamp
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+    <ResponseField name="pagination" type="object">
+      <Expandable title="Pagination object">
+        <ResponseField name="current_page" type="integer">
+          Current page number
+        </ResponseField>
+        <ResponseField name="total_pages" type="integer">
+          Total number of pages
+        </ResponseField>
+        <ResponseField name="total_count" type="integer">
+          Total number of subscribers matching the query
+        </ResponseField>
+        <ResponseField name="per_page" type="integer">
+          Items per page
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<RequestExample>
+
+```bash cURL
+curl -X GET "https://api.mailgreet.com/api/v1/external/subscribers?page=1&per_page=20&status=active" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+```javascript JavaScript
+const params = new URLSearchParams({
+  page: '1',
+  per_page: '20',
+  status: 'active'
+});
+
+const response = await fetch(
+  `https://api.mailgreet.com/api/v1/external/subscribers?${params}`,
+  {
+    headers: {
+      'Authorization': 'Bearer YOUR_API_KEY'
+    }
+  }
+);
+
+const data = await response.json();
+console.log(data);
+```
+
+```python Python
+import requests
+
+params = {
+    'page': 1,
+    'per_page': 20,
+    'status': 'active'
+}
+
+response = requests.get(
+    'https://api.mailgreet.com/api/v1/external/subscribers',
+    headers={'Authorization': 'Bearer YOUR_API_KEY'},
+    params=params
+)
+
+print(response.json())
+```
+
+```php PHP
+<?php
+$query = http_build_query([
+    'page' => 1,
+    'per_page' => 20,
+    'status' => 'active'
+]);
+
+$ch = curl_init();
+
+curl_setopt_array($ch, [
+    CURLOPT_URL => "https://api.mailgreet.com/api/v1/external/subscribers?{$query}",
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer YOUR_API_KEY'
+    ]
+]);
+
+$response = curl_exec($ch);
+curl_close($ch);
+
+echo $response;
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json 200 - Success
+{
+  "success": true,
+  "data": {
+    "subscribers": [
+      {
+        "id": "550e8400-e29b-41d4-a716-446655440000",
+        "email": "john@example.com",
+        "first_name": "John",
+        "last_name": "Doe",
+        "status": "active",
+        "created_at": "2026-01-13T12:00:00Z"
+      },
+      {
+        "id": "660e8400-e29b-41d4-a716-446655440001",
+        "email": "jane@example.com",
+        "first_name": "Jane",
+        "last_name": "Smith",
+        "status": "active",
+        "created_at": "2026-01-13T12:00:00Z"
+      }
+    ],
+    "pagination": {
+      "current_page": 1,
+      "total_pages": 5,
+      "total_count": 100,
+      "per_page": 20
+    }
+  }
+}
+```
+
+```json 401 - Unauthorized
+{
+  "success": false,
+  "error": "Invalid or missing API key"
+}
+```
+
+</ResponseExample>
+
+## Examples
+
+### Search for Subscribers
+
+```bash
+curl -X GET "https://api.mailgreet.com/api/v1/external/subscribers?search=john" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+### Get Subscribers in a Group
+
+```bash
+curl -X GET "https://api.mailgreet.com/api/v1/external/subscribers?group_id=550e8400-e29b-41d4-a716-446655440000" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+### Paginate Through All Subscribers
+
+```javascript
+async function getAllSubscribers() {
+  let allSubscribers = [];
+  let page = 1;
+  let hasMore = true;
+
+  while (hasMore) {
+    const response = await fetch(
+      `https://api.mailgreet.com/api/v1/external/subscribers?page=${page}&per_page=100`,
+      {
+        headers: { 'Authorization': 'Bearer YOUR_API_KEY' }
+      }
+    );
+    
+    const data = await response.json();
+    allSubscribers = allSubscribers.concat(data.data.subscribers);
+    
+    hasMore = page < data.data.pagination.total_pages;
+    page++;
+  }
+
+  return allSubscribers;
+}
+```
