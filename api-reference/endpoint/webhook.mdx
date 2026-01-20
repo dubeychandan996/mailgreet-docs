@@ -1,4 +1,348 @@
 ---
-title: 'New Plant'
-openapi: 'WEBHOOK /plant/webhook'
+title: 'Webhooks'
+description: 'Receive real-time notifications for email events'
+icon: 'webhook'
 ---
+
+## Overview
+
+Webhooks allow you to receive real-time HTTP notifications when events occur in your MailGreet account. Instead of polling the API for updates, webhooks push data to your server automatically.
+
+<Info>
+  Webhooks are delivered as HTTP POST requests with a JSON payload to your specified endpoint URL.
+</Info>
+
+## Setting Up Webhooks
+
+### 1. Create a Webhook Endpoint
+
+Set up an endpoint on your server to receive webhook notifications:
+
+```javascript Node.js (Express)
+const express = require('express');
+const app = express();
+
+app.use(express.json());
+
+app.post('/webhooks/mailgreet', (req, res) => {
+  const event = req.body;
+  
+  console.log('Received webhook:', event.event_type);
+  
+  switch (event.event_type) {
+    case 'email.delivered':
+      handleEmailDelivered(event);
+      break;
+    case 'email.opened':
+      handleEmailOpened(event);
+      break;
+    case 'email.clicked':
+      handleEmailClicked(event);
+      break;
+    case 'email.bounced':
+      handleEmailBounced(event);
+      break;
+    case 'subscriber.unsubscribed':
+      handleUnsubscribe(event);
+      break;
+    default:
+      console.log('Unknown event type:', event.event_type);
+  }
+  
+  // Always respond with 200 to acknowledge receipt
+  res.status(200).json({ received: true });
+});
+
+app.listen(3000);
+```
+
+```python Python (Flask)
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+@app.route('/webhooks/mailgreet', methods=['POST'])
+def handle_webhook():
+    event = request.json
+    
+    event_type = event.get('event_type')
+    
+    if event_type == 'email.delivered':
+        handle_email_delivered(event)
+    elif event_type == 'email.opened':
+        handle_email_opened(event)
+    elif event_type == 'email.clicked':
+        handle_email_clicked(event)
+    elif event_type == 'email.bounced':
+        handle_email_bounced(event)
+    elif event_type == 'subscriber.unsubscribed':
+        handle_unsubscribe(event)
+    
+    return jsonify({'received': True}), 200
+
+if __name__ == '__main__':
+    app.run(port=3000)
+```
+
+```php PHP
+<?php
+// webhook.php
+
+$payload = file_get_contents('php://input');
+$event = json_decode($payload, true);
+
+switch ($event['event_type']) {
+    case 'email.delivered':
+        handleEmailDelivered($event);
+        break;
+    case 'email.opened':
+        handleEmailOpened($event);
+        break;
+    case 'email.clicked':
+        handleEmailClicked($event);
+        break;
+    case 'email.bounced':
+        handleEmailBounced($event);
+        break;
+    case 'subscriber.unsubscribed':
+        handleUnsubscribe($event);
+        break;
+}
+
+http_response_code(200);
+echo json_encode(['received' => true]);
+```
+
+### 2. Register Your Webhook
+
+In your MailGreet dashboard:
+
+1. Navigate to **Settings** → **Integrations** → **Webhooks**
+2. Click **"Add Webhook"**
+3. Enter your endpoint URL
+4. Select the events you want to receive
+5. Save your webhook configuration
+
+---
+
+## Webhook Events
+
+### Email Events
+
+<AccordionGroup>
+  <Accordion title="email.delivered">
+    Triggered when an email is successfully delivered to the recipient's mail server.
+    
+    ```json
+    {
+      "event_type": "email.delivered",
+      "timestamp": "2026-01-18T14:30:00Z",
+      "data": {
+        "message_id": "msg_abc123",
+        "campaign_id": "550e8400-e29b-41d4-a716-446655440000",
+        "subscriber_id": "660e8400-e29b-41d4-a716-446655440001",
+        "email": "subscriber@example.com",
+        "subject": "Your Weekly Newsletter"
+      }
+    }
+    ```
+  </Accordion>
+  
+  <Accordion title="email.opened">
+    Triggered when a subscriber opens an email (tracked via pixel).
+    
+    ```json
+    {
+      "event_type": "email.opened",
+      "timestamp": "2026-01-18T15:00:00Z",
+      "data": {
+        "message_id": "msg_abc123",
+        "campaign_id": "550e8400-e29b-41d4-a716-446655440000",
+        "subscriber_id": "660e8400-e29b-41d4-a716-446655440001",
+        "email": "subscriber@example.com",
+        "ip_address": "192.168.1.1",
+        "user_agent": "Mozilla/5.0...",
+        "opened_at": "2026-01-18T15:00:00Z"
+      }
+    }
+    ```
+  </Accordion>
+  
+  <Accordion title="email.clicked">
+    Triggered when a subscriber clicks a link in an email.
+    
+    ```json
+    {
+      "event_type": "email.clicked",
+      "timestamp": "2026-01-18T15:05:00Z",
+      "data": {
+        "message_id": "msg_abc123",
+        "campaign_id": "550e8400-e29b-41d4-a716-446655440000",
+        "subscriber_id": "660e8400-e29b-41d4-a716-446655440001",
+        "email": "subscriber@example.com",
+        "url": "https://example.com/promo",
+        "ip_address": "192.168.1.1",
+        "clicked_at": "2026-01-18T15:05:00Z"
+      }
+    }
+    ```
+  </Accordion>
+  
+  <Accordion title="email.bounced">
+    Triggered when an email bounces (hard or soft bounce).
+    
+    ```json
+    {
+      "event_type": "email.bounced",
+      "timestamp": "2026-01-18T14:35:00Z",
+      "data": {
+        "message_id": "msg_abc123",
+        "campaign_id": "550e8400-e29b-41d4-a716-446655440000",
+        "subscriber_id": "660e8400-e29b-41d4-a716-446655440001",
+        "email": "bounced@example.com",
+        "bounce_type": "hard",
+        "bounce_reason": "Address does not exist"
+      }
+    }
+    ```
+  </Accordion>
+  
+  <Accordion title="email.complained">
+    Triggered when a subscriber marks an email as spam.
+    
+    ```json
+    {
+      "event_type": "email.complained",
+      "timestamp": "2026-01-18T16:00:00Z",
+      "data": {
+        "message_id": "msg_abc123",
+        "campaign_id": "550e8400-e29b-41d4-a716-446655440000",
+        "subscriber_id": "660e8400-e29b-41d4-a716-446655440001",
+        "email": "subscriber@example.com"
+      }
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+### Subscriber Events
+
+<AccordionGroup>
+  <Accordion title="subscriber.created">
+    Triggered when a new subscriber is added.
+    
+    ```json
+    {
+      "event_type": "subscriber.created",
+      "timestamp": "2026-01-18T10:00:00Z",
+      "data": {
+        "subscriber_id": "660e8400-e29b-41d4-a716-446655440001",
+        "email": "new@example.com",
+        "first_name": "Jane",
+        "last_name": "Doe",
+        "source": "api"
+      }
+    }
+    ```
+  </Accordion>
+  
+  <Accordion title="subscriber.unsubscribed">
+    Triggered when a subscriber unsubscribes.
+    
+    ```json
+    {
+      "event_type": "subscriber.unsubscribed",
+      "timestamp": "2026-01-18T17:00:00Z",
+      "data": {
+        "subscriber_id": "660e8400-e29b-41d4-a716-446655440001",
+        "email": "subscriber@example.com",
+        "campaign_id": "550e8400-e29b-41d4-a716-446655440000",
+        "reason": "user_unsubscribed"
+      }
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Webhook Security
+
+### Verifying Webhook Signatures
+
+All webhook requests include a signature header for verification:
+
+```
+X-MailGreet-Signature: sha256=abc123...
+```
+
+Verify the signature to ensure the webhook is from MailGreet:
+
+```javascript Node.js
+const crypto = require('crypto');
+
+function verifyWebhookSignature(payload, signature, secret) {
+  const expectedSignature = crypto
+    .createHmac('sha256', secret)
+    .update(payload)
+    .digest('hex');
+  
+  return `sha256=${expectedSignature}` === signature;
+}
+
+app.post('/webhooks/mailgreet', (req, res) => {
+  const signature = req.headers['x-mailgreet-signature'];
+  const payload = JSON.stringify(req.body);
+  
+  if (!verifyWebhookSignature(payload, signature, process.env.WEBHOOK_SECRET)) {
+    return res.status(401).json({ error: 'Invalid signature' });
+  }
+  
+  // Process the webhook...
+});
+```
+
+---
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Respond Quickly" icon="bolt">
+    Always respond with a 200 status within 5 seconds. Process webhooks asynchronously if needed.
+  </Card>
+  <Card title="Idempotency" icon="copy">
+    Design your webhook handler to handle duplicate deliveries gracefully using the message_id.
+  </Card>
+  <Card title="Retry Logic" icon="rotate">
+    MailGreet retries failed webhooks up to 3 times with exponential backoff.
+  </Card>
+  <Card title="Logging" icon="file-lines">
+    Log all webhook events for debugging and audit purposes.
+  </Card>
+</CardGroup>
+
+### Retry Schedule
+
+If your endpoint fails to respond with a 2xx status, MailGreet will retry:
+
+| Attempt | Delay |
+|---------|-------|
+| 1st retry | 1 minute |
+| 2nd retry | 5 minutes |
+| 3rd retry | 30 minutes |
+
+After 3 failed attempts, the webhook will be marked as failed and no further retries will be attempted.
+
+---
+
+## Testing Webhooks
+
+Use tools like [webhook.site](https://webhook.site) or [ngrok](https://ngrok.com) to test webhooks during development:
+
+```bash
+# Using ngrok to expose your local server
+ngrok http 3000
+
+# Your webhook URL will be something like:
+# https://abc123.ngrok.io/webhooks/mailgreet
+```

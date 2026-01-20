@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "mailgreet",
+  "name": "MailGreet",
   "colors": {
     "primary": "#16A34A",
     "light": "#07C983",
@@ -21,7 +21,6 @@
               "quickstart"
             ]
           },
-
           {
             "group": "Campaigns",
             "pages": [
@@ -31,7 +30,6 @@
               "scheduling"
             ]
           },
-
           {
             "group": "Subscribers",
             "pages": [
@@ -42,16 +40,14 @@
               "custom-fields"
             ]
           },
-
           {
             "group": "Verifications",
             "pages": [
               "email-verification",
               "phone-verification",
-              "purchase-credits"        
+              "purchase-credits"
             ]
           },
-
           {
             "group": "Templates",
             "pages": [
@@ -60,7 +56,6 @@
               "template-editor"
             ]
           },
-
           {
             "group": "Automation",
             "pages": [
@@ -69,7 +64,6 @@
               "automation-templates"
             ]
           },
-
           {
             "group": "Analytics",
             "pages": [
@@ -78,7 +72,6 @@
               "engagement-metrics"
             ]
           },
-
           {
             "group": "Integrations",
             "pages": [
@@ -86,7 +79,6 @@
               "setting-up-integrations"
             ]
           },
-
           {
             "group": "Settings",
             "pages": [
@@ -95,7 +87,6 @@
               "team-management"
             ]
           },
-
           {
             "group": "Troubleshooting",
             "pages": [
@@ -103,31 +94,53 @@
               "support-resources"
             ]
           }
-          
         ]
       },
       {
         "tab": "API Reference",
         "groups": [
           {
-            "group": "API Documentation",
+            "group": "Getting Started",
             "pages": [
               "api-reference/introduction"
             ]
           },
           {
-            "group": "Endpoint Examples",
+            "group": "Authentication",
             "pages": [
-              "api-reference/endpoint/get",
+              "api-reference/endpoint/get"
+            ]
+          },
+          {
+            "group": "Subscribers",
+            "pages": [
+              "api-reference/endpoint/list-subscribers",
+              "api-reference/endpoint/get-subscriber",
               "api-reference/endpoint/create",
+              "api-reference/endpoint/update-subscriber",
               "api-reference/endpoint/delete",
+              "api-reference/endpoint/subscriber-stats",
+              "api-reference/endpoint/bulk-import"
+            ]
+          },
+          {
+            "group": "Webhooks",
+            "pages": [
               "api-reference/endpoint/webhook"
+            ]
+          },
+          {
+            "group": "Health Check",
+            "pages": [
+              "api-reference/endpoint/health-check"
             ]
           }
         ]
       }
-    ]
-    
+    ],
+    "global": {
+      "anchors": []
+    }
   },
   "logo": {
     "light": "/logo/light-logo.png",
@@ -143,7 +156,7 @@
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "href": "https://dashboard.mailgreet.com"
     }
   },
   "footer": {

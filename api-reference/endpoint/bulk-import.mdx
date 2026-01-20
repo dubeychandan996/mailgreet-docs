@@ -1,0 +1,227 @@
+---
+title: 'Bulk Import Subscribers'
+api: 'POST https://api.mailgreet.com/api/v1/external/subscribers/import-async'
+description: 'Import subscribers from a CSV file asynchronously'
+---
+
+## Overview
+
+Bulk import subscribers from a CSV file. The import is processed asynchronously in the background, making it ideal for large imports without blocking your API calls.
+
+<Info>
+  For imports with fewer than 100 subscribers, you may want to use the [Create Subscriber](/api-reference/endpoint/create) endpoint in a loop instead for immediate results.
+</Info>
+
+## Authentication
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token. Format: `Bearer YOUR_API_KEY`
+</ParamField>
+
+## Request Body
+
+This endpoint uses `multipart/form-data` for file uploads.
+
+<ParamField body="file" type="file" required>
+  A CSV file containing subscriber data.
+  
+  **Required Columns:**
+  - `email` - Email address (required)
+  
+  **Optional Columns:**
+  - `first_name` - First name
+  - `last_name` - Last name
+  - `phone` - Phone number
+  - Any custom field names you've defined
+</ParamField>
+
+<ParamField body="group_ids" type="string">
+  JSON array of group UUIDs to assign to all imported subscribers.
+  
+  Example: `["550e8400-e29b-41d4-a716-446655440000", "660e8400-e29b-41d4-a716-446655440001"]`
+</ParamField>
+
+## CSV Format
+
+Your CSV file should follow this format:
+
+```csv Example CSV
+email,first_name,last_name,phone,company
+john@example.com,John,Doe,+1234567890,Acme Inc
+jane@example.com,Jane,Smith,+0987654321,Tech Corp
+bob@example.com,Bob,Johnson,,Startup LLC
+```
+
+<Tip>
+  **Best Practices:**
+  - Use UTF-8 encoding for your CSV file
+  - Include a header row with column names
+  - Keep imports under 50,000 rows for optimal performance
+  - Validate email addresses before import to reduce bounces
+</Tip>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Indicates if the import was initiated successfully
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  <Expandable title="Import job details">
+    <ResponseField name="job_id" type="string">
+      Unique identifier for the import job. Use this to check status.
+    </ResponseField>
+    <ResponseField name="status" type="string">
+      Current status: `processing`, `completed`, or `failed`
+    </ResponseField>
+    <ResponseField name="message" type="string">
+      Status message
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<RequestExample>
+
+```bash cURL
+curl -X POST "https://api.mailgreet.com/api/v1/external/subscribers/import-async" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -F "file=@subscribers.csv" \
+  -F 'group_ids=["550e8400-e29b-41d4-a716-446655440000"]'
+```
+
+```javascript JavaScript
+const formData = new FormData();
+formData.append('file', fileInput.files[0]);
+formData.append('group_ids', JSON.stringify([
+  '550e8400-e29b-41d4-a716-446655440000'
+]));
+
+const response = await fetch(
+  'https://api.mailgreet.com/api/v1/external/subscribers/import-async',
+  {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer YOUR_API_KEY'
+    },
+    body: formData
+  }
+);
+
+const data = await response.json();
+console.log('Import job ID:', data.data.job_id);
+```
+
+```python Python
+import requests
+
+files = {
+    'file': ('subscribers.csv', open('subscribers.csv', 'rb'), 'text/csv')
+}
+
+data = {
+    'group_ids': '["550e8400-e29b-41d4-a716-446655440000"]'
+}
+
+response = requests.post(
+    'https://api.mailgreet.com/api/v1/external/subscribers/import-async',
+    headers={'Authorization': 'Bearer YOUR_API_KEY'},
+    files=files,
+    data=data
+)
+
+print(response.json())
+```
+
+```php PHP
+<?php
+$ch = curl_init();
+
+$postFields = [
+    'file' => new CURLFile('subscribers.csv', 'text/csv', 'subscribers.csv'),
+    'group_ids' => '["550e8400-e29b-41d4-a716-446655440000"]'
+];
+
+curl_setopt_array($ch, [
+    CURLOPT_URL => 'https://api.mailgreet.com/api/v1/external/subscribers/import-async',
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_POST => true,
+    CURLOPT_POSTFIELDS => $postFields,
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer YOUR_API_KEY'
+    ]
+]);
+
+$response = curl_exec($ch);
+curl_close($ch);
+
+echo $response;
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json 200 - Import Started
+{
+  "success": true,
+  "data": {
+    "job_id": "import-550e8400-e29b-41d4-a716-446655440000",
+    "status": "processing",
+    "message": "Import started. Check status with job_id."
+  }
+}
+```
+
+```json 400 - Invalid File
+{
+  "success": false,
+  "error": "Invalid file format. Please upload a CSV file."
+}
+```
+
+```json 400 - Missing Email Column
+{
+  "success": false,
+  "error": "CSV file must contain an 'email' column."
+}
+```
+
+```json 403 - Limit Exceeded
+{
+  "success": false,
+  "error": "Import would exceed subscriber limit",
+  "data": {
+    "current_count": 4500,
+    "import_count": 1000,
+    "limit": 5000
+  }
+}
+```
+
+</ResponseExample>
+
+## Import Status
+
+After initiating an import, check the status in your MailGreet dashboard under **Subscribers** → **Import History** or by polling the import job status (feature coming soon).
+
+### Import Processing
+
+<Steps>
+  <Step title="Validation">
+    CSV file is validated for format and required columns
+  </Step>
+  <Step title="Processing">
+    Subscribers are imported in batches of 1000
+  </Step>
+  <Step title="Email Verification">
+    If enabled, emails are verified using MillionVerifier
+  </Step>
+  <Step title="Completion">
+    Import is marked complete with success/failure counts
+  </Step>
+</Steps>
+
+### Duplicate Handling
+
+- Existing subscribers (matched by email) will be **updated** with new data
+- Email addresses are case-insensitive (`John@Example.com` = `john@example.com`)

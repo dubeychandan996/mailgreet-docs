@@ -1,4 +1,116 @@
 ---
-title: 'Get Plants'
-openapi: 'GET /plants'
+title: 'Test Authentication'
+api: 'GET https://api.mailgreet.com/api/v1/external/test-auth'
+description: 'Verify your API key is working correctly'
 ---
+
+## Overview
+
+This endpoint allows you to test your API key authentication before making other requests. It's the recommended first step when integrating with the MailGreet API.
+
+## Authentication
+
+<ParamField header="Authorization" type="string" required>
+  Bearer token. Format: `Bearer YOUR_API_KEY`
+</ParamField>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Indicates if the request was successful
+</ResponseField>
+
+<ResponseField name="message" type="string">
+  Success message confirming authentication
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  <Expandable title="data properties">
+    <ResponseField name="user_id" type="string">
+      Your unique user ID (UUID format)
+    </ResponseField>
+    <ResponseField name="clerk_user_id" type="string">
+      Your Clerk authentication user ID
+    </ResponseField>
+    <ResponseField name="api_key_name" type="string">
+      The name of the API key used for authentication
+    </ResponseField>
+    <ResponseField name="authenticated_at" type="string">
+      ISO 8601 timestamp of when authentication occurred
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<RequestExample>
+
+```bash cURL
+curl -X GET "https://api.mailgreet.com/api/v1/external/test-auth" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.mailgreet.com/api/v1/external/test-auth', {
+  method: 'GET',
+  headers: {
+    'Authorization': 'Bearer YOUR_API_KEY'
+  }
+});
+
+const data = await response.json();
+console.log(data);
+```
+
+```python Python
+import requests
+
+response = requests.get(
+    'https://api.mailgreet.com/api/v1/external/test-auth',
+    headers={'Authorization': 'Bearer YOUR_API_KEY'}
+)
+
+print(response.json())
+```
+
+```php PHP
+<?php
+$ch = curl_init();
+
+curl_setopt_array($ch, [
+    CURLOPT_URL => 'https://api.mailgreet.com/api/v1/external/test-auth',
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_HTTPHEADER => [
+        'Authorization: Bearer YOUR_API_KEY'
+    ]
+]);
+
+$response = curl_exec($ch);
+curl_close($ch);
+
+echo $response;
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json 200 - Success
+{
+  "success": true,
+  "message": "API key authentication successful",
+  "data": {
+    "user_id": "550e8400-e29b-41d4-a716-446655440000",
+    "clerk_user_id": "user_2abc123def456",
+    "api_key_name": "Default API Key",
+    "authenticated_at": "2026-01-18T14:00:00Z"
+  }
+}
+```
+
+```json 401 - Unauthorized
+{
+  "success": false,
+  "error": "Invalid or missing API key"
+}
+```
+
+</ResponseExample>
