@@ -1,198 +1,263 @@
-## Creating a Campaign
+---
+title: 'Create a Campaign'
+description: 'Step-by-step guide to creating and sending email campaigns in MailGreet'
+---
 
-### Step 1: Campaign Setup
+# Creating a Campaign
 
-1. Go to the **Campaigns** section in the sidebar
-2. Click the **Create Campaign** button
-3. Select your campaign type
-4. Enter a campaign name (for internal reference only)
+This guide walks you through the complete process of creating, designing, and sending an email campaign in MailGreet.
 
-### Step 2: Choose Your Recipients
+<img
+  className="rounded-lg shadow-md my-4"
+  src="/images/screenshots/campaigns.png"
+  alt="Campaigns Page"
+/>
 
-1. Select subscriber groups to receive your campaign
-2. Use segments for more targeted sending
-3. Exclude specific groups if needed
-4. View estimated recipient count
+---
 
-### Step 3: Select a Template
+## Campaign Creation Workflow
 
-Choose from several options:
-- **Recent Templates**: Templates you've recently used
-- **Saved Templates**: Your custom templates
-- **Gallery Templates**: Pre-designed templates by MailGreet
-- **Files**: Upload an HTML file
-- **Custom HTML**: Create your own HTML code
-- **Start from Scratch**: Begin with a blank template
+<Steps>
+  <Step title="Start Your Campaign">
+    1. Navigate to **Campaigns** in the sidebar
+    2. Click the **Create Campaign** button
+    3. Enter a meaningful campaign name (for internal reference)
+    4. Choose your campaign type (Regular is most common)
+  </Step>
 
-### Step 4: Design Your Email
+  <Step title="Choose Recipients">
+    Select who will receive your email:
+    - **All Subscribers**: Send to everyone
+    - **Specific Groups**: Target particular subscriber groups
+    - **Segments**: Use dynamic segments based on behavior or attributes
+    - **Exclude Groups**: Prevent certain groups from receiving
+    
+    <Tip>
+    Always check the estimated recipient count before proceeding.
+    </Tip>
+  </Step>
 
-Use the drag-and-drop editor to customize your email:
+  <Step title="Select a Template">
+    Choose how you want to create your email:
+    
+    | Option | Best For |
+    |--------|----------|
+    | **Recent Templates** | Reusing designs you've used before |
+    | **Saved Templates** | Your custom branded templates |
+    | **Gallery Templates** | Pre-designed professional layouts |
+    | **HTML Upload** | Importing from design tools |
+    | **Block Builder** | Visual drag-and-drop creation |
+    | **Start from Scratch** | Complete creative freedom |
+  </Step>
 
-#### Content Blocks
-- **Text Block**: Add paragraphs, headlines, or lists
-- **Image Block**: Upload or select images from your library
-- **Button Block**: Create call-to-action buttons
-- **Social Links**: Add social media buttons
-- **Divider**: Insert horizontal lines to separate content
-- **Video**: Embed video content (displays as thumbnail)
-- **Custom HTML**: Add custom HTML code
+  <Step title="Design Your Email">
+    Use the editor to customize your content:
+    
+    <AccordionGroup>
+      <Accordion title="Content Blocks">
+        - **Text**: Headlines, paragraphs, lists
+        - **Image**: Upload or select from library
+        - **Button**: Call-to-action buttons
+        - **Social Links**: Social media icons
+        - **Divider**: Horizontal separators
+        - **Video**: Video thumbnails with play button
+        - **Custom HTML**: Advanced custom code
+      </Accordion>
+      
+      <Accordion title="Design Tips">
+        - Keep your branding consistent with logo and colors
+        - Use clear visual hierarchy with headings
+        - Keep paragraphs short and scannable
+        - Make CTAs stand out with contrasting colors
+        - Always preview on mobile devices
+      </Accordion>
+    </AccordionGroup>
+  </Step>
 
-#### Design Tips
-- Maintain consistent branding with your logo and colors
-- Use a clear hierarchy with headlines and subheadings
-- Keep paragraphs short and scannable
-- Include compelling images that support your message
-- Make your call-to-action buttons stand out
-- Ensure mobile responsiveness by previewing on different devices
+  <Step title="Configure Settings">
+    Set up your campaign details:
+    
+    **Essential Settings:**
+    - **Subject Line**: Aim for 30-50 characters, make it compelling
+    - **Preview Text**: The snippet shown in inbox previews
+    - **From Name**: Your brand or personal name
+    - **From Email**: Your verified sender address
+    - **Reply-To**: Where replies should go
+    
+    **Optional Settings:**
+    - Enable/disable open and click tracking
+    - Add Google Analytics tracking parameters
+    - Configure social media preview cards
+  </Step>
 
-### Step 5: Configure Settings
+  <Step title="Test Before Sending">
+    <Warning>
+    Always test your campaign before sending to your full list!
+    </Warning>
+    
+    Click **Preview & Test** to:
+    - Send test emails to yourself and team members
+    - Check formatting on desktop and mobile
+    - Verify all links work correctly
+    - Confirm personalization tags render properly
+    - Run spam score checks
+  </Step>
 
-Set up the following campaign details:
+  <Step title="Send or Schedule">
+    Choose your delivery method:
+    
+    - **Send Now**: Immediate delivery
+    - **Schedule**: Set specific date and time
+    - **Time Zone Optimization**: Send based on recipient's local time
+    - **Smart Send**: Optimal timing based on engagement data
+  </Step>
+</Steps>
 
-#### Basic Settings
-- **Subject Line**: Create an engaging subject (30-50 characters recommended)
-- **Preview Text**: The short text preview recipients see in their inbox
-- **From Name**: Who the email appears to be from
-- **From Email**: The sender's email address
-- **Reply-To Email**: Where replies will be directed
-
-#### Advanced Settings
-- **Tracking**: Enable/disable open and click tracking
-- **Google Analytics**: Add campaign tracking parameters
-- **Social Media Cards**: Enable Twitter card preview
-
-### Step 6: Test Your Campaign
-
-Before sending to your subscribers:
-1. Click **Preview & Test**
-2. Send a test email to yourself or team members
-3. Check for:
-   - Formatting issues
-   - Broken links or images
-   - Spelling and grammar
-   - Mobile responsiveness
-   - Personalization tags
-   - Spam trigger words
-
-### Step 7: Schedule or Send
-
-Choose when to deliver your campaign:
-- **Send Now**: Deliver immediately
-- **Schedule**: Set a future date and time
-- **Time Zone Options**: Send based on recipient's time zone
-- **Delivery Optimization**: Send at optimal times based on engagement data (available on higher plans)
+---
 
 ## Campaign Analytics
 
-After sending your campaign, track performance metrics:
+After sending, monitor your campaign's performance:
 
-### Key Metrics Dashboard
-- **Opens**: Percentage and number of recipients who opened your email
-- **Clicks**: Percentage and number of recipients who clicked links
-- **Unsubscribes**: How many people opted out after this campaign
-- **Bounces**: Failed deliveries (soft and hard bounces)
-- **Spam Complaints**: Number of recipients who marked as spam
+<CardGroup cols={2}>
+  <Card title="Open Rate" icon="envelope-open">
+    Percentage of recipients who opened your email. Industry average: 15-25%
+  </Card>
+  <Card title="Click Rate" icon="mouse-pointer">
+    Percentage of recipients who clicked links. Industry average: 2-5%
+  </Card>
+  <Card title="Bounce Rate" icon="triangle-exclamation">
+    Failed deliveries. Keep under 2% for good deliverability
+  </Card>
+  <Card title="Unsubscribe Rate" icon="user-minus">
+    Opt-outs from this campaign. Normal range: 0.1-0.5%
+  </Card>
+</CardGroup>
 
-### Advanced Analytics
-- **Click Map**: Visual representation of which links received the most clicks
-- **Device Breakdown**: Desktop vs. mobile opens
-- **Location Data**: Geographic distribution of opens
-- **Time Analysis**: When your emails were opened
-- **Engagement Timeline**: Activity over time
+### Advanced Analytics Features
 
-### Using Analytics to Improve
-- Compare your metrics to industry benchmarks
-- A/B test elements for consistent improvement
-- Identify and segment your most engaged subscribers
-- Clean your list based on engagement data
-- Refine your content strategy based on most-clicked links
+- **Click Map**: Visual heatmap of which links get the most clicks
+- **Device Breakdown**: Desktop vs. mobile open statistics
+- **Location Data**: Geographic distribution of engagement
+- **Time Analysis**: When emails were opened
+- **Engagement Timeline**: Activity patterns over time
 
-## Campaign Management
+---
 
-### Organizing Campaigns
-- Use naming conventions for easy identification
-- Filter campaigns by type, status, or date
-- Archive old campaigns to keep your dashboard clean
-- Create folders for different campaign categories
+## Campaign Status Guide
 
-### Duplicating Campaigns
-Save time by duplicating successful campaigns:
-1. Find the campaign in your list
-2. Click the "Duplicate" option
-3. Update content, subject line, and recipients
-4. Schedule or send the new campaign
+| Status | Description |
+|--------|-------------|
+| **Draft** | Campaign is being created, not yet sent |
+| **Scheduled** | Set to send at a future date/time |
+| **Sending** | Currently being delivered to recipients |
+| **Sent** | Completely delivered to all recipients |
+| **Paused** | Scheduled campaign put on hold |
 
-### Campaign Status Definitions
-- **Draft**: In-progress campaigns not yet sent
-- **Scheduled**: Set to send at a future date/time
-- **Sending**: Currently being delivered
-- **Sent**: Completely delivered to all recipients
-- **Paused**: Scheduled campaign put on hold
+---
 
 ## Best Practices
 
-### Subject Line Optimization
-- Keep subject lines under 50 characters
-- Avoid ALL CAPS and excessive punctuation (!!!)
-- Use personalization when appropriate
-- Create a sense of urgency or curiosity
-- A/B test different approaches
+<AccordionGroup>
+  <Accordion title="Subject Line Optimization" icon="envelope">
+    - Keep under 50 characters for mobile visibility
+    - Avoid ALL CAPS and excessive punctuation (!!!)
+    - Use personalization like `{$first_name}` when relevant
+    - Create urgency or curiosity without being clickbait
+    - A/B test different approaches regularly
+  </Accordion>
 
-### Email Content Tips
-- Write in a conversational, personable tone
-- Focus on benefits rather than features
-- Include one clear call-to-action per email
-- Break content into scannable sections
-- Use bullet points for easy reading
-- Balance text and images (recommended ratio: 60% text, 40% images)
+  <Accordion title="Email Content Tips" icon="file-lines">
+    - Write in a conversational, friendly tone
+    - Focus on benefits, not just features
+    - Include ONE clear call-to-action per email
+    - Break content into scannable sections
+    - Use bullet points for easy reading
+    - Balance text and images (60% text, 40% images)
+  </Accordion>
 
-### Send Time Optimization
-- Tuesday, Wednesday, and Thursday typically have highest engagement
-- Mid-morning (10am) and mid-afternoon (2pm) often perform well
-- Consider your audience's typical schedule
-- Use send time optimization features if available
-- Test different times and analyze results
+  <Accordion title="Send Time Optimization" icon="clock">
+    - Tuesday, Wednesday, Thursday have highest engagement
+    - Mid-morning (10am) and mid-afternoon (2pm) perform well
+    - Consider your audience's work schedule and habits
+    - Test different times and track results
+    - Use timezone optimization for global audiences
+  </Accordion>
 
-### Deliverability Best Practices
-- Maintain a clean, permission-based subscriber list
-- Regularly remove inactive subscribers
-- Avoid spam trigger words
-- Use authenticated sending domains (SPF, DKIM)
-- Keep bounce rates under 2%
-- Maintain consistent sending volume
+  <Accordion title="Deliverability Tips" icon="inbox">
+    - Maintain permission-based subscriber lists only
+    - Remove inactive subscribers regularly
+    - Avoid spam trigger words in subject and content
+    - Verify your sending domain (SPF, DKIM, DMARC)
+    - Keep bounce rates under 2%
+    - Send consistently to build sender reputation
+  </Accordion>
+</AccordionGroup>
 
-## Troubleshooting
+---
 
-### Common Issues
+## Troubleshooting Common Issues
 
-#### Low Open Rates
-- Check your subject line engagement
-- Verify your sender reputation
-- Ensure you're not being filtered to spam
-- Review your send time
-- Clean your list of inactive subscribers
+<Tabs>
+  <Tab title="Low Open Rates">
+    **Possible causes:**
+    - Subject line not compelling enough
+    - Sender reputation issues
+    - Emails landing in spam
+    - Sending at wrong times
+    - Inactive subscribers on list
+    
+    **Solutions:**
+    - A/B test subject lines
+    - Verify your domain
+    - Clean your subscriber list
+    - Test different send times
+  </Tab>
+  
+  <Tab title="Low Click Rates">
+    **Possible causes:**
+    - Weak call-to-action
+    - Content not relevant to audience
+    - Poor design and readability
+    - Too many links competing for attention
+    
+    **Solutions:**
+    - Use clear, action-oriented CTAs
+    - Segment for more relevant content
+    - Improve visual hierarchy
+    - Focus on one primary action per email
+  </Tab>
+  
+  <Tab title="High Unsubscribes">
+    **Possible causes:**
+    - Sending too frequently
+    - Content not matching expectations
+    - Wrong audience targeting
+    - No value provided
+    
+    **Solutions:**
+    - Reduce sending frequency
+    - Survey unsubscribers for feedback
+    - Better segment your audience
+    - Focus on providing genuine value
+  </Tab>
+</Tabs>
 
-#### Low Click Rates
-- Evaluate your call-to-action
-- Check the relevance of your content
-- Improve your content layout and readability
-- Test button colors and placement
-- Segment your audience for more relevant content
+---
 
-#### High Unsubscribe Rates
-- Review your sending frequency
-- Check content relevance to audience
-- Ensure you're meeting expectations set at signup
-- Consider segmenting for more targeted content
+## Next Steps
 
-#### Rendering Issues
-- Test across multiple email clients
-- Simplify complex designs
-- Use mobile-responsive templates
-- Reduce image file sizes
-- Use standard fonts
-
-### Getting Help
-- Check the MailGreet Knowledge Base for common issues
-- Contact support via live chat for urgent matters
-- Join the MailGreet community forum to discuss with other users 
+<CardGroup cols={2}>
+  <Card title="Campaign Reports" icon="chart-bar" href="/campaign-reports">
+    Learn to analyze and act on your campaign data
+  </Card>
+  <Card title="A/B Testing" icon="flask" href="/testing-campaigns">
+    Optimize your campaigns with split testing
+  </Card>
+  <Card title="Scheduling" icon="calendar" href="/scheduling">
+    Master campaign scheduling and automation
+  </Card>
+  <Card title="Templates" icon="palette" href="/pre-built-templates">
+    Create reusable email templates
+  </Card>
+</CardGroup>

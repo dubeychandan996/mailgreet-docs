@@ -1,7 +1,172 @@
-Testing Campaigns
+---
+title: 'Testing Campaigns'
+description: 'How to test your email campaigns before sending to ensure quality and deliverability'
+---
 
-Before sending to your subscribers:
-- Send test emails to yourself or team members
-- Preview on desktop and mobile devices
-- Check for broken links and images
-- Run spam check tools
+# Testing Your Campaigns
+
+Before sending any campaign to your subscribers, thorough testing is essential. This guide covers all aspects of campaign testing to ensure your emails look great and perform well.
+
+---
+
+## Why Testing Matters
+
+<Warning>
+An untested email can damage your brand reputation, hurt deliverability, and waste your marketing efforts. Always test before sending!
+</Warning>
+
+Common issues caught during testing:
+- Broken links or images
+- Formatting problems on certain devices
+- Personalization tag errors
+- Typos and grammar mistakes
+- Spam filter triggers
+
+---
+
+## Types of Testing
+
+### 1. Send Test Emails
+
+<Steps>
+  <Step title="Access Test Function">
+    In the campaign editor, click **Preview & Test** or **Send Test**
+  </Step>
+  <Step title="Enter Recipients">
+    Add email addresses for testing (yourself, team members)
+  </Step>
+  <Step title="Send and Review">
+    Open the test email on different devices and email clients
+  </Step>
+</Steps>
+
+<Tip>
+Create a testing group with emails from different providers (Gmail, Outlook, Yahoo, Apple Mail) to check rendering across platforms.
+</Tip>
+
+---
+
+### 2. Visual Preview
+
+Check how your email appears:
+
+<CardGroup cols={2}>
+  <Card title="Desktop Preview" icon="desktop">
+    View full-width layout as it appears on computers
+  </Card>
+  <Card title="Mobile Preview" icon="mobile">
+    Check responsive design on smartphone screens
+  </Card>
+  <Card title="Dark Mode" icon="moon">
+    Verify readability in dark mode email clients
+  </Card>
+  <Card title="Plain Text" icon="align-left">
+    Review the plain text version of your email
+  </Card>
+</CardGroup>
+
+---
+
+### 3. Link Verification
+
+Ensure all links work correctly:
+
+| Check | Description |
+|-------|-------------|
+| **URL Accuracy** | All links point to correct pages |
+| **Tracking** | Click tracking is properly enabled |
+| **UTM Parameters** | Analytics tracking codes are in place |
+| **Unsubscribe Link** | Required unsubscribe link works |
+| **Social Links** | Social media buttons go to correct profiles |
+
+---
+
+### 4. Personalization Testing
+
+If using merge tags:
+
+```text
+Hello {$first_name},
+
+Thank you for being a part of {$company_name}!
+```
+
+**Verify:**
+- Tags render correctly with sample data
+- Fallback values work when data is missing
+- Dynamic content shows correct variants
+
+---
+
+### 5. Spam Score Check
+
+Run spam tests to ensure deliverability:
+
+<AccordionGroup>
+  <Accordion title="Common Spam Triggers to Avoid">
+    - Excessive capitalization (FREE! BUY NOW!)
+    - Too many exclamation points!!!
+    - Spam words: "winner", "free money", "act now"
+    - Poor text-to-image ratio
+    - No unsubscribe link
+    - Misleading subject lines
+  </Accordion>
+  
+  <Accordion title="Improving Spam Scores">
+    - Use authenticated sending domain (SPF, DKIM)
+    - Maintain clean subscriber lists
+    - Include plain text version
+    - Balance images with text content
+    - Avoid URL shorteners
+    - Include physical mailing address
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Testing Checklist
+
+Use this checklist before every campaign:
+
+<Check>Subject line is compelling and under 50 characters</Check>
+<Check>Preview text provides additional context</Check>
+<Check>Sender name and email are correct</Check>
+<Check>All links are working and tracked</Check>
+<Check>Images display correctly</Check>
+<Check>Personalization tags render properly</Check>
+<Check>Mobile view looks good</Check>
+<Check>Unsubscribe link is present and functional</Check>
+<Check>No spelling or grammar errors</Check>
+<Check>CTA buttons are prominent and clickable</Check>
+<Check>Spam score is acceptable</Check>
+
+---
+
+## A/B Testing
+
+Beyond basic testing, use A/B tests to optimize performance:
+
+| Element to Test | How to Measure Success |
+|-----------------|----------------------|
+| Subject Lines | Open rate comparison |
+| Send Times | Open rate comparison |
+| Button Colors | Click rate comparison |
+| Content Length | Click rate, unsubscribes |
+| Images vs No Images | Engagement metrics |
+
+<Info>
+Learn more about setting up A/B tests in our [Campaign Types](/campaign-types) guide.
+</Info>
+
+---
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Create Campaign" icon="paper-plane" href="/create-campaign">
+    Start building your tested campaign
+  </Card>
+  <Card title="Scheduling" icon="calendar" href="/scheduling">
+    Schedule your campaign for optimal delivery
+  </Card>
+</CardGroup>

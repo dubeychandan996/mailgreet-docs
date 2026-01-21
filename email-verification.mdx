@@ -1,155 +1,283 @@
-**MailGreet** offers you the facility to verify the email addresses.
-You can easily do either **Single Email Validation** or **Multiple Email Validation** using **Bulk Upload**.
-Although, when you add new subscribers, their respective emails are automatically verified.
-But apart from those subscribers' emails, you can also verify any emails you want.
+---
+title: 'Email Verification'
+description: 'Verify email addresses to improve deliverability and reduce bounce rates with MailGreet single and bulk email validation'
+icon: 'envelope-circle-check'
+---
 
-## Verify Single Email
+# Email Verification
 
-To verify a single email:-
+Ensure your emails reach real inboxes by verifying email addresses before sending campaigns. MailGreet's email verification helps you maintain a clean list, reduce bounce rates, and protect your sender reputation.
 
-1. Navigate to the [Verify](https://mailgreet.com/dashboard/verify) page.
+---
 
-<img
-  className="block dark:hidden"
-  src="/images/verify-page-light.png"
-  alt="Verify Page Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/images/verify-page-dark.png"
-  alt="Verify Page Dark"
-/>
+## Why Verify Emails?
 
-2. Click on the **Email Verification** tab.
-3. In the **Single Email Validation** section, enter the email you want to verify in the given input field.
-4. Click on the **Validate** button next to it.
+<CardGroup cols={2}>
+  <Card title="Reduce Bounces" icon="triangle-exclamation">
+    Invalid emails cause hard bounces, hurting your sender reputation
+  </Card>
+  <Card title="Save Credits" icon="coins">
+    Don't waste email sends on addresses that don't exist
+  </Card>
+  <Card title="Improve Deliverability" icon="inbox">
+    Clean lists mean better inbox placement rates
+  </Card>
+  <Card title="Protect Reputation" icon="shield-check">
+    Avoid spam traps and blacklists that damage your domain
+  </Card>
+</CardGroup>
 
-<Info>
+<Note>
+When you add new subscribers through the platform, their emails are **automatically verified** at no extra cost. The verification feature is for validating external lists or individual addresses.
+</Note>
 
-**Note**: **1 credit** is used per 1 email validation.
+---
 
-</Info>
+## Verification Results Explained
 
-<img
-  className="block dark:hidden"
-  src="/images/verify-single-email-light.png"
-  alt="Verify Single Email Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/images/verify-single-email-dark.png"
-  alt="Verify Single Email Dark"
-/>
+After verification, each email receives a status:
 
-5. The Email Validation Info will be shown below the input text field.
-6. Now, you have successfully checked whether the single email is valid or not.
+| Status | Meaning | Recommendation |
+|--------|---------|----------------|
+| ✅ **Valid** | Email exists and can receive mail | Safe to send |
+| ⚠️ **Catch-All** | Domain accepts all emails (can't confirm specific address) | Send with caution |
+| ❌ **Invalid** | Email doesn't exist or is malformed | Do not send |
+| ❓ **Unknown** | Unable to verify (server timeout, etc.) | Verify again later |
 
+---
 
+## Single Email Verification
 
-## Verify Multiple Emails At Once 
+Quickly verify individual email addresses in real-time.
 
-To verify multiple emails at once:-
-
-1. Navigate to the [Verify](https://mailgreet.com/dashboard/verify) page.
-
-<img
-  className="block dark:hidden"
-  src="/images/verify-page-light.png"
-  alt="Verify Page Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/images/verify-page-dark.png"
-  alt="Verify Page Dark"
-/>
-
-2. Click on the **Email Verification** tab.
-3. There are two ways to do multiple emails verification.
-4. First, upload a .csv file containing multiple emails you want to verify in the **Bulk Upload** section by clicking on the drop button and then uploading the .csv file.
-
-<img
-  className="block dark:hidden"
-  src="/images/bulk-upload-light.png"
-  alt="Bulk Upload Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/images/bulk-upload-dark.png"
-  alt="Bulk Upload Dark"
-/>
-
-5. After uploading the .csv file, you will see the filename along with its extension and also a green **Validate** button on the right side.
-
-<img
-  className="block dark:hidden"
-  src="/images/bulk-email-verification-light.png"
-  alt="Bulk Email Verification Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/images/bulk-email-verification-dark.png"
-  alt="Bulk Email Verification Dark"
-/>
-
-6. Click on the **Validate** button.
-7. After a few moments, you will see a new entry in the **Recent Validations** section below the **Bulk Upload** section containing your file.
-
-<img
-  className="block dark:hidden"
-  src="/images/recent-validation-light.png"
-  alt="Recent Validation Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/images/recent-validation-dark.png"
-  alt="Recent Validation Dark"
-/>
-
-8. You can either click on the new entry which is your file to view validation summary in the popup dialog box.
-
-<img
-  className="block dark:hidden"
-  src="/images/recent-validation-light.png"
-  alt="Recent Validation Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/images/recent-validation-dark.png"
-  alt="Recent Validation Dark"
-/>
-
-9. Or, you can click on the **Download Reports** button in the **Validation Summary** dialog box to download the report.
-10. You can also click on the **Download** button under the **Actions** field to download the respective validation report.
-11. The download button gives you many options in which you can download your report:-
-    **Valid Only**, **Valid and Catch-All**, **Invalid Only**, **Invalid and Unknown**, **Download All**
-
-12. You can choose the appropriate option according to your needs and click on it.
-13. Now, you have successfully downloaded the validation report.
-
-14. Second, you can paste your email list for verification in the **Or paste email list** section according to the specified format.
-
-<img
-  className="block dark:hidden"
-  src="/images/paste-email-list-light.png"
-  alt="Paste Email List Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/images/paste-email-list-dark.png"
-  alt="Paste Email List Dark"
-/>
-
-15. The **Validate Pasted Emails** button becomes **Enabled**. Click on it.
-16. After a few moments, you will see a new entry in the **Recent Validations** section containing your pasted email lists.
-17. Click on it to view the **Validation Summary Dialogbox**.
-18. Or, you can also download the report like you do in bulk upload section.
-19. Now, you have successfully learnt how to do bulk email verification using file upload and paste emails list method.
+<Steps>
+  <Step title="Navigate to Verify Page">
+    Go to **[Verify](https://mailgreet.com/dashboard/verify)** in the sidebar
+    
+    <img
+      className="block dark:hidden rounded-lg shadow-md my-4"
+      src="/images/verify-page-light.png"
+      alt="Email Verification Page"
+    />
+    <img
+      className="hidden dark:block rounded-lg shadow-md my-4"
+      src="/images/verify-page-dark.png"
+      alt="Email Verification Page"
+    />
+  </Step>
+  
+  <Step title="Select Email Verification">
+    Click on the **Email Verification** tab if not already selected
+  </Step>
+  
+  <Step title="Enter Email Address">
+    In the **Single Email Validation** section, type or paste the email address you want to verify
+  </Step>
+  
+  <Step title="Click Validate">
+    Press the **Validate** button to check the email
+    
+    <img
+      className="block dark:hidden rounded-lg shadow-md my-4"
+      src="/images/verify-single-email-light.png"
+      alt="Single Email Validation"
+    />
+    <img
+      className="hidden dark:block rounded-lg shadow-md my-4"
+      src="/images/verify-single-email-dark.png"
+      alt="Single Email Validation"
+    />
+  </Step>
+  
+  <Step title="View Results">
+    The validation result appears instantly below the input field, showing whether the email is valid, invalid, or catch-all
+  </Step>
+</Steps>
 
 <Info>
-
-**Note**: **1 credit** is used per 1 email validation. If you want to verify let's say, 1000 emails at once, then 1000 credits will be depleted from your account.
-
+**Credit Usage:** Each single email verification uses **1 credit** from your account balance.
 </Info>
- 
 
+---
 
+## Bulk Email Verification
+
+Verify hundreds or thousands of emails at once using file upload or paste methods.
+
+### Method 1: CSV File Upload
+
+Upload a CSV or TXT file containing your email list for bulk verification.
+
+<Steps>
+  <Step title="Go to Verify Page">
+    Navigate to **[Verify](https://mailgreet.com/dashboard/verify)** and select the **Email Verification** tab
+  </Step>
+  
+  <Step title="Upload Your File">
+    In the **Bulk Upload** section, drag and drop your CSV/TXT file or click to browse
+    
+    <img
+      className="block dark:hidden rounded-lg shadow-md my-4"
+      src="/images/bulk-upload-light.png"
+      alt="Bulk Email Upload"
+    />
+    <img
+      className="hidden dark:block rounded-lg shadow-md my-4"
+      src="/images/bulk-upload-dark.png"
+      alt="Bulk Email Upload"
+    />
+  </Step>
+  
+  <Step title="Start Validation">
+    Once uploaded, you'll see your file name with a green **Validate** button. Click it to begin verification.
+    
+    <img
+      className="block dark:hidden rounded-lg shadow-md my-4"
+      src="/images/bulk-email-verification-light.png"
+      alt="Start Bulk Validation"
+    />
+    <img
+      className="hidden dark:block rounded-lg shadow-md my-4"
+      src="/images/bulk-email-verification-dark.png"
+      alt="Start Bulk Validation"
+    />
+  </Step>
+  
+  <Step title="Monitor Progress">
+    The verification runs in the background. Track progress in the **Recent Validations** section.
+    
+    <img
+      className="block dark:hidden rounded-lg shadow-md my-4"
+      src="/images/recent-validation-light.png"
+      alt="Recent Validations"
+    />
+    <img
+      className="hidden dark:block rounded-lg shadow-md my-4"
+      src="/images/recent-validation-dark.png"
+      alt="Recent Validations"
+    />
+  </Step>
+  
+  <Step title="Download Results">
+    When complete, click on the validation entry to view the summary, or use the **Download** button to export results
+  </Step>
+</Steps>
+
+### Method 2: Paste Email List
+
+For quick verification without creating a file, paste your emails directly.
+
+<Steps>
+  <Step title="Paste Your Emails">
+    In the **Or paste email list** section, paste your email addresses (one per line or comma-separated)
+    
+    <img
+      className="block dark:hidden rounded-lg shadow-md my-4"
+      src="/images/paste-email-list-light.png"
+      alt="Paste Email List"
+    />
+    <img
+      className="hidden dark:block rounded-lg shadow-md my-4"
+      src="/images/paste-email-list-dark.png"
+      alt="Paste Email List"
+    />
+  </Step>
+  
+  <Step title="Validate">
+    Click the **Validate Pasted Emails** button (it becomes active once you paste emails)
+  </Step>
+  
+  <Step title="View & Download Results">
+    Results appear in **Recent Validations**. Click to view the summary or download the report.
+  </Step>
+</Steps>
+
+---
+
+## Downloading Verification Reports
+
+After bulk verification completes, you can download filtered reports:
+
+<CardGroup cols={2}>
+  <Card title="Valid Only" icon="circle-check">
+    Download only confirmed valid emails — safe to send
+  </Card>
+  <Card title="Valid and Catch-All" icon="circle-half-stroke">
+    Include catch-all domains for maximum reach
+  </Card>
+  <Card title="Invalid Only" icon="circle-xmark">
+    Export invalid emails for list cleaning
+  </Card>
+  <Card title="Download All" icon="download">
+    Get complete results with all statuses
+  </Card>
+</CardGroup>
+
+---
+
+## Credit Usage & Pricing
+
+<AccordionGroup>
+  <Accordion title="How are credits consumed?" icon="calculator">
+    - **1 credit** = 1 email verification
+    - Bulk verification of 1,000 emails = 1,000 credits
+    - Credits are deducted when you click **Validate**
+    - Invalid/unknown results still consume credits
+  </Accordion>
+  
+  <Accordion title="How do I get more credits?" icon="cart-shopping">
+    Purchase verification credits from the **[Buy Credits](https://mailgreet.com/dashboard/buy)** page:
+    
+    | Credits | Price |
+    |---------|-------|
+    | 2,000 | $15 |
+    | 5,000 | $29 |
+    | 10,000 | $49 |
+    | 25,000 | $69 |
+    | 50,000 | $119 |
+  </Accordion>
+  
+  <Accordion title="Do new subscribers use credits?" icon="user-plus">
+    **No!** When subscribers are added through MailGreet (import, API, or forms), their emails are verified automatically at no credit cost. Credits are only used for the standalone verification feature.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Best Practices
+
+<Tip>
+**Verify before importing:** Always verify external email lists before adding them to your subscriber base to maintain list hygiene.
+</Tip>
+
+<Warning>
+**Remove invalid emails:** Sending to invalid addresses damages your sender reputation. Always remove emails marked as "Invalid" from your campaigns.
+</Warning>
+
+<CardGroup cols={2}>
+  <Card title="Regular Cleaning" icon="broom">
+    Verify your list every 3-6 months to catch emails that have become invalid
+  </Card>
+  <Card title="Focus on Valid" icon="bullseye">
+    Prioritize "Valid" emails in campaigns. Use "Catch-All" with caution.
+  </Card>
+</CardGroup>
+
+---
+
+## Related Features
+
+<CardGroup cols={2}>
+  <Card title="Phone Verification" icon="phone" href="/phone-verification">
+    Verify phone numbers for SMS campaigns
+  </Card>
+  <Card title="Purchase Credits" icon="credit-card" href="/purchase-credits">
+    Buy verification credits for your account
+  </Card>
+  <Card title="Import Subscribers" icon="file-import" href="/import-subscribers">
+    Import verified contacts to your lists
+  </Card>
+  <Card title="Managing Subscribers" icon="users" href="/managing-subscribers">
+    Organize and manage your subscriber base
+  </Card>
+</CardGroup>

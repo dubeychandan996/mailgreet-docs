@@ -1,6 +1,188 @@
-Add and manage team members:
-- Invite new users
-- Assign user roles and permissions
-- Set access restrictions
-- Activity logs
-- User management
+---
+title: 'Team Management'
+description: 'Add team members, assign roles, and manage permissions in MailGreet'
+---
+
+# Team Management
+
+Collaborate with your team by adding members and assigning appropriate roles and permissions.
+
+---
+
+## Accessing Team Settings
+
+1. Go to **Settings** in the sidebar
+2. Navigate to **Team** or **Team Members**
+3. View all current team members and their roles
+
+---
+
+## Inviting Team Members
+
+<Steps>
+  <Step title="Open Team Settings">
+    Navigate to **Settings → Team**
+  </Step>
+  <Step title="Click Invite">
+    Click the **Invite Team Member** button
+  </Step>
+  <Step title="Enter Details">
+    - Enter their email address
+    - Select their role
+    - Add a personal message (optional)
+  </Step>
+  <Step title="Send Invitation">
+    Click **Send Invite** to email them
+  </Step>
+</Steps>
+
+The invitee will receive an email with a link to join your team. They'll need to create a MailGreet account if they don't have one.
+
+---
+
+## User Roles
+
+<CardGroup cols={2}>
+  <Card title="Owner" icon="crown">
+    Full access to everything including billing and account deletion
+  </Card>
+  <Card title="Admin" icon="user-shield">
+    Can manage team members and access all features except billing
+  </Card>
+  <Card title="Editor" icon="pen-to-square">
+    Can create and edit campaigns, subscribers, and templates
+  </Card>
+  <Card title="Viewer" icon="eye">
+    Read-only access to view campaigns and analytics
+  </Card>
+</CardGroup>
+
+### Role Permissions Matrix
+
+| Permission | Owner | Admin | Editor | Viewer |
+|------------|-------|-------|--------|--------|
+| View campaigns & analytics | ✅ | ✅ | ✅ | ✅ |
+| Create/edit campaigns | ✅ | ✅ | ✅ | ❌ |
+| Manage subscribers | ✅ | ✅ | ✅ | ❌ |
+| Create/edit templates | ✅ | ✅ | ✅ | ❌ |
+| Send campaigns | ✅ | ✅ | ✅ | ❌ |
+| Manage team members | ✅ | ✅ | ❌ | ❌ |
+| Access integrations | ✅ | ✅ | ❌ | ❌ |
+| Manage billing | ✅ | ❌ | ❌ | ❌ |
+| Delete account | ✅ | ❌ | ❌ | ❌ |
+
+---
+
+## Changing User Roles
+
+To change a team member's role:
+
+1. Go to **Settings → Team**
+2. Find the team member
+3. Click the **Edit** button or their role dropdown
+4. Select the new role
+5. Save changes
+
+<Warning>
+Role changes take effect immediately. Ensure the user should have the new permissions before changing.
+</Warning>
+
+---
+
+## Removing Team Members
+
+To remove someone from your team:
+
+1. Go to **Settings → Team**
+2. Find the team member
+3. Click the **Remove** button
+4. Confirm removal
+
+**What happens when you remove a member:**
+- They immediately lose access to your account
+- Their personal MailGreet account remains active
+- Work they created remains in your account
+
+---
+
+## Pending Invitations
+
+Manage invitations that haven't been accepted:
+
+- View all pending invites
+- Resend invitation emails
+- Cancel invitations
+- Track when invitations were sent
+
+<Tip>
+If an invitation expires or gets lost, simply cancel it and send a new one.
+</Tip>
+
+---
+
+## Activity Logs
+
+Track what team members are doing:
+
+| Activity Type | Examples |
+|---------------|----------|
+| **Campaigns** | Created, edited, sent, deleted |
+| **Subscribers** | Imported, added, removed |
+| **Templates** | Created, modified, deleted |
+| **Settings** | Changed, updated |
+| **Team** | Members added, removed, roles changed |
+
+Access activity logs:
+1. Go to **Settings → Activity** or **Audit Log**
+2. Filter by user, action type, or date range
+3. Export logs for compliance if needed
+
+---
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Principle of Least Privilege">
+    Give team members only the permissions they need. Start with lower access and upgrade if necessary.
+  </Accordion>
+  
+  <Accordion title="Regular Access Reviews">
+    Periodically review who has access and remove users who no longer need it.
+  </Accordion>
+  
+  <Accordion title="Use Descriptive Names">
+    Encourage team members to use clear profile names so you can identify who's who.
+  </Accordion>
+  
+  <Accordion title="Document Responsibilities">
+    Make it clear who's responsible for what tasks to avoid confusion.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Team Limits by Plan
+
+| Plan | Team Members |
+|------|--------------|
+| Free | 1 (owner only) |
+| Starter | 3 |
+| Pro | 10 |
+| Enterprise | Unlimited |
+
+<Note>
+Need more team members? Consider upgrading your plan or contact sales for custom team sizes.
+</Note>
+
+---
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Account Settings" icon="gear" href="/account-settings">
+    Configure your personal account settings
+  </Card>
+  <Card title="Billing & Plans" icon="credit-card" href="/billing-and-plans">
+    Upgrade to add more team members
+  </Card>
+</CardGroup>

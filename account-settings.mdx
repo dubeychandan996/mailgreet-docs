@@ -1,6 +1,151 @@
-Manage your account details:
-- Profile information
-- Email and password
-- Notification preferences
-- Default sender information
-- Branding settings
+---
+title: 'Account Settings'
+description: 'Configure your MailGreet account profile and preferences'
+---
+
+# Account Settings
+
+Manage your MailGreet account settings to personalize your experience and configure important defaults.
+
+---
+
+## Accessing Account Settings
+
+1. Click your profile avatar in the top-right corner
+2. Select **Settings** from the dropdown
+3. Navigate through the available settings tabs
+
+---
+
+## Profile Information
+
+<Card title="Your Profile" icon="user">
+Basic account information and personal details.
+</Card>
+
+| Setting | Description |
+|---------|-------------|
+| **Full Name** | Your name displayed in the platform |
+| **Email Address** | Your login email and where account notifications are sent |
+| **Profile Photo** | Upload an avatar for your account |
+| **Timezone** | Your local timezone for scheduling and reports |
+
+---
+
+## Security Settings
+
+<Card title="Account Security" icon="shield-halved">
+Keep your account secure with these settings.
+</Card>
+
+### Password
+
+- Change your password regularly
+- Use a strong password with letters, numbers, and symbols
+- Never share your password with others
+
+### Two-Factor Authentication (2FA)
+
+Add an extra layer of security:
+
+<Steps>
+  <Step title="Enable 2FA">
+    Go to Security settings and click "Enable 2FA"
+  </Step>
+  <Step title="Scan QR Code">
+    Use an authenticator app (Google Authenticator, Authy) to scan the code
+  </Step>
+  <Step title="Verify">
+    Enter the 6-digit code from your authenticator app
+  </Step>
+  <Step title="Save Backup Codes">
+    Store the backup codes safely in case you lose access to your authenticator
+  </Step>
+</Steps>
+
+<Warning>
+If you lose access to your 2FA device and backup codes, contact support immediately to regain account access.
+</Warning>
+
+---
+
+## Notification Preferences
+
+Control which notifications you receive:
+
+<CardGroup cols={2}>
+  <Card title="Email Notifications" icon="envelope">
+    Campaign completion, weekly reports, account alerts
+  </Card>
+  <Card title="Product Updates" icon="bullhorn">
+    New features, improvements, and announcements
+  </Card>
+  <Card title="Usage Alerts" icon="bell">
+    Approaching limits, billing reminders
+  </Card>
+  <Card title="Marketing Emails" icon="tags">
+    Tips, best practices, and promotional content
+  </Card>
+</CardGroup>
+
+---
+
+## Default Sender Information
+
+Set defaults for your email campaigns:
+
+| Setting | Description | Example |
+|---------|-------------|---------|
+| **From Name** | Default sender name | "Your Company" |
+| **From Email** | Default sender address | hello@yourcompany.com |
+| **Reply-To Email** | Where replies go | support@yourcompany.com |
+
+<Tip>
+Using a verified custom domain for your from email significantly improves deliverability.
+</Tip>
+
+---
+
+## Branding Settings
+
+Customize your MailGreet experience:
+
+- **Company Logo**: Used in your email templates
+- **Brand Colors**: Primary and accent colors for email designs
+- **Default Footer**: Standard footer text for all campaigns
+
+---
+
+## API Keys
+
+Manage your API access:
+
+1. Navigate to **Settings → Integrations**
+2. Click **API Keys**
+3. Generate a new key or manage existing keys
+4. Use keys to integrate MailGreet with external applications
+
+<Warning>
+Keep your API keys secret. If a key is compromised, revoke it immediately and generate a new one.
+</Warning>
+
+---
+
+## Data & Privacy
+
+- **Export Data**: Download all your account data
+- **Delete Account**: Permanently remove your account and all data
+- **Data Processing**: Review how your data is handled
+
+---
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Billing & Plans" icon="credit-card" href="/billing-and-plans">
+    Manage your subscription and payment info
+  </Card>
+  <Card title="Team Management" icon="users" href="/team-management">
+    Add team members and manage permissions
+  </Card>
+</CardGroup>

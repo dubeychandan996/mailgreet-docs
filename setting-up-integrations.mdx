@@ -1,5 +1,249 @@
-1. Go to the Integrations section
-2. Select the desired integration
-3. Follow the specific authentication steps
-4. Configure sync settings and data mapping
-5. Test the integration
+---
+title: 'Setting Up Integrations'
+description: 'Step-by-step guide to connecting MailGreet with external platforms'
+---
+
+# Setting Up Integrations
+
+This guide walks you through connecting MailGreet with your favorite tools and platforms.
+
+---
+
+## General Integration Process
+
+<Steps>
+  <Step title="Access Integrations">
+    Navigate to **Settings → Integrations** in your MailGreet dashboard
+  </Step>
+  <Step title="Find Your Integration">
+    Browse available integrations or search for a specific platform
+  </Step>
+  <Step title="Authenticate">
+    Click **Connect** and follow the authentication steps for that platform
+  </Step>
+  <Step title="Configure Settings">
+    Set up sync options, mapping, and preferences
+  </Step>
+  <Step title="Test Connection">
+    Verify data is syncing correctly
+  </Step>
+</Steps>
+
+---
+
+## API Key Integration
+
+For developer integrations that use API keys:
+
+<Steps>
+  <Step title="Generate API Key">
+    Go to **Settings → Integrations → API Keys**
+  </Step>
+  <Step title="Create New Key">
+    Click **Generate New API Key**
+    - Give it a descriptive name
+    - Note any permission restrictions
+  </Step>
+  <Step title="Copy the Key">
+    Copy your API key immediately (it won't be shown again)
+  </Step>
+  <Step title="Use in Your Integration">
+    Add the key to your application's Authorization header:
+    ```bash
+    Authorization: Bearer YOUR_API_KEY
+    ```
+  </Step>
+</Steps>
+
+<Warning>
+Keep your API keys secure! Never share them publicly or commit them to version control.
+</Warning>
+
+---
+
+## Webhook Configuration
+
+Set up webhooks to receive real-time events:
+
+<Steps>
+  <Step title="Navigate to Webhooks">
+    Go to **Settings → Webhooks**
+  </Step>
+  <Step title="Add Webhook Endpoint">
+    Click **Add Webhook** and enter your endpoint URL
+  </Step>
+  <Step title="Select Events">
+    Choose which events to receive:
+    - Subscriber created/updated/deleted
+    - Email opened/clicked
+    - Unsubscribe events
+    - Campaign sent
+  </Step>
+  <Step title="Test the Webhook">
+    Use the **Test** button to send a sample payload
+  </Step>
+  <Step title="Verify Security">
+    Implement signature verification in your endpoint
+  </Step>
+</Steps>
+
+**[Learn more about Webhooks →](/api-reference/endpoint/webhook)**
+
+---
+
+## Common Integration Setups
+
+<AccordionGroup>
+  <Accordion title="E-commerce Store" icon="cart-shopping">
+    **Goal:** Sync customers and track purchases
+    
+    **Steps:**
+    1. Connect your e-commerce platform (Shopify, WooCommerce, etc.)
+    2. Authorize MailGreet to access customer data
+    3. Map fields (email, name, purchase history)
+    4. Enable automatic sync for new customers
+    5. Set up purchase tracking for segmentation
+    
+    **Use cases:**
+    - Send post-purchase follow-ups
+    - Segment by spending habits
+    - Abandoned cart recovery
+  </Accordion>
+  
+  <Accordion title="Form Builder" icon="rectangle-list">
+    **Goal:** Automatically add form submissions to your list
+    
+    **Steps:**
+    1. Connect your form builder (Typeform, JotForm, etc.)
+    2. Select which forms to sync
+    3. Map form fields to subscriber fields
+    4. Choose destination group in MailGreet
+    5. Enable double opt-in if required
+    
+    **Use cases:**
+    - Newsletter signups
+    - Lead capture forms
+    - Event registrations
+  </Accordion>
+  
+  <Accordion title="CRM Sync" icon="address-book">
+    **Goal:** Keep customer data in sync between platforms
+    
+    **Steps:**
+    1. Connect your CRM (Salesforce, HubSpot, etc.)
+    2. Choose sync direction (one-way or bi-directional)
+    3. Map contact fields
+    4. Set up sync frequency
+    5. Handle duplicates and conflicts
+    
+    **Use cases:**
+    - Unified customer view
+    - Lead scoring
+    - Sales follow-up automation
+  </Accordion>
+  
+  <Accordion title="Zapier Automation" icon="bolt">
+    **Goal:** Connect MailGreet to thousands of apps
+    
+    **Steps:**
+    1. Log into Zapier
+    2. Search for MailGreet
+    3. Choose a trigger (e.g., "New Subscriber")
+    4. Connect your other app
+    5. Map data between apps
+    6. Turn on your Zap
+    
+    **Use cases:**
+    - Add Stripe customers to lists
+    - Notify Slack on new subscribers
+    - Sync Google Sheets contacts
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Integration Troubleshooting
+
+<Tabs>
+  <Tab title="Connection Failed">
+    **Common causes:**
+    - Expired authentication tokens
+    - Insufficient permissions
+    - Firewall blocking requests
+    
+    **Solutions:**
+    - Re-authenticate the connection
+    - Check permission settings in both platforms
+    - Whitelist MailGreet IPs if needed
+  </Tab>
+  
+  <Tab title="Data Not Syncing">
+    **Common causes:**
+    - Mapping misconfiguration
+    - Sync frequency too low
+    - Filters excluding data
+    
+    **Solutions:**
+    - Review field mapping
+    - Trigger manual sync
+    - Check sync filters and conditions
+  </Tab>
+  
+  <Tab title="Webhook Not Receiving">
+    **Common causes:**
+    - Endpoint not publicly accessible
+    - SSL certificate issues
+    - Server not returning 200 status
+    
+    **Solutions:**
+    - Verify URL is reachable externally
+    - Check SSL certificate is valid
+    - Ensure endpoint responds with 200 OK
+    - Check webhook logs for errors
+  </Tab>
+</Tabs>
+
+---
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Start Small" icon="seedling">
+    Begin with one integration and expand as you get comfortable
+  </Card>
+  <Card title="Document Everything" icon="file-lines">
+    Keep notes on your integration setups for future reference
+  </Card>
+  <Card title="Monitor Regularly" icon="eye">
+    Check integration logs to catch issues early
+  </Card>
+  <Card title="Secure Your Keys" icon="lock">
+    Rotate API keys periodically and revoke unused ones
+  </Card>
+</CardGroup>
+
+---
+
+## Need Custom Integration?
+
+For Enterprise customers, we offer custom integration development:
+- Dedicated API endpoints
+- Custom data sync solutions
+- White-glove setup assistance
+
+<Card title="Contact Sales" icon="phone" href="mailto:sales@mailgreet.com">
+Discuss custom integration needs with our team
+</Card>
+
+---
+
+## Related Topics
+
+<CardGroup cols={2}>
+  <Card title="Available Integrations" icon="plug" href="/available-integrations">
+    Browse all available integrations
+  </Card>
+  <Card title="API Documentation" icon="code" href="/api-reference/introduction">
+    Build custom solutions with our API
+  </Card>
+</CardGroup>
