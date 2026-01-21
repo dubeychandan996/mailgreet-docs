@@ -1,6 +1,148 @@
-Campaign Types
+---
+title: 'Campaign Types'
+description: 'Understanding the different types of email campaigns you can create in MailGreet'
+---
 
-- **Regular Campaign**: Standard one-time email to your subscribers
-- **A/B Test Campaign**: Test different subject lines, content, or sender names
-- **RSS Campaign**: Automatically send emails when new content is published
-- **Automated Campaign**: Triggered by subscriber actions or time-based events
+# Campaign Types
+
+MailGreet supports various campaign types to help you achieve different email marketing goals. Choose the right type based on your objectives.
+
+---
+
+## Regular Campaign
+
+<Card title="Standard Email Campaign" icon="envelope">
+The most common type of campaign - a one-time email sent to a selected audience.
+</Card>
+
+**Best for:**
+- Newsletters and updates
+- Promotional announcements
+- Product launches
+- Event invitations
+- Time-sensitive communications
+
+**How it works:**
+1. Create your email content
+2. Select your recipients
+3. Choose to send immediately or schedule for later
+4. Email is delivered once to all selected subscribers
+
+---
+
+## A/B Test Campaign
+
+<Card title="Split Testing Campaign" icon="flask">
+Test different versions of your email to optimize performance before sending to your full list.
+</Card>
+
+**What you can test:**
+| Element | Example |
+|---------|---------|
+| **Subject Line** | "50% Off Sale" vs "Flash Sale: Half Price Today" |
+| **Sender Name** | "MailGreet" vs "Sarah from MailGreet" |
+| **Send Time** | Morning vs Afternoon delivery |
+| **Content** | Different layouts, images, or CTAs |
+
+**How it works:**
+
+<Steps>
+  <Step title="Create Variants">
+    Design two (or more) versions of your email with one key difference
+  </Step>
+  <Step title="Select Test Group">
+    Choose a percentage of your list to receive the test (e.g., 20%)
+  </Step>
+  <Step title="Set Winning Criteria">
+    Define what "winning" means - higher open rate, more clicks, etc.
+  </Step>
+  <Step title="Automatic Winner Selection">
+    After the test period, the winning version is sent to the remaining list
+  </Step>
+</Steps>
+
+<Tip>
+Test only ONE element at a time to clearly understand what drives better performance.
+</Tip>
+
+---
+
+## RSS Campaign
+
+<Card title="Automated Content Campaign" icon="rss">
+Automatically send emails when new content is published on your blog or website.
+</Card>
+
+**Best for:**
+- Blog post notifications
+- Podcast episode announcements
+- News digests
+- Content roundups
+
+**How it works:**
+1. Connect your RSS feed URL
+2. Design a template for new content
+3. Set delivery frequency (immediately, daily digest, weekly)
+4. MailGreet monitors your feed and sends automatically
+
+<Note>
+RSS campaigns require a valid RSS/Atom feed from your website. Most blog platforms generate these automatically.
+</Note>
+
+---
+
+## Automated Campaign
+
+<Card title="Triggered Email Campaign" icon="robot">
+Emails sent automatically based on subscriber actions or time-based triggers.
+</Card>
+
+**Common automation triggers:**
+
+<CardGroup cols={2}>
+  <Card title="Welcome Series" icon="hand-wave">
+    Send when someone subscribes to your list
+  </Card>
+  <Card title="Birthday Emails" icon="cake-candles">
+    Triggered on subscriber's birthday
+  </Card>
+  <Card title="Engagement Based" icon="heart">
+    Sent when subscriber opens/clicks (or doesn't)
+  </Card>
+  <Card title="Anniversary" icon="calendar-heart">
+    Mark subscription or purchase anniversaries
+  </Card>
+</CardGroup>
+
+**Setting up automations:**
+1. Define your trigger event
+2. Create the email sequence
+3. Set timing between emails
+4. Activate the automation
+5. Monitor performance in analytics
+
+---
+
+## Choosing the Right Campaign Type
+
+| Goal | Recommended Type |
+|------|------------------|
+| One-time announcement | Regular Campaign |
+| Optimize subject lines | A/B Test Campaign |
+| New blog post notifications | RSS Campaign |
+| Welcome new subscribers | Automated Campaign |
+| Monthly newsletter | Regular Campaign |
+| Win back inactive subscribers | Automated Campaign |
+
+---
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Create Campaign" icon="plus" href="/create-campaign">
+    Start building your first campaign
+  </Card>
+  <Card title="Automations" icon="robot" href="/creating-workflows">
+    Set up automated email workflows
+  </Card>
+</CardGroup>

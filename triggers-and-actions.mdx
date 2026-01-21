@@ -1,8 +1,254 @@
-Common automation triggers:
-- New subscriber joins
-- Specific link clicked
-- Form submitted
-- Purchase made
-- Anniversary or birthday
-- Email opened or not opened
-- Custom field updated
+---
+title: 'Triggers & Actions'
+description: 'Understand automation triggers and actions to build powerful email workflows'
+---
+
+# Triggers & Actions
+
+Automation in MailGreet is built on two core concepts: **triggers** (what starts a workflow) and **actions** (what happens in the workflow).
+
+---
+
+## What are Triggers?
+
+A trigger is an event that starts an automation workflow. When the trigger condition is met, the workflow begins executing its actions.
+
+<Tip>
+Choose triggers that align with meaningful moments in your subscriber's journey.
+</Tip>
+
+---
+
+## Available Triggers
+
+<AccordionGroup>
+  <Accordion title="New Subscriber Joins" icon="user-plus">
+    **Fires when:** A new subscriber is added to your list
+    
+    **Options:**
+    - All subscribers
+    - Specific groups only
+    - With specific source (import, API, form)
+    
+    **Common uses:**
+    - Welcome email series
+    - Onboarding sequences
+    - Lead nurturing
+  </Accordion>
+  
+  <Accordion title="Subscriber Updated" icon="user-pen">
+    **Fires when:** Subscriber data changes
+    
+    **Options:**
+    - Any field update
+    - Specific field changes
+    - Group membership changes
+    
+    **Common uses:**
+    - Profile completion reminders
+    - Preference-based content
+    - Lifecycle stage transitions
+  </Accordion>
+  
+  <Accordion title="Email Opened" icon="envelope-open">
+    **Fires when:** Subscriber opens a specific email
+    
+    **Options:**
+    - Any campaign
+    - Specific campaign
+    - After specific delay
+    
+    **Common uses:**
+    - Follow-up for engaged readers
+    - Content upgrade offers
+    - Deeper engagement sequences
+  </Accordion>
+  
+  <Accordion title="Link Clicked" icon="mouse-pointer">
+    **Fires when:** Subscriber clicks a link in your email
+    
+    **Options:**
+    - Any link
+    - Specific URL
+    - Link category
+    
+    **Common uses:**
+    - Interest-based follow-up
+    - Product recommendations
+    - Sales sequences
+  </Accordion>
+  
+  <Accordion title="Date-Based" icon="calendar">
+    **Fires on:** A specific date or recurring schedule
+    
+    **Options:**
+    - Fixed date
+    - Subscriber's custom date field (birthday, anniversary)
+    - Relative to signup date
+    
+    **Common uses:**
+    - Birthday emails
+    - Anniversary celebrations
+    - Renewal reminders
+  </Accordion>
+  
+  <Accordion title="No Engagement" icon="clock">
+    **Fires when:** Subscriber hasn't engaged for a period
+    
+    **Options:**
+    - No opens for X days
+    - No clicks for X days
+    - No activity for X days
+    
+    **Common uses:**
+    - Re-engagement campaigns
+    - Win-back sequences
+    - List cleaning alerts
+  </Accordion>
+  
+  <Accordion title="Custom Event (API)" icon="code">
+    **Fires when:** Your application sends a custom event
+    
+    **Options:**
+    - Custom event name
+    - Event properties for filtering
+    
+    **Common uses:**
+    - Purchase confirmations
+    - App activity triggers
+    - Custom milestone tracking
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## What are Actions?
+
+Actions are the steps that execute after a trigger fires. You can combine multiple actions in sequence.
+
+---
+
+## Available Actions
+
+<CardGroup cols={2}>
+  <Card title="Send Email" icon="envelope">
+    Send a specific email template to the subscriber
+  </Card>
+  <Card title="Wait" icon="clock">
+    Pause the workflow for a specified time period
+  </Card>
+  <Card title="Add to Group" icon="user-group">
+    Add the subscriber to one or more groups
+  </Card>
+  <Card title="Remove from Group" icon="user-minus">
+    Remove the subscriber from a group
+  </Card>
+  <Card title="Update Field" icon="pen">
+    Update a subscriber's custom field value
+  </Card>
+  <Card title="Add Tag" icon="tag">
+    Apply a tag to the subscriber
+  </Card>
+  <Card title="Webhook" icon="webhook">
+    Send data to an external URL
+  </Card>
+  <Card title="End Workflow" icon="stop">
+    Stop the workflow for this subscriber
+  </Card>
+</CardGroup>
+
+---
+
+## Conditional Logic
+
+Add conditions to make your workflows smarter:
+
+### If/Else Conditions
+
+Branch your workflow based on subscriber data:
+
+```
+IF subscriber.status = "VIP"
+  → Send VIP Email
+  → Wait 1 day
+  → Send VIP Follow-up
+ELSE
+  → Send Standard Email
+  → Wait 3 days
+  → Send Standard Follow-up
+```
+
+### Filter Conditions
+
+Only continue for subscribers matching criteria:
+
+| Condition Type | Example |
+|----------------|---------|
+| **Field Value** | First name is not empty |
+| **Group Membership** | Is in "Customers" group |
+| **Engagement** | Has opened email in last 30 days |
+| **Location** | Country is United States |
+
+---
+
+## Building a Workflow
+
+<Steps>
+  <Step title="Choose a Trigger">
+    Select what event starts your workflow
+  </Step>
+  <Step title="Add Actions">
+    Drag and drop actions to build your sequence
+  </Step>
+  <Step title="Configure Timing">
+    Set wait periods between actions
+  </Step>
+  <Step title="Add Conditions">
+    Use if/else logic for personalized paths
+  </Step>
+  <Step title="Test">
+    Run a test subscriber through the workflow
+  </Step>
+  <Step title="Activate">
+    Turn on the workflow to start processing
+  </Step>
+</Steps>
+
+---
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Keep It Simple">
+    Start with simple workflows. Complex workflows can be hard to debug and maintain.
+  </Accordion>
+  
+  <Accordion title="Test Thoroughly">
+    Always test with real email addresses before activating. Check timing and conditions.
+  </Accordion>
+  
+  <Accordion title="Set Reasonable Delays">
+    Don't send too many emails too quickly. Respect your subscribers' time.
+  </Accordion>
+  
+  <Accordion title="Monitor Performance">
+    Regularly check workflow analytics to optimize your sequences.
+  </Accordion>
+  
+  <Accordion title="Allow Exit Points">
+    Give subscribers ways to exit sequences (unsubscribe, goal reached).
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Related Topics
+
+<CardGroup cols={2}>
+  <Card title="Creating Workflows" icon="diagram-project" href="/creating-workflows">
+    Step-by-step workflow creation guide
+  </Card>
+  <Card title="Automation Templates" icon="shapes" href="/automation-templates">
+    Pre-built automation sequences
+  </Card>
+</CardGroup>

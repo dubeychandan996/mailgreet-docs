@@ -1,7 +1,270 @@
-Solutions for frequently encountered problems:
-- Emails not being delivered
-- Image display problems
-- Form submission errors
-- Integration synchronization issues
-- Template rendering problems
-- Automation workflow delays
+---
+title: 'Common Issues'
+description: 'Solutions for frequently encountered problems in MailGreet'
+---
+
+# Common Issues & Solutions
+
+Encountering problems? This guide covers the most common issues and how to resolve them.
+
+---
+
+## Email Delivery Issues
+
+<AccordionGroup>
+  <Accordion title="Emails Not Being Delivered" icon="envelope-circle-xmark">
+    **Symptoms:** Subscribers report not receiving emails, high bounce rates
+    
+    **Possible Causes & Solutions:**
+    
+    | Cause | Solution |
+    |-------|----------|
+    | Invalid email addresses | Use the Verify feature to clean your list |
+    | Sender domain not verified | Verify your domain in Settings → Domains |
+    | Poor sender reputation | Gradually increase send volume; remove inactive subscribers |
+    | Content triggering spam filters | Avoid spam trigger words; balance images and text |
+    | Missing authentication | Set up SPF, DKIM, and DMARC records |
+    
+    <Tip>
+    Send from a verified custom domain rather than generic email services to improve deliverability.
+    </Tip>
+  </Accordion>
+  
+  <Accordion title="Emails Landing in Spam" icon="triangle-exclamation">
+    **Common reasons emails go to spam:**
+    
+    - Subject line contains spam trigger words (FREE, ACT NOW, WINNER)
+    - Too many images, not enough text
+    - Missing or broken unsubscribe link
+    - Sending to bought or scraped email lists
+    - No physical mailing address in footer
+    - Sending from unverified domain
+    
+    **How to fix:**
+    1. Run a spam test before sending
+    2. Ask subscribers to add you to their contacts
+    3. Keep text-to-image ratio around 60:40
+    4. Use authenticated sending domains
+    5. Include a clear unsubscribe link
+  </Accordion>
+  
+  <Accordion title="High Bounce Rates" icon="rotate-left">
+    **What is a bounce?** An email that couldn't be delivered.
+    
+    **Types of bounces:**
+    - **Hard bounce**: Invalid/non-existent address (remove immediately)
+    - **Soft bounce**: Temporary issue (full inbox, server down)
+    
+    **Reducing bounce rates:**
+    - Verify emails before adding to your list
+    - Use double opt-in for new subscribers
+    - Remove addresses that bounce multiple times
+    - Keep your list clean with regular verification
+    
+    <Warning>
+    Aim to keep bounce rates under 2%. Higher rates can damage your sender reputation.
+    </Warning>
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Image & Display Problems
+
+<AccordionGroup>
+  <Accordion title="Images Not Displaying" icon="image-slash">
+    **In email clients:**
+    - Many email clients block images by default
+    - Recipients must click "display images" to see them
+    
+    **Solutions:**
+    - Always use ALT text for images
+    - Don't rely solely on images for important information
+    - Host images on a reliable CDN
+    - Use HTTPS image URLs
+    
+    **In the editor:**
+    - Check image URL is accessible
+    - Ensure image isn't too large (max 1MB recommended)
+    - Try re-uploading the image
+  </Accordion>
+  
+  <Accordion title="Template Rendering Issues" icon="code">
+    **Symptoms:** Email looks different in various email clients
+    
+    **Solutions:**
+    - Use responsive templates from our gallery
+    - Test across multiple email clients
+    - Avoid complex CSS (use inline styles)
+    - Keep layouts simple (single column works best)
+    - Use web-safe fonts
+    
+    **Email clients to test:**
+    - Gmail (web & mobile)
+    - Outlook (desktop, web, mobile)
+    - Apple Mail
+    - Yahoo Mail
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Campaign Issues
+
+<AccordionGroup>
+  <Accordion title="Campaign Not Sending" icon="paper-plane">
+    **Check these items:**
+    
+    1. **Sending limits**: Have you hit your plan's email limit?
+    2. **Scheduled time**: Is it scheduled for the future?
+    3. **Payment status**: Is your subscription active?
+    4. **Subscriber selection**: Did you select recipients?
+    5. **Campaign status**: Is it stuck in "Draft"?
+    
+    **If stuck in "Sending":**
+    - Large campaigns take time to complete
+    - Check campaign progress bar
+    - Contact support if stuck for over an hour
+  </Accordion>
+  
+  <Accordion title="Personalization Not Working" icon="user-pen">
+    **Symptoms:** Merge tags showing as raw text like `{$first_name}`
+    
+    **Causes:**
+    - Incorrect merge tag syntax
+    - Field doesn't exist for subscriber
+    - Typo in field name
+    
+    **Solutions:**
+    - Use the merge tag dropdown instead of typing manually
+    - Set fallback values: `{$first_name|Friend}`
+    - Test with specific subscriber data before sending
+  </Accordion>
+  
+  <Accordion title="Links Not Tracking" icon="link-slash">
+    **Possible issues:**
+    
+    - Click tracking disabled in campaign settings
+    - URLs not properly formatted
+    - Links in images not wrapped correctly
+    
+    **Solutions:**
+    1. Enable tracking in campaign settings
+    2. Use complete URLs including https://
+    3. Test links in preview mode
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Account & Login Issues
+
+<AccordionGroup>
+  <Accordion title="Can't Log In" icon="lock">
+    **Try these steps:**
+    
+    1. **Check email/password**: Ensure correct credentials
+    2. **Reset password**: Click "Forgot Password" to reset
+    3. **Check email confirmation**: New accounts need email verification
+    4. **Clear cookies**: Browser issues can prevent login
+    5. **Try incognito mode**: Extensions might interfere
+    
+    **Still can't log in?**
+    Contact support at [support@mailgreet.com](mailto:support@mailgreet.com)
+  </Accordion>
+  
+  <Accordion title="2FA Issues" icon="shield-halved">
+    **Lost access to authenticator:**
+    
+    - Use backup codes if you saved them
+    - Contact support to disable 2FA (identity verification required)
+    
+    **Codes not working:**
+    - Check your phone's time is correct (auto-sync recommended)
+    - Ensure you're using the right account in your authenticator app
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Integration Issues
+
+<AccordionGroup>
+  <Accordion title="API Errors" icon="plug">
+    **Common API issues:**
+    
+    | Error | Solution |
+    |-------|----------|
+    | 401 Unauthorized | Check API key is valid and not expired |
+    | 403 Forbidden | Verify you have permission for this action |
+    | 429 Rate Limited | Slow down requests; wait before retrying |
+    | 500 Server Error | Try again later; contact support if persistent |
+    
+    **Debugging tips:**
+    - Check API key in Authorization header
+    - Verify request format matches documentation
+    - Look at error response body for details
+  </Accordion>
+  
+  <Accordion title="Webhook Not Firing" icon="webhook">
+    **Troubleshooting:**
+    
+    1. Verify webhook URL is accessible publicly
+    2. Check webhook is enabled for correct events
+    3. Ensure your server responds with 200 status
+    4. Check webhook logs in Settings → Webhooks
+    5. Verify no firewall is blocking MailGreet IPs
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Performance Issues
+
+<AccordionGroup>
+  <Accordion title="Dashboard Loading Slowly" icon="gauge">
+    **Try these fixes:**
+    
+    - Clear browser cache
+    - Try a different browser
+    - Check your internet connection
+    - Disable browser extensions
+    
+    **If persistent:**
+    - Report to support with browser and OS details
+  </Accordion>
+  
+  <Accordion title="Import Taking Too Long" icon="clock">
+    **For large imports:**
+    
+    - Imports are processed in background
+    - Large files (50K+ contacts) may take 15-30 minutes
+    - You'll receive an email when complete
+    
+    **Speed up imports:**
+    - Split into smaller files (10K-20K contacts)
+    - Ensure CSV is properly formatted
+    - Remove duplicates before importing
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Still Need Help?
+
+<CardGroup cols={2}>
+  <Card title="Support Resources" icon="life-ring" href="/support-resources">
+    Find additional help resources and contact options
+  </Card>
+  <Card title="Email Support" icon="envelope" href="mailto:support@mailgreet.com">
+    Contact our support team directly
+  </Card>
+</CardGroup>
+
+<Note>
+When contacting support, please include:
+- Your account email
+- Detailed description of the issue
+- Screenshots if applicable
+- Steps you've already tried
+</Note>

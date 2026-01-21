@@ -1,101 +1,311 @@
-## What is an Email Template?
+---
+title: 'Creating Custom Templates'
+description: 'Build custom HTML email templates in MailGreet with the HTML Editor for complete control over your email design'
+icon: 'code'
+---
 
-An email template is a pre-designed layout that serves as the foundation for your email campaigns. Templates in MailGreet help you:
+# Creating Custom HTML Templates
 
-- Create consistent branding across all your emails
-- Save time by reusing designs
-- Ensure mobile responsiveness
-- Maintain professional design without coding skills
+For developers and designers who want complete control, MailGreet's HTML Editor provides full HTML/CSS capabilities with syntax highlighting, live preview, and variable support.
 
-## Create Custom Template
+---
 
-To create a custom template:-
+## When to Use HTML Editor
 
-1. Navigate to the [Templates](https://mailgreet.com/dashboard/templates) page.
+<CardGroup cols={2}>
+  <Card title="Use HTML Editor For" icon="check">
+    - Complex custom designs
+    - Importing external templates
+    - Pixel-perfect layouts
+    - Advanced CSS styling
+    - Developer-controlled emails
+  </Card>
+  <Card title="Use Block Builder For" icon="cubes">
+    - Quick email creation
+    - Non-technical users
+    - Standard layouts
+    - Easy editing by team
+    - Mobile-responsive defaults
+  </Card>
+</CardGroup>
 
-<img
-  className="block dark:hidden"
-  src="/images/templates-page-light.png"
-  alt="Templates Page Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/images/templates-page-dark.png"
-  alt="Templates Page Dark"
-/>
+---
 
-2. Click on the **Create template** button located above the search templates bar in the top right corner.
-3. Or, you can click on the **Create new template** section right below the **All Templates** tab.
-4. **New template** page will open.
+## Creating an HTML Template
 
-<img
-  className="block dark:hidden"
-  src="/images/new-template-light.png"
-  alt="New Template Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/images/new-template-dark.png"
-  alt="New Template Dark"
-/>
+<Steps>
+  <Step title="Go to Templates">
+    Navigate to **[Templates](https://mailgreet.com/dashboard/templates)** in the sidebar
+  </Step>
+  
+  <Step title="Click Create Template">
+    Click the green **Create template** button
+  </Step>
+  
+  <Step title="Select HTML Editor">
+    Choose **HTML Editor** from the three format options:
+    
+    - Block-Based Editor (Recommended)
+    - **HTML Editor** ← Select this
+    - Plain Text
+  </Step>
+  
+  <Step title="Enter Template Details">
+    Fill in the template information:
+    - **Template Name** — A descriptive name
+    - **Description** — Purpose of the template
+    - **Category** — Newsletters, Marketing, Events, Transactional, or Custom
+  </Step>
+  
+  <Step title="Create Template">
+    Click **Create Template** to open the HTML Editor
+  </Step>
+</Steps>
 
-5. Enter the **Template name**.
-6. Select the type of template either **Campaign** (Selected by default) or **Landing Page**.
-7. Click on **Save and continue** button.
-8. The template editor page will open.
+---
 
-<img
-  className="block dark:hidden"
-  src="/images/template-editor-light.png"
-  alt="Template Editor Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/images/template-editor-dark.png"
-  alt="Template Editor Dark"
-/>
+## HTML Editor Interface
 
-9. Built and customize the template according to your own needs and personalization.
-10. From the left sidebar of the template editor webpage, you can select and insert as many elements as you want such as **Heading**, **Text**, **Image**, **Button**, **Divider**, **Sections**, **Gallery**, **Footer**, etc.
-11. After building and customizing the template, click on the **Save Template** button at the topright corner of webpage.
-12. Now, you have successfully created a custom template.
-13. Your custom templates will be shown in the **All Templates** tab.
+The HTML Editor provides a split-screen workspace:
 
+| Panel | Location | Purpose |
+|-------|----------|---------|
+| **Code Editor** | Left | Write and edit HTML code |
+| **Live Preview** | Right | See real-time rendering |
+| **Top Bar** | Top | Subject, preheader, and actions |
 
-## Export Template
+### Top Bar Fields
 
-To export a template:-
+<CardGroup cols={2}>
+  <Card title="Subject Line" icon="envelope">
+    The email subject line that appears in inboxes
+  </Card>
+  <Card title="Preheader" icon="eye">
+    Preview text shown after the subject line
+  </Card>
+</CardGroup>
 
-1. Navigate to the [Templates](https://mailgreet.com/dashboard/templates) page.
+### Editor Features
 
-<img
-  className="block dark:hidden"
-  src="/images/templates-page-light.png"
-  alt="Templates Page Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/images/templates-page-dark.png"
-  alt="Templates Page Dark"
-/>
+- **Syntax Highlighting** — Color-coded HTML/CSS for readability
+- **Line Numbers** — Easy navigation for debugging
+- **Auto-Indent** — Clean, organized code
+- **Live Preview** — Instant visual feedback as you code
 
-2. Click on any template which you want to export.
-3. The template editor page will open.
-4. Click on the **Export** button below the **Template Actions**.
+---
 
-<img
-  className="block dark:hidden"
-  src="/images/export-button-light.png"
-  alt="Templates Page Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/images/export-button-dark.png"
-  alt="Templates Page Dark"
-/>
+## Writing Email HTML
 
+### Basic Template Structure
 
-5. Your template will be downloaded automatically.
-6. The template will be in .json format.
-7. Now, you have successfully exported the template.
+Start with this responsive email boilerplate:
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{subject}}</title>
+  <style>
+    /* Reset styles */
+    body { margin: 0; padding: 0; }
+    table { border-collapse: collapse; }
+    img { border: 0; display: block; }
+    
+    /* Container */
+    .email-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #ffffff;
+    }
+  </style>
+</head>
+<body style="background-color: #f4f4f4;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="center" style="padding: 20px;">
+        <table class="email-container" role="presentation" width="600" cellpadding="0" cellspacing="0">
+          
+          <!-- Header -->
+          <tr>
+            <td style="padding: 20px; text-align: center;">
+              <img src="YOUR_LOGO_URL" alt="Logo" width="150">
+            </td>
+          </tr>
+          
+          <!-- Content -->
+          <tr>
+            <td style="padding: 30px;">
+              <h1 style="font-family: Arial, sans-serif; color: #333;">
+                Hello, {{first_name}}!
+              </h1>
+              <p style="font-family: Arial, sans-serif; color: #666; line-height: 1.6;">
+                Your email content goes here.
+              </p>
+              <a href="YOUR_CTA_LINK" style="display: inline-block; padding: 12px 24px; background: #16A34A; color: white; text-decoration: none; border-radius: 5px;">
+                Call to Action
+              </a>
+            </td>
+          </tr>
+          
+          <!-- Footer -->
+          <tr>
+            <td style="padding: 20px; text-align: center; font-size: 12px; color: #999;">
+              <p>© 2026 Your Company. All rights reserved.</p>
+              <a href="{{unsubscribe_link}}" style="color: #999;">Unsubscribe</a>
+            </td>
+          </tr>
+          
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+```
+
+---
+
+## Using Variables
+
+Insert personalization variables anywhere in your HTML:
+
+| Variable | Description |
+|----------|-------------|
+| `{{first_name}}` | Subscriber's first name |
+| `{{last_name}}` | Subscriber's last name |
+| `{{email}}` | Subscriber's email address |
+| `{{unsubscribe_link}}` | Required unsubscribe URL |
+| `{{custom_field}}` | Any custom field you've created |
+
+<Warning>
+Always include `{{unsubscribe_link}}` in your HTML templates. This is required for email compliance.
+</Warning>
+
+---
+
+## Importing External HTML
+
+Have an HTML template from another source? Import it easily:
+
+<Steps>
+  <Step title="Create New Template">
+    Start a new HTML template as described above
+  </Step>
+  <Step title="Clear Default Content">
+    Select all code in the editor and delete it
+  </Step>
+  <Step title="Paste Your HTML">
+    Paste your external HTML code into the editor
+  </Step>
+  <Step title="Add Variables">
+    Replace static content with MailGreet variables where needed
+  </Step>
+  <Step title="Test Preview">
+    Check the live preview to ensure proper rendering
+  </Step>
+</Steps>
+
+---
+
+## Exporting Templates
+
+### Export as HTML
+
+Click **Export HTML** to download the raw HTML file for use elsewhere.
+
+### Export as Template JSON
+
+Export the complete template configuration for:
+- Backup purposes
+- Sharing with team members
+- Moving between MailGreet accounts
+
+---
+
+## HTML Email Best Practices
+
+<AccordionGroup>
+  <Accordion title="Use Tables for Layout" icon="table">
+    Email clients have inconsistent CSS support. Use `<table>` elements for reliable layouts, not `<div>` or flexbox.
+  </Accordion>
+  
+  <Accordion title="Inline Your CSS" icon="code">
+    Many email clients strip `<head>` styles. Use inline CSS on elements:
+    ```html
+    <p style="font-family: Arial; color: #333;">Text</p>
+    ```
+  </Accordion>
+  
+  <Accordion title="Set Width 600px Max" icon="ruler">
+    Most email clients display best at 600px width. Use `max-width: 600px` for your container.
+  </Accordion>
+  
+  <Accordion title="Always Include Alt Text" icon="image">
+    Images are often blocked by default. Add descriptive `alt` attributes:
+    ```html
+    <img src="..." alt="Product image showing our new feature">
+    ```
+  </Accordion>
+  
+  <Accordion title="Avoid JavaScript" icon="ban">
+    JavaScript is stripped by all email clients. Never rely on JS for functionality.
+  </Accordion>
+  
+  <Accordion title="Use Web-Safe Fonts" icon="font">
+    Stick to web-safe fonts (Arial, Georgia, Times New Roman) or use font stacks with fallbacks.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Testing Your Template
+
+Before using in campaigns:
+
+<Steps>
+  <Step title="Check Live Preview">
+    The right panel shows how your email renders
+  </Step>
+  <Step title="Test on Mobile">
+    Resize your browser to check responsive behavior
+  </Step>
+  <Step title="Send Test Email">
+    When used in a campaign, send a test to yourself
+  </Step>
+  <Step title="Check Multiple Clients">
+    View in Gmail, Outlook, Apple Mail, etc.
+  </Step>
+</Steps>
+
+---
+
+## Common Issues & Solutions
+
+| Issue | Solution |
+|-------|----------|
+| Layout breaks in Outlook | Use table-based layout with `mso-` conditional comments |
+| Images not showing | Use absolute URLs, not relative paths |
+| Fonts look different | Use web-safe fonts with proper fallbacks |
+| Background images not working | Many clients don't support CSS background images |
+| Styles being stripped | Inline all CSS, don't use external stylesheets |
+
+---
+
+## Related Guides
+
+<CardGroup cols={2}>
+  <Card title="Block Editor" icon="cubes" href="/template-editor">
+    No-code visual editor alternative
+  </Card>
+  <Card title="Template Library" icon="palette" href="/pre-built-templates">
+    Browse and manage templates
+  </Card>
+  <Card title="Testing Campaigns" icon="vial" href="/testing-campaigns">
+    Test before sending
+  </Card>
+  <Card title="Create Campaign" icon="paper-plane" href="/create-campaign">
+    Use templates in campaigns
+  </Card>
+</CardGroup>

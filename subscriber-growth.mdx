@@ -1,6 +1,184 @@
-Track subscriber list health:
-- Growth over time
-- Subscription sources
-- Unsubscribe reasons
-- List cleaning metrics
-- Engagement scoring
+---
+title: 'Subscriber Growth'
+description: 'Track and analyze how your subscriber list is growing over time'
+---
+
+# Subscriber Growth
+
+Monitor the health of your subscriber list with growth analytics. Understanding how your list grows and changes helps you make better marketing decisions.
+
+---
+
+## Accessing Growth Analytics
+
+1. Navigate to **Analytics** in the sidebar
+2. Click on **Subscriber Growth** or view growth metrics on your dashboard
+3. Select date ranges to analyze specific periods
+
+---
+
+## Key Growth Metrics
+
+<CardGroup cols={2}>
+  <Card title="Total Subscribers" icon="users">
+    Your complete subscriber count across all groups
+  </Card>
+  <Card title="Net Growth" icon="chart-line">
+    New subscribers minus unsubscribes and removals
+  </Card>
+  <Card title="Growth Rate" icon="percent">
+    Percentage change in list size over time
+  </Card>
+  <Card title="Active Rate" icon="bolt">
+    Percentage of subscribers who are active and engaged
+  </Card>
+</CardGroup>
+
+---
+
+## Growth Timeline
+
+Track subscriber count over time:
+
+| Timeframe | What to Look For |
+|-----------|------------------|
+| **Daily** | Spikes from campaigns or promotions |
+| **Weekly** | Week-over-week trends |
+| **Monthly** | Long-term growth patterns |
+| **Yearly** | Annual growth rate |
+
+<Tip>
+Compare growth during marketing campaigns versus quiet periods to measure campaign effectiveness.
+</Tip>
+
+---
+
+## Acquisition Sources
+
+Understand where your subscribers come from:
+
+<CardGroup cols={3}>
+  <Card title="Import" icon="file-import">
+    Subscribers added via CSV upload
+  </Card>
+  <Card title="Manual Add" icon="user-plus">
+    Individually added subscribers
+  </Card>
+  <Card title="API" icon="code">
+    Subscribers added via API integration
+  </Card>
+  <Card title="Forms" icon="rectangle-list">
+    Signup forms on your website
+  </Card>
+  <Card title="Integrations" icon="plug">
+    Third-party platforms
+  </Card>
+  <Card title="Referral" icon="share-nodes">
+    Word-of-mouth and sharing
+  </Card>
+</CardGroup>
+
+---
+
+## Churn Analysis
+
+Monitor why subscribers leave:
+
+### Unsubscribe Reasons
+
+When subscribers opt out, analyze the reasons:
+
+| Reason | Action to Take |
+|--------|----------------|
+| Too many emails | Reduce sending frequency |
+| Content not relevant | Improve segmentation |
+| Never signed up | Add double opt-in |
+| Changed email | Normal churn, no action needed |
+
+### Calculating Churn Rate
+
+```
+Monthly Churn Rate = (Unsubscribes + Bounces) / Total Subscribers × 100
+```
+
+<Info>
+Healthy churn rates are typically under 2% per month. Higher rates indicate problems to address.
+</Info>
+
+---
+
+## List Health Score
+
+Your overall list health considers:
+
+- **Bounce rate**: Keep under 2%
+- **Unsubscribe rate**: Keep under 0.5% per campaign
+- **Spam complaints**: Keep under 0.1%
+- **Engagement**: Active opens and clicks
+- **Email validity**: Verified addresses
+
+<Tabs>
+  <Tab title="Excellent">
+    - Bounce rate: <1%
+    - High engagement (>30% opens)
+    - Regular list cleaning
+    - Growing steadily
+  </Tab>
+  
+  <Tab title="Good">
+    - Bounce rate: 1-2%
+    - Moderate engagement (15-30% opens)
+    - Occasional list cleaning
+    - Slow growth
+  </Tab>
+  
+  <Tab title="Needs Attention">
+    - Bounce rate: >2%
+    - Low engagement (<15% opens)
+    - List not cleaned recently
+    - Stagnant or declining
+  </Tab>
+</Tabs>
+
+---
+
+## Improving List Growth
+
+<AccordionGroup>
+  <Accordion title="Organic Growth Strategies" icon="seedling">
+    - Add signup forms to your website
+    - Create compelling lead magnets
+    - Run social media campaigns
+    - Partner with complementary businesses
+    - Encourage referrals from existing subscribers
+  </Accordion>
+  
+  <Accordion title="Reduce Unsubscribes" icon="user-check">
+    - Send relevant, valuable content
+    - Let subscribers choose email frequency
+    - Segment for personalized content
+    - Don't email too frequently
+    - Make unsubscribe easy (reduces spam complaints)
+  </Accordion>
+  
+  <Accordion title="Improve List Quality" icon="star">
+    - Use double opt-in
+    - Verify emails before adding
+    - Remove inactive subscribers
+    - Never buy email lists
+    - Regular list cleaning
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Related Analytics
+
+<CardGroup cols={2}>
+  <Card title="Campaign Reports" icon="chart-bar" href="/campaign-reports">
+    Analyze individual campaign performance
+  </Card>
+  <Card title="Engagement Metrics" icon="heart" href="/engagement-metrics">
+    Deep dive into subscriber engagement
+  </Card>
+</CardGroup>
