@@ -1,0 +1,246 @@
+---
+title: 'Error Reference'
+description: 'HTTP errors, JSON-RPC errors, and tool-level errors from the MailGreet MCP server'
+icon: 'triangle-exclamation'
+---
+
+## Error layers
+
+MailGreet MCP has three distinct error layers, each behaving differently. Understanding which layer an error comes from tells you how to fix it.
+
+| Layer | Level | When it occurs |
+|---|---|---|
+| **HTTP errors** | Transport | Auth failures, rate limits — before any JSON-RPC processing |
+| **JSON-RPC errors** | Protocol | Invalid request format, unknown methods |
+| **Tool errors** (`isError: true`) | Application | Permissions, validation, business logic — returned inside a `200 OK` |
+
+---
+
+## HTTP errors
+
+These are standard HTTP responses returned before the JSON-RPC body is even processed.
+
+### 401 Unauthorized
+
+```json
+{"error": "Unauthorized"}
+```
+
+**Causes:**
+- No `Authorization` header provided
+- Header is not in `Bearer mailgreet_xxx` format
+- API key not found (wrong key or typo)
+- API key has been revoked
+- API key has expired
+
+**Fix:** Check the key is correct and still active in [Settings → API & Integrations](https://app.mailgreet.com/settings/integrations). If in doubt, create a new key.
+
+---
+
+### 429 Too Many Requests
+
+```json
+{"message": "Too Many Requests.", "retry_after": 43}
+```
+
+**Cause:** More than **120 requests per minute** from this API key.
+
+**Fix:** Implement exponential backoff. Use the `retry_after` value (in seconds) to know when to retry.
+
+---
+
+### 405 Method Not Allowed
+
+**Cause:** Using `GET`, `PUT`, or any method other than `POST` on the `/mcp` endpoint.
+
+**Fix:** Always use `POST https://api.mailgreet.com/mcp`. The endpoint does not support any other method.
+
+---
+
+## JSON-RPC errors
+
+These are returned when the request structure itself is invalid. HTTP status is always `200` for these — the error is in the response body.
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": null,
+  "error": {
+    "code": -32600,
+    "message": "Invalid Request: missing or invalid jsonrpc version"
+  }
+}
+```
+
+### Error code reference
+
+| Code | Name | Cause |
+|---|---|---|
+| `-32600` | Invalid Request | Missing `"jsonrpc": "2.0"` field, or `method` is not a string |
+| `-32601` | Method Not Found | `method` is not a recognized MCP method (e.g. not `tools/call`, `initialize`, etc.) |
+| `-32602` | Invalid Params | Missing required parameter in `tools/call`, unknown tool name, or `arguments` is not an object |
+| `-32603` | Internal Error | Unexpected server-side exception — file a support ticket if this persists |
+
+### Examples
+
+<AccordionGroup>
+  <Accordion title="Invalid JSON-RPC version">
+    ```json
+    // Request
+    {"jsonrpc": "1.0", "id": 1, "method": "ping"}
+
+    // Response
+    {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "error": {
+        "code": -32600,
+        "message": "Invalid Request: missing or invalid jsonrpc version"
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Unknown method">
+    ```json
+    // Request
+    {"jsonrpc": "2.0", "id": 1, "method": "some/unknown"}
+
+    // Response
+    {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "error": {
+        "code": -32601,
+        "message": "Method not found: some/unknown"
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Unknown tool name">
+    ```json
+    // Request
+    {"jsonrpc": "2.0", "id": 1, "method": "tools/call", "params": {"name": "nonexistent_tool", "arguments": {}}}
+
+    // Response
+    {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "error": {
+        "code": -32602,
+        "message": "Unknown tool: nonexistent_tool"
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Missing required parameter">
+    ```json
+    // Request — add_subscriber requires "email"
+    {"jsonrpc": "2.0", "id": 1, "method": "tools/call", "params": {"name": "add_subscriber", "arguments": {}}}
+
+    // Response
+    {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "error": {
+        "code": -32602,
+        "message": "A valid email address is required"
+      }
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Tool errors (`isError: true`)
+
+When a tool call fails at the application level (permissions, not found, business logic), the MCP spec requires returning **HTTP 200** with a normal JSON-RPC success envelope — but with `isError: true` added. This is intentional MCP behavior: the HTTP transport succeeded; the tool itself reported failure.
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"error\": \"Forbidden\", \"message\": \"API key lacks the required permission: campaigns:read\"}"
+      }
+    ],
+    "isError": true
+  }
+}
+```
+
+### Tool error types
+
+<AccordionGroup>
+  <Accordion title="Permission Denied (Forbidden)">
+    ```json
+    {
+      "error": "Forbidden",
+      "message": "API key lacks the required permission: campaigns:read"
+    }
+    ```
+
+    **Cause:** The API key doesn't have the scope required for the tool being called.
+
+    **Fix:** Add the listed permission to your API key, or create a new key with the correct scopes. See [Authentication → Permission Scopes](/mcp/authentication#permission-scopes).
+  </Accordion>
+
+  <Accordion title="Not Found">
+    ```json
+    {
+      "error": "Subscriber not found"
+    }
+    ```
+
+    **Cause:** The UUID provided doesn't match any record owned by the authenticated account.
+
+    **Fix:** Verify the UUID is correct. All UUIDs in MailGreet are account-scoped — a subscriber UUID from one account cannot be used in another.
+  </Accordion>
+
+  <Accordion title="Validation Error">
+    ```json
+    {
+      "error": "A valid email address is required"
+    }
+    ```
+
+    **Cause:** A required field is missing or has an invalid value (wrong format, invalid enum, etc.).
+
+    **Fix:** Check the tool's parameter table in [Tools Reference](/mcp/tools-reference) for required fields and accepted values.
+  </Accordion>
+
+  <Accordion title="Business Logic Error">
+    ```json
+    {
+      "error": "Only draft campaigns can be updated"
+    }
+    ```
+
+    **Cause:** The operation is not allowed in the current resource state (e.g. trying to edit a sent campaign, or scheduling an already-scheduled campaign).
+
+    **Fix:** Check the current state of the resource before calling write tools.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## How AI clients handle errors
+
+MCP clients (Claude, Cursor, n8n) surface errors differently from a raw HTTP client:
+
+| Error type | What Claude / Cursor shows the user |
+|---|---|
+| HTTP 401 | "Failed to connect to MailGreet" — the client stops and the user needs to fix their API key config |
+| JSON-RPC error | The AI reads the error message and reports it naturally: *"I don't recognize that operation"* |
+| Tool `isError: true` | The AI reads the `content[0].text` and reports it conversationally: *"I don't have permission to read campaigns — you may need to update your API key permissions"* |
+| HTTP 429 | The AI typically waits and retries, or tells the user *"I'm being rate limited — I'll try again in a moment"* |
+
+<Note>
+  For n8n workflows, tool `isError: true` responses will cause the AI Agent node to surface the error text in its output. You can handle these in error branches of your workflow.
+</Note>

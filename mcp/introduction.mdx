@@ -1,0 +1,132 @@
+---
+title: 'MailGreet MCP'
+description: 'Let AI assistants like Claude, Cursor, and n8n talk directly to MailGreet — no code required'
+icon: 'sparkles'
+---
+
+## What is the MailGreet MCP?
+
+**MCP (Model Context Protocol)** is an open standard created by Anthropic that lets AI assistants call external services as native "tools." MailGreet's MCP server means you can connect Claude Desktop, Cursor, Windsurf, n8n, or any MCP-compatible AI client directly to your MailGreet account — using a single URL and your API key.
+
+No custom integration code. No wrappers. The AI discovers your available tools automatically and calls them on your behalf.
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/mcp/quickstart">
+    Connect Claude Desktop, Cursor, or n8n in minutes
+  </Card>
+  <Card title="Authentication" icon="key" href="/mcp/authentication">
+    API keys, permission scopes, and security
+  </Card>
+  <Card title="Tools Reference" icon="wrench" href="/mcp/tools-reference">
+    All 44 tools across 7 categories
+  </Card>
+  <Card title="Error Reference" icon="triangle-exclamation" href="/mcp/errors">
+    HTTP errors, JSON-RPC errors, and tool errors
+  </Card>
+</CardGroup>
+
+---
+
+## What can you do with it?
+
+Instead of writing code against the REST API, you simply describe what you want in natural language:
+
+<AccordionGroup>
+  <Accordion title="Subscriber management" icon="users">
+    - *"Add john@company.com to my newsletter with first name John and add him to the VIP group"*
+    - *"How many active subscribers do I have right now?"*
+    - *"Find all subscribers who signed up in the last 7 days"*
+    - *"Remove Sarah from the Beta Testers group but keep her as a subscriber"*
+    - *"Permanently delete all data for gdpr-request@example.com"*
+  </Accordion>
+  <Accordion title="Campaign management" icon="envelope">
+    - *"Create a draft campaign called 'Black Friday 2026' with subject 'Up to 60% off — today only'"*
+    - *"Schedule my Holiday Sale campaign to send on December 20th at 9am UTC"*
+    - *"Cancel the campaign I scheduled for tomorrow"*
+    - *"Show me all campaigns that are currently in draft status"*
+  </Accordion>
+  <Accordion title="Groups & segments" icon="object-group">
+    - *"Create a new group called 'Product Beta Testers'"*
+    - *"Import these 50 contacts into the Newsletter group: [list]"*
+    - *"Show me all subscribers in the Enterprise Customers segment"*
+    - *"Rename the 'Q4 2025' group to 'Q4 Inactive'"*
+  </Accordion>
+  <Accordion title="Automations & forms" icon="bolt">
+    - *"What automations are currently active?"*
+    - *"Show me the activity for my Welcome Series automation — how many people completed it?"*
+    - *"List all my signup forms and their subscriber counts"*
+    - *"Create a new automation called 'Post-Purchase Follow-up'"*
+  </Accordion>
+  <Accordion title="Webhooks" icon="webhook">
+    - *"Create a webhook that fires on email opens and clicks, sending to https://hooks.myapp.com/mailgreet"*
+    - *"List all my webhook endpoints"*
+    - *"Disable the webhook for my old staging URL"*
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## How it works
+
+MailGreet MCP runs as a single HTTP endpoint that speaks **JSON-RPC 2.0** — the standard protocol that all MCP clients use.
+
+```
+AI Client (Claude / Cursor / n8n)
+         │
+         │  POST https://api.mailgreet.com/mcp
+         │  Authorization: Bearer mailgreet_XXXX
+         ▼
+   MailGreet MCP Server
+         │
+         ├── tools/list   → returns all tools your key can call
+         ├── tools/call   → executes the requested tool
+         └── initialize   → handshake (protocol version, capabilities)
+```
+
+When you configure an MCP client with the MailGreet server URL and your API key:
+1. The client calls `tools/list` — MailGreet returns only the tools your key has permission to use
+2. You describe what you want in natural language
+3. The AI selects the right tool(s) and calls `tools/call` with the correct parameters
+4. MailGreet executes the operation and returns structured data
+5. The AI presents the result in plain language
+
+---
+
+## Server details
+
+| Property | Value |
+|---|---|
+| **Endpoint** | `https://api.mailgreet.com/mcp` |
+| **Method** | `POST` (all MCP traffic) |
+| **Protocol** | JSON-RPC 2.0 over HTTP (Streamable HTTP) |
+| **MCP spec version** | `2025-03-26` |
+| **Authentication** | `Authorization: Bearer mailgreet_XXXX` |
+| **Total tools** | 44 across 7 categories |
+| **Rate limit** | 120 requests per minute |
+
+---
+
+## Supported clients
+
+MailGreet MCP works with any MCP-compatible client:
+
+<CardGroup cols={3}>
+  <Card title="Claude Desktop" icon="robot">
+    Full natural language access to your MailGreet account via Anthropic's Claude
+  </Card>
+  <Card title="Cursor" icon="code">
+    Use MailGreet tools directly from your code editor's AI chat
+  </Card>
+  <Card title="Windsurf" icon="wind">
+    Configure once in `~/.codeium/windsurf/mcp_config.json`
+  </Card>
+  <Card title="n8n" icon="diagram-project">
+    Add MailGreet as a tool to any AI Agent node in your workflows
+  </Card>
+  <Card title="Custom HTTP client" icon="terminal">
+    Any client that speaks JSON-RPC 2.0 over HTTP works
+  </Card>
+  <Card title="More coming" icon="ellipsis">
+    Any future MCP-compatible tool will work with no changes on your end
+  </Card>
+</CardGroup>

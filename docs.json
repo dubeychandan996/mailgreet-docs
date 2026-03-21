@@ -136,6 +136,31 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "MCP",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "mcp/introduction"
+            ]
+          },
+          {
+            "group": "Setup",
+            "pages": [
+              "mcp/quickstart",
+              "mcp/authentication"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "mcp/tools-reference",
+              "mcp/errors"
+            ]
+          }
+        ]
       }
     ],
     "global": {
