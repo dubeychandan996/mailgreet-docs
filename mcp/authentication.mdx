@@ -1,0 +1,162 @@
+---
+title: 'Authentication'
+description: 'API keys, permission scopes, and access control for the MailGreet MCP server'
+icon: 'key'
+---
+
+## Overview
+
+MailGreet MCP uses **API key authentication** — the same system as the REST API. There are no OAuth flows or session cookies. Create a key in the dashboard, paste it into your MCP client config, and you're connected.
+
+Every MCP request must include your key as a Bearer token:
+
+```http
+POST https://api.mailgreet.com/mcp
+Authorization: Bearer mailgreet_xxxxxxxxxxxxxxxxxxxx
+Content-Type: application/json
+```
+
+---
+
+## Creating an API Key
+
+<Steps>
+  <Step title="Open API settings">
+    Log in to MailGreet and go to **Settings → API & Integrations → API Keys**.
+  </Step>
+
+  <Step title="Create a new key">
+    Click **Create New Key**, give it a descriptive name (e.g. `Claude Desktop`, `n8n Workflow`, `Read-Only Assistant`), and select the permission scopes needed.
+  </Step>
+
+  <Step title="Copy your key immediately">
+    The raw key is displayed **only once** at creation time. Copy it now.
+
+    <Warning>
+      After closing the creation dialog, you cannot retrieve the key value again. If you lose it, you'll need to create a new key and revoke the old one.
+    </Warning>
+  </Step>
+
+  <Step title="Paste into your MCP client config">
+    Add the key to your Claude Desktop, Cursor, or n8n config. See [Quickstart](/mcp/quickstart) for format.
+  </Step>
+</Steps>
+
+### Key format
+
+All MailGreet API keys follow this format:
+
+```
+mailgreet_27c9b5c6e7279bda2333606012694b39
+```
+
+That's `mailgreet_` followed by exactly 32 lowercase hex characters — 42 characters total.
+
+---
+
+## Permission Scopes
+
+API keys are scoped to specific resources. When you call `tools/list`, MailGreet only returns the tools your key has permission to call. Calling a tool without the required scope returns a Forbidden error.
+
+### Available scopes
+
+| Scope | Tools unlocked |
+|---|---|
+| `subscribers:read` | `list_subscribers`, `get_subscriber`, `get_subscriber_count`, `get_subscriber_activity`, `get_single_import`, `list_segments`, `get_subscribers_in_segment` |
+| `subscribers:write` | `add_subscriber`, `update_subscriber`, `delete_subscriber`, `forget_subscriber`, `assign_subscriber_to_group`, `unassign_subscriber_from_group`, `import_subscribers_to_group`, `update_segment`, `delete_segment` |
+| `campaigns:read` | `get_campaign`, `list_campaigns`, `get_campaign_subscribers` |
+| `campaigns:write` | `create_campaign`, `update_campaign`, `delete_campaign`, `schedule_campaign`, `cancel_campaign` |
+| `groups:read` | `list_groups`, `get_group_subscribers` |
+| `groups:write` | `create_group`, `update_group`, `delete_group` |
+| `webhooks:read` | `list_webhooks`, `get_webhook` |
+| `webhooks:write` | `create_webhook`, `update_webhook`, `delete_webhook` |
+| `automations:read` | `list_automations`, `get_automation`, `get_automation_activity` |
+| `automations:write` | `create_automation`, `delete_automation` |
+| `forms:read` | `list_forms`, `get_form`, `get_form_subscribers` |
+| `forms:write` | `update_form`, `delete_form` |
+| `*` | **Full access** — all 44 tools |
+
+### Scope patterns
+
+| Pattern in key permissions | What it permits |
+|---|---|
+| `*` | Every tool |
+| `subscribers:*` | All subscriber tools (read + write) |
+| `subscribers:read` | Only subscriber read tools |
+
+---
+
+## Recommended key configurations
+
+<AccordionGroup>
+  <Accordion title="Read-only AI assistant (safest for shared setups)" icon="eye">
+    The AI can answer questions about your data but cannot modify anything.
+
+    **Scopes to enable:**
+    ```
+    subscribers:read
+    campaigns:read
+    automations:read
+    forms:read
+    groups:read
+    webhooks:read
+    ```
+
+    **Good for:** Claude assistants used by team members who shouldn't have write access.
+  </Accordion>
+
+  <Accordion title="Full automation agent (most powerful)" icon="bolt">
+    The AI can read and write everything.
+
+    **Scopes to enable:**
+    ```
+    * (wildcard — full access)
+    ```
+
+    **Good for:** Personal Claude Desktop setup, trusted n8n workflows, developers building on MCP.
+
+    <Warning>
+      Only use `*` in private, trusted setups. Anyone who has this key can modify all your subscribers, campaigns, and automations.
+    </Warning>
+  </Accordion>
+
+  <Accordion title="Campaign manager only" icon="envelope">
+    Can create, edit, schedule, and cancel campaigns. Cannot touch automations, forms, or webhooks.
+
+    **Scopes to enable:**
+    ```
+    campaigns:read
+    campaigns:write
+    subscribers:read
+    groups:read
+    ```
+  </Accordion>
+
+  <Accordion title="Subscriber import bot" icon="file-import">
+    Can add, update, and delete subscribers and manage groups. Cannot access campaigns.
+
+    **Scopes to enable:**
+    ```
+    subscribers:write
+    subscribers:read
+    groups:write
+    groups:read
+    ```
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Revoking a key
+
+Go to **Settings → API & Integrations → API Keys** and click the revoke button next to any key. Revoked keys stop working immediately — any active MCP session using a revoked key will receive a `401 Unauthorized` error on its next request.
+
+---
+
+## Security best practices
+
+- **Name your keys clearly** — `Claude Desktop (personal)` is better than `Key 1`
+- **One key per client** — use separate keys for Claude Desktop, n8n, and any automation, so you can revoke individual access without disrupting others
+- **Minimum scope** — only grant the scopes each client actually needs
+- **Never commit keys to source code** — use environment variables or secret managers for programmatic clients
+- **Rotate periodically** — create a new key and revoke the old one if you suspect a key was exposed

@@ -1,0 +1,766 @@
+---
+title: 'Tools Reference'
+description: 'Complete reference for all 44 MailGreet MCP tools across 7 categories'
+icon: 'wrench'
+---
+
+## Overview
+
+The MailGreet MCP server exposes **44 tools** across 7 categories. Your API key controls which tools are available — `tools/list` only returns tools the key has permission to call.
+
+<CardGroup cols={4}>
+  <Card title="Subscribers" icon="users">9 tools</Card>
+  <Card title="Campaigns" icon="envelope">8 tools</Card>
+  <Card title="Groups" icon="object-group">8 tools</Card>
+  <Card title="Webhooks" icon="webhook">5 tools</Card>
+  <Card title="Automations" icon="bolt">5 tools</Card>
+  <Card title="Forms" icon="rectangle-list">5 tools</Card>
+  <Card title="Segments" icon="filter">4 tools</Card>
+</CardGroup>
+
+---
+
+## Response format
+
+Every tool call returns a JSON-RPC result with a `content` array:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"success\": true, \"data\": {...}, \"meta\": {...}}"
+      }
+    ]
+  }
+}
+```
+
+The `text` field contains a JSON-encoded string with the actual data. On error, `isError: true` is added to the result and `text` contains `{"error": "...", "message": "..."}`.
+
+## Pagination
+
+All `list_*` tools support these parameters:
+
+| Parameter | Type | Default | Max |
+|---|---|---|---|
+| `page` | integer | 1 | — |
+| `per_page` | integer | 25 | 100 |
+
+Paginated responses include a `meta` block:
+
+```json
+{
+  "meta": {
+    "current_page": 1,
+    "last_page": 4,
+    "total": 87
+  }
+}
+```
+
+---
+
+## Subscribers
+
+**9 tools** · Required permission: `subscribers:read` or `subscribers:write`
+
+<AccordionGroup>
+  <Accordion title="add_subscriber" icon="user-plus">
+    **Permission:** `subscribers:write`
+
+    Add a new subscriber or update an existing one by email (upsert). If the email already exists, the record is updated with the provided fields — existing custom fields not mentioned are kept.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `email` | string | ✅ | Subscriber email address |
+    | `first_name` | string | — | First name |
+    | `last_name` | string | — | Last name |
+    | `status` | string | — | `active`, `unsubscribed`, or `unconfirmed` |
+    | `groups` | string[] | — | Array of group UUIDs to add subscriber to |
+    | `custom_fields` | object | — | Key-value pairs for custom fields |
+
+    **Example:**
+    ```json
+    {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "method": "tools/call",
+      "params": {
+        "name": "add_subscriber",
+        "arguments": {
+          "email": "alice@example.com",
+          "first_name": "Alice",
+          "last_name": "Smith",
+          "status": "active",
+          "groups": ["a753d1f1-2cae-44b6-9ca1-7ce4380bc43f"],
+          "custom_fields": { "company": "Acme Corp", "plan": "pro" }
+        }
+      }
+    }
+    ```
+
+    **Success response:**
+    ```json
+    {
+      "success": true,
+      "data": {
+        "id": "b812e3a4-...",
+        "email": "alice@example.com",
+        "first_name": "Alice",
+        "last_name": "Smith",
+        "status": "active",
+        "created_at": "2026-03-21T10:00:00Z"
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="get_subscriber" icon="user">
+    **Permission:** `subscribers:read`
+
+    Get full details about a subscriber by their UUID or email.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `subscriber_id` | string | — | Subscriber UUID |
+    | `email` | string | — | Subscriber email |
+
+    <Note>One of `subscriber_id` or `email` must be provided.</Note>
+  </Accordion>
+
+  <Accordion title="update_subscriber" icon="user-pen">
+    **Permission:** `subscribers:write`
+
+    Update an existing subscriber's fields. Only provided fields are changed — others are untouched.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `subscriber_id` | string | ✅ | Subscriber UUID |
+    | `email` | string | — | New email address |
+    | `first_name` | string | — | First name |
+    | `last_name` | string | — | Last name |
+    | `status` | string | — | `active`, `unsubscribed`, or `unconfirmed` |
+    | `custom_fields` | object | — | Fields to update (merged, not replaced) |
+  </Accordion>
+
+  <Accordion title="list_subscribers" icon="users">
+    **Permission:** `subscribers:read`
+
+    List subscribers with optional filtering. Returns paginated results.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `status` | string | — | `active`, `unsubscribed`, `bounced`, `junk`, `unconfirmed` |
+    | `search` | string | — | Search by email or name |
+    | `group_id` | string | — | Filter by group UUID |
+    | `page` | integer | — | Page number (default: 1) |
+    | `per_page` | integer | — | Per page (default: 25, max: 100) |
+  </Accordion>
+
+  <Accordion title="get_subscriber_activity" icon="clock-rotate-left">
+    **Permission:** `subscribers:read`
+
+    Get the activity history for a subscriber: email opens, clicks, sends, unsubscribes, and more.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `subscriber_id` | string | ✅ | Subscriber UUID |
+    | `page` | integer | — | Page number |
+    | `per_page` | integer | — | Per page |
+  </Accordion>
+
+  <Accordion title="get_subscriber_count" icon="hash">
+    **Permission:** `subscribers:read`
+
+    Get the total count of subscribers, optionally filtered by status.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `status` | string | — | `active`, `unsubscribed`, `bounced`, `junk`, `unconfirmed` |
+
+    **Success response:**
+    ```json
+    {
+      "success": true,
+      "data": {
+        "total": 22,
+        "status": "all"
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="delete_subscriber" icon="user-minus">
+    **Permission:** `subscribers:write`
+
+    Delete a subscriber. Historical activity data (opens, clicks) is retained. The subscriber can re-subscribe later.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `subscriber_id` | string | ✅ | Subscriber UUID |
+  </Accordion>
+
+  <Accordion title="forget_subscriber" icon="eraser">
+    **Permission:** `subscribers:write`
+
+    <Warning>
+      **GDPR right-to-erasure tool.** Completely removes a subscriber and all associated data including activity history, custom fields, and group memberships. This action is **irreversible**.
+    </Warning>
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `subscriber_id` | string | ✅ | Subscriber UUID |
+  </Accordion>
+
+  <Accordion title="get_single_import" icon="file-import">
+    **Permission:** `subscribers:read`
+
+    Get the status and details of a subscriber import job created via `import_subscribers_to_group`.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `import_id` | string | ✅ | Import job ID |
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Campaigns
+
+**8 tools** · Required permission: `campaigns:read` or `campaigns:write`
+
+<AccordionGroup>
+  <Accordion title="create_campaign" icon="plus">
+    **Permission:** `campaigns:write`
+
+    Create a new email campaign in draft status.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `name` | string | ✅ | Campaign name (internal) |
+    | `subject` | string | ✅ | Email subject line |
+    | `from_name` | string | — | Sender display name |
+    | `from_email` | string | — | Sender email address |
+    | `type` | string | — | `regular` (default), `ab`, or `resend` |
+    | `content_html` | string | — | Full HTML body |
+    | `groups` | string[] | — | Group UUIDs to send to |
+    | `segments` | string[] | — | Segment UUIDs to send to |
+  </Accordion>
+
+  <Accordion title="get_campaign" icon="envelope-open-text">
+    **Permission:** `campaigns:read`
+
+    Get full details about a campaign including delivery stats.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `campaign_id` | string | ✅ | Campaign UUID |
+  </Accordion>
+
+  <Accordion title="list_campaigns" icon="envelopes-bulk">
+    **Permission:** `campaigns:read`
+
+    List campaigns with optional filtering.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `status` | string | — | `draft`, `scheduled`, `sending`, `sent`, `cancelled` |
+    | `type` | string | — | `regular`, `ab`, `resend` |
+    | `page` | integer | — | Page number |
+    | `per_page` | integer | — | Per page |
+  </Accordion>
+
+  <Accordion title="update_campaign" icon="pen-to-square">
+    **Permission:** `campaigns:write`
+
+    Update a campaign's details. Only **draft** campaigns can be updated.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `campaign_id` | string | ✅ | Campaign UUID |
+    | `name` | string | — | Campaign name |
+    | `subject` | string | — | Subject line |
+    | `from_name` | string | — | Sender name |
+    | `from_email` | string | — | Sender email |
+    | `content_html` | string | — | HTML content |
+  </Accordion>
+
+  <Accordion title="delete_campaign" icon="trash">
+    **Permission:** `campaigns:write`
+
+    Delete a campaign. Only **draft** or **cancelled** campaigns can be deleted.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `campaign_id` | string | ✅ | Campaign UUID |
+  </Accordion>
+
+  <Accordion title="schedule_campaign" icon="calendar-clock">
+    **Permission:** `campaigns:write`
+
+    Schedule a draft campaign to send at a specific future time.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `campaign_id` | string | ✅ | Campaign UUID |
+    | `scheduled_at` | string | ✅ | ISO 8601 datetime — e.g. `2026-12-25T09:00:00Z` |
+  </Accordion>
+
+  <Accordion title="cancel_campaign" icon="ban">
+    **Permission:** `campaigns:write`
+
+    Cancel a scheduled campaign, returning it to draft status.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `campaign_id` | string | ✅ | Campaign UUID |
+  </Accordion>
+
+  <Accordion title="get_campaign_subscribers" icon="users">
+    **Permission:** `campaigns:read`
+
+    Get the list of subscribers who received a specific campaign.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `campaign_id` | string | ✅ | Campaign UUID |
+    | `page` | integer | — | Page number |
+    | `per_page` | integer | — | Per page |
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Groups
+
+**8 tools** · Required permission: `groups:read` or `groups:write`
+
+<AccordionGroup>
+  <Accordion title="list_groups" icon="list">
+    **Permission:** `groups:read`
+
+    List all subscriber groups.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `page` | integer | — | Page number |
+    | `per_page` | integer | — | Per page |
+  </Accordion>
+
+  <Accordion title="create_group" icon="plus">
+    **Permission:** `groups:write`
+
+    Create a new subscriber group.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `name` | string | ✅ | Group name |
+
+    **Success response:**
+    ```json
+    {
+      "success": true,
+      "data": {
+        "id": "a753d1f1-2cae-44b6-9ca1-7ce4380bc43f",
+        "name": "VIP Customers",
+        "subscribers_count": 0,
+        "created_at": "2026-03-21T10:00:00Z"
+      }
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="update_group" icon="pen-to-square">
+    **Permission:** `groups:write`
+
+    Rename a subscriber group.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `group_id` | string | ✅ | Group UUID |
+    | `name` | string | ✅ | New name |
+  </Accordion>
+
+  <Accordion title="delete_group" icon="trash">
+    **Permission:** `groups:write`
+
+    Delete a group. Subscribers in the group are **not** deleted — only their group membership is removed.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `group_id` | string | ✅ | Group UUID |
+  </Accordion>
+
+  <Accordion title="get_group_subscribers" icon="users">
+    **Permission:** `groups:read`
+
+    Get all subscribers in a group.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `group_id` | string | ✅ | Group UUID |
+    | `page` | integer | — | Page number |
+    | `per_page` | integer | — | Per page |
+  </Accordion>
+
+  <Accordion title="assign_subscriber_to_group" icon="user-plus">
+    **Permission:** `subscribers:write`
+
+    Add a subscriber to a group.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `subscriber_id` | string | ✅ | Subscriber UUID |
+    | `group_id` | string | ✅ | Group UUID |
+  </Accordion>
+
+  <Accordion title="unassign_subscriber_from_group" icon="user-minus">
+    **Permission:** `subscribers:write`
+
+    Remove a subscriber from a group. The subscriber record is not deleted.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `subscriber_id` | string | ✅ | Subscriber UUID |
+    | `group_id` | string | ✅ | Group UUID |
+  </Accordion>
+
+  <Accordion title="import_subscribers_to_group" icon="file-import">
+    **Permission:** `subscribers:write`
+
+    Bulk upsert up to **1,000 subscribers** into a group per call. Creates new subscribers if the email doesn't exist, or updates existing ones.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `group_id` | string | ✅ | Group UUID |
+    | `subscribers` | array | ✅ | Array of subscriber objects (see below) |
+
+    Each subscriber object in the array:
+    ```json
+    {
+      "email": "bob@example.com",
+      "first_name": "Bob",
+      "last_name": "Jones",
+      "custom_fields": { "plan": "starter" }
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Webhooks
+
+**5 tools** · Required permission: `webhooks:read` or `webhooks:write`
+
+<AccordionGroup>
+  <Accordion title="list_webhooks" icon="list">
+    **Permission:** `webhooks:read`
+
+    List all configured webhook endpoints.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `page` | integer | — | Page number |
+    | `per_page` | integer | — | Per page |
+  </Accordion>
+
+  <Accordion title="get_webhook" icon="eye">
+    **Permission:** `webhooks:read`
+
+    Get details of a specific webhook.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `webhook_id` | string | ✅ | Webhook UUID |
+  </Accordion>
+
+  <Accordion title="create_webhook" icon="plus">
+    **Permission:** `webhooks:write`
+
+    Create a new webhook endpoint. MailGreet will POST to the provided URL when selected events occur.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `url` | string | ✅ | Endpoint URL to receive POST requests |
+    | `name` | string | — | Friendly name |
+    | `events` | string[] | — | Array of event types to subscribe to |
+    | `all_events` | boolean | — | Subscribe to all events (overrides `events` array) |
+
+    **Available event types:**
+    - `email.delivery.sent` · `email.delivery.opened` · `email.delivery.clicked`
+    - `email.delivery.bounced` · `email.delivery.complained` · `email.delivery.unsubscribed`
+    - `api_email.sent` · `api_email.delivered` · `api_email.opened` · `api_email.clicked`
+    - `api_email.bounced` · `api_email.failed`
+  </Accordion>
+
+  <Accordion title="update_webhook" icon="pen-to-square">
+    **Permission:** `webhooks:write`
+
+    Update a webhook's URL, events, or enabled status.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `webhook_id` | string | ✅ | Webhook UUID |
+    | `name` | string | — | Webhook name |
+    | `url` | string | — | New URL |
+    | `events` | string[] | — | New events list |
+    | `is_active` | boolean | — | `true` to enable, `false` to disable |
+  </Accordion>
+
+  <Accordion title="delete_webhook" icon="trash">
+    **Permission:** `webhooks:write`
+
+    Delete a webhook endpoint permanently.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `webhook_id` | string | ✅ | Webhook UUID |
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Automations
+
+**5 tools** · Required permission: `automations:read` or `automations:write`
+
+<AccordionGroup>
+  <Accordion title="list_automations" icon="list">
+    **Permission:** `automations:read`
+
+    List all automations.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `status` | string | — | `active`, `draft`, `disabled` |
+    | `enabled` | boolean | — | Filter by enabled state |
+    | `search` | string | — | Search by name |
+    | `page` | integer | — | Page number |
+    | `per_page` | integer | — | Per page |
+  </Accordion>
+
+  <Accordion title="get_automation" icon="eye">
+    **Permission:** `automations:read`
+
+    Get details about an automation including its trigger configuration and workflow steps.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `automation_id` | string | ✅ | Automation UUID |
+  </Accordion>
+
+  <Accordion title="get_automation_activity" icon="clock-rotate-left">
+    **Permission:** `automations:read`
+
+    Get subscriber activity within an automation — who entered, who completed, who is currently active.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `automation_id` | string | ✅ | Automation UUID |
+    | `status` | string | — | `active`, `completed`, `cancelled`, `failed` |
+    | `page` | integer | — | Page number |
+    | `per_page` | integer | — | Per page |
+  </Accordion>
+
+  <Accordion title="create_automation" icon="plus">
+    **Permission:** `automations:write`
+
+    Create a new automation in draft status.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `name` | string | ✅ | Automation name |
+    | `trigger_type` | string | — | Trigger type (see below) |
+    | `trigger_config` | object | — | Trigger configuration object |
+    | `description` | string | — | Optional description |
+
+    **Available trigger types:**
+    `subscriber_joins_group` · `completes_form` · `joins_segment` · `clicks_link` · `updates_field` · `event_anniversary` · `exact_date` · `api_called`
+  </Accordion>
+
+  <Accordion title="delete_automation" icon="trash">
+    **Permission:** `automations:write`
+
+    Delete an automation and all related steps, triggers, and subscriber history.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `automation_id` | string | ✅ | Automation UUID |
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Forms
+
+**5 tools** · Required permission: `forms:read` or `forms:write`
+
+<AccordionGroup>
+  <Accordion title="list_forms" icon="list">
+    **Permission:** `forms:read`
+
+    List all signup forms.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `type` | string | — | `popup`, `embedded`, or `promotion` |
+    | `page` | integer | — | Page number |
+    | `per_page` | integer | — | Per page |
+  </Accordion>
+
+  <Accordion title="get_form" icon="eye">
+    **Permission:** `forms:read`
+
+    Get detailed information about a specific form.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `form_id` | string | ✅ | Form UUID |
+  </Accordion>
+
+  <Accordion title="update_form" icon="pen-to-square">
+    **Permission:** `forms:write`
+
+    Update a form's name.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `form_id` | string | ✅ | Form UUID |
+    | `name` | string | ✅ | New form name |
+  </Accordion>
+
+  <Accordion title="delete_form" icon="trash">
+    **Permission:** `forms:write`
+
+    Delete a form permanently.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `form_id` | string | ✅ | Form UUID |
+  </Accordion>
+
+  <Accordion title="get_form_subscribers" icon="users">
+    **Permission:** `forms:read`
+
+    Get the list of subscribers who signed up through a specific form.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `form_id` | string | ✅ | Form UUID |
+    | `page` | integer | — | Page number |
+    | `per_page` | integer | — | Per page |
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Segments
+
+**4 tools** · Required permission: `subscribers:read` or `subscribers:write`
+
+<Note>
+  Segments use subscriber scopes (not a dedicated `segments:*` scope) because segments are a filtered view over subscriber data.
+</Note>
+
+<AccordionGroup>
+  <Accordion title="list_segments" icon="list">
+    **Permission:** `subscribers:read`
+
+    List all subscriber segments with their subscriber counts.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `page` | integer | — | Page number |
+    | `per_page` | integer | — | Per page |
+  </Accordion>
+
+  <Accordion title="get_subscribers_in_segment" icon="users">
+    **Permission:** `subscribers:read`
+
+    Get subscribers matching a segment's filter criteria.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `segment_id` | string | ✅ | Segment UUID |
+    | `status` | string | — | `active`, `unsubscribed`, `bounced`, `junk` |
+    | `page` | integer | — | Page number |
+    | `per_page` | integer | — | Per page |
+  </Accordion>
+
+  <Accordion title="update_segment" icon="pen-to-square">
+    **Permission:** `subscribers:write`
+
+    Rename a segment.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `segment_id` | string | ✅ | Segment UUID |
+    | `name` | string | ✅ | New segment name |
+  </Accordion>
+
+  <Accordion title="delete_segment" icon="trash">
+    **Permission:** `subscribers:write`
+
+    Delete a segment. Subscribers are not affected.
+
+    | Parameter | Type | Required | Description |
+    |---|---|---|---|
+    | `segment_id` | string | ✅ | Segment UUID |
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## All tools at a glance
+
+| Tool | Category | Required Permission |
+|---|---|---|
+| `add_subscriber` | Subscribers | `subscribers:write` |
+| `get_subscriber` | Subscribers | `subscribers:read` |
+| `update_subscriber` | Subscribers | `subscribers:write` |
+| `list_subscribers` | Subscribers | `subscribers:read` |
+| `get_subscriber_activity` | Subscribers | `subscribers:read` |
+| `get_subscriber_count` | Subscribers | `subscribers:read` |
+| `delete_subscriber` | Subscribers | `subscribers:write` |
+| `forget_subscriber` | Subscribers | `subscribers:write` |
+| `get_single_import` | Subscribers | `subscribers:read` |
+| `create_campaign` | Campaigns | `campaigns:write` |
+| `get_campaign` | Campaigns | `campaigns:read` |
+| `list_campaigns` | Campaigns | `campaigns:read` |
+| `update_campaign` | Campaigns | `campaigns:write` |
+| `delete_campaign` | Campaigns | `campaigns:write` |
+| `schedule_campaign` | Campaigns | `campaigns:write` |
+| `cancel_campaign` | Campaigns | `campaigns:write` |
+| `get_campaign_subscribers` | Campaigns | `campaigns:read` |
+| `list_groups` | Groups | `groups:read` |
+| `create_group` | Groups | `groups:write` |
+| `update_group` | Groups | `groups:write` |
+| `delete_group` | Groups | `groups:write` |
+| `get_group_subscribers` | Groups | `groups:read` |
+| `assign_subscriber_to_group` | Groups | `subscribers:write` |
+| `unassign_subscriber_from_group` | Groups | `subscribers:write` |
+| `import_subscribers_to_group` | Groups | `subscribers:write` |
+| `list_webhooks` | Webhooks | `webhooks:read` |
+| `get_webhook` | Webhooks | `webhooks:read` |
+| `create_webhook` | Webhooks | `webhooks:write` |
+| `update_webhook` | Webhooks | `webhooks:write` |
+| `delete_webhook` | Webhooks | `webhooks:write` |
+| `list_automations` | Automations | `automations:read` |
+| `get_automation` | Automations | `automations:read` |
+| `get_automation_activity` | Automations | `automations:read` |
+| `create_automation` | Automations | `automations:write` |
+| `delete_automation` | Automations | `automations:write` |
+| `list_forms` | Forms | `forms:read` |
+| `get_form` | Forms | `forms:read` |
+| `update_form` | Forms | `forms:write` |
+| `delete_form` | Forms | `forms:write` |
+| `get_form_subscribers` | Forms | `forms:read` |
+| `list_segments` | Segments | `subscribers:read` |
+| `get_subscribers_in_segment` | Segments | `subscribers:read` |
+| `update_segment` | Segments | `subscribers:write` |
+| `delete_segment` | Segments | `subscribers:write` |

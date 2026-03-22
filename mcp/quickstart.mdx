@@ -1,0 +1,296 @@
+---
+title: 'Quickstart'
+description: 'Connect Claude Desktop, Cursor, n8n, or any MCP client to MailGreet in minutes'
+icon: 'rocket'
+---
+
+## Before you start
+
+You need two things:
+
+1. A **MailGreet account** — [sign up free](https://mailgreet.com)
+2. A **MailGreet API key** — create one in [Settings → API & Integrations → API Keys](https://app.mailgreet.com/settings/integrations)
+
+<Note>
+  When creating your API key, select the permission scopes you need. For general AI assistant use, selecting all scopes or using `*` (full access) is fine for a private personal key. See [Authentication](/mcp/authentication) for scope details.
+</Note>
+
+---
+
+## Option 1: Claude Desktop
+
+<Steps>
+  <Step title="Find the config file">
+    Open the Claude Desktop config directory:
+
+    <CodeGroup>
+    ```bash macOS
+    open ~/Library/Application\ Support/Claude/
+    ```
+
+    ```bash Windows
+    # Navigate to: %APPDATA%\Claude\
+    ```
+    </CodeGroup>
+  </Step>
+
+  <Step title="Edit claude_desktop_config.json">
+    Create or open `claude_desktop_config.json` and add the MailGreet server:
+
+    ```json claude_desktop_config.json
+    {
+      "mcpServers": {
+        "mailgreet": {
+          "url": "https://api.mailgreet.com/mcp",
+          "headers": {
+            "Authorization": "Bearer mailgreet_YOUR_API_KEY_HERE"
+          }
+        }
+      }
+    }
+    ```
+
+    Replace `mailgreet_YOUR_API_KEY_HERE` with your actual API key.
+  </Step>
+
+  <Step title="Restart Claude Desktop">
+    Quit Claude Desktop completely and reopen it. The config is loaded at startup.
+  </Step>
+
+  <Step title="Test it">
+    In a new conversation, look for the 🔧 tools indicator. Then try:
+
+    > *"How many active subscribers do I have in MailGreet?"*
+
+    Claude will call the `get_subscriber_count` tool automatically and return your count.
+  </Step>
+</Steps>
+
+### Example prompts to try
+
+Once connected, Claude can handle natural language requests like these:
+
+```
+"Add john@company.com to my newsletter with first name John, 
+last name Smith, and add him to the VIP Customers group."
+```
+
+```
+"Show me all my campaigns that are in draft status."
+```
+
+```
+"Schedule my 'Holiday Sale' campaign to send on December 20th at 9am UTC."
+```
+
+```
+"Create a new group called 'Black Friday 2026' and import these contacts: 
+alice@example.com, bob@example.com, carol@example.com"
+```
+
+---
+
+## Option 2: Cursor
+
+<Steps>
+  <Step title="Create the MCP config file">
+    For **project-level** access, create `.cursor/mcp.json` in your project root.
+    For **global** access (available in all projects), create `~/.cursor/mcp.json`.
+
+    ```json .cursor/mcp.json
+    {
+      "mcpServers": {
+        "mailgreet": {
+          "url": "https://api.mailgreet.com/mcp",
+          "headers": {
+            "Authorization": "Bearer mailgreet_YOUR_API_KEY_HERE"
+          }
+        }
+      }
+    }
+    ```
+  </Step>
+
+  <Step title="Reload the window">
+    Press `Cmd+Shift+P` (macOS) or `Ctrl+Shift+P` (Windows/Linux), then run **Reload Window**.
+  </Step>
+
+  <Step title="Verify in Cursor Chat">
+    Open Cursor Chat and type:
+
+    > *"Use MailGreet to list my subscriber groups."*
+
+    Cursor will discover the `list_groups` tool and return your groups.
+  </Step>
+</Steps>
+
+---
+
+## Option 3: Windsurf
+
+Windsurf uses a global MCP config file:
+
+**Config file location:** `~/.codeium/windsurf/mcp_config.json`
+
+```json mcp_config.json
+{
+  "mcpServers": {
+    "mailgreet": {
+      "serverUrl": "https://api.mailgreet.com/mcp",
+      "headers": {
+        "Authorization": "Bearer mailgreet_YOUR_API_KEY_HERE"
+      }
+    }
+  }
+}
+```
+
+Restart Windsurf after saving the config.
+
+---
+
+## Option 4: n8n AI Agent
+
+n8n supports MCP tools natively via the **MCP Client Tool** node.
+
+<Steps>
+  <Step title="Add an AI Agent node">
+    Open your n8n workflow and add an **AI Agent** node.
+  </Step>
+
+  <Step title="Add the MCP Client Tool">
+    Under **Tools** in the AI Agent node, click **Add Tool** and select **MCP Client Tool**.
+  </Step>
+
+  <Step title="Configure the tool">
+    Fill in the following settings:
+
+    | Field | Value |
+    |---|---|
+    | **Server URL** | `https://api.mailgreet.com/mcp` |
+    | **Authentication** | Custom Header |
+    | **Header Name** | `Authorization` |
+    | **Header Value** | `Bearer mailgreet_YOUR_API_KEY_HERE` |
+
+  </Step>
+
+  <Step title="Write your agent prompt">
+    The AI Agent will automatically call `tools/list` and discover all MailGreet tools it has permission to use.
+
+    **Example workflow:**
+
+    **Trigger:** New row added to Google Sheets  
+    **Agent prompt:**
+    > *"Add the subscriber from the sheet row to MailGreet and assign them to the 'Newsletter' group. Email: `{{ $json.email }}`, Name: `{{ $json.name }}`."*
+
+    The agent will automatically call `add_subscriber` → `assign_subscriber_to_group`.
+  </Step>
+</Steps>
+
+### Example n8n use cases
+
+- **CRM sync:** When a deal closes in your CRM, add the contact to MailGreet and assign them to an onboarding group
+- **Form submissions:** When someone fills a Typeform, add them as a MailGreet subscriber with custom field data
+- **Scheduled reports:** Every Monday, ask the agent to summarize your subscriber growth and campaign stats from the past week
+- **Bulk cleanup:** Filter a spreadsheet of emails and ask the agent to unsubscribe or delete them from MailGreet
+
+---
+
+## Option 5: Direct HTTP (custom clients)
+
+For developers building their own MCP clients or testing manually.
+
+### Step 1 — Handshake
+
+```bash
+curl -X POST https://api.mailgreet.com/mcp \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer mailgreet_YOUR_API_KEY" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "initialize",
+    "params": {
+      "protocolVersion": "2025-03-26",
+      "capabilities": {},
+      "clientInfo": { "name": "my-client", "version": "1.0" }
+    }
+  }'
+```
+
+Expected response:
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "protocolVersion": "2025-03-26",
+    "serverInfo": { "name": "mailgreet", "version": "1.0.0" },
+    "capabilities": { "tools": {} }
+  }
+}
+```
+
+### Step 2 — Discover available tools
+
+```bash
+curl -X POST https://api.mailgreet.com/mcp \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer mailgreet_YOUR_API_KEY" \
+  -d '{"jsonrpc": "2.0", "id": 2, "method": "tools/list"}'
+```
+
+Returns a JSON array of all tools your API key has permission to call, with their full JSON Schema definitions.
+
+### Step 3 — Call a tool
+
+```bash
+curl -X POST https://api.mailgreet.com/mcp \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer mailgreet_YOUR_API_KEY" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 3,
+    "method": "tools/call",
+    "params": {
+      "name": "add_subscriber",
+      "arguments": {
+        "email": "hello@example.com",
+        "first_name": "Hello",
+        "status": "active"
+      }
+    }
+  }'
+```
+
+---
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Claude doesn't show the tools indicator">
+    - Make sure you fully quit and reopened Claude Desktop (not just closed the window)
+    - Check that your `claude_desktop_config.json` is valid JSON (no trailing commas, correct braces)
+    - Verify the API key starts with `mailgreet_`
+  </Accordion>
+
+  <Accordion title="Getting 401 Unauthorized errors">
+    - Double-check that your API key was copied completely — it should be 42 characters total (`mailgreet_` + 32 hex chars)
+    - Verify the key hasn't been revoked in [Settings → API & Integrations](https://app.mailgreet.com/settings/integrations)
+    - Make sure the `Authorization` header value is `Bearer mailgreet_XXXX` (with a space after `Bearer`)
+  </Accordion>
+
+  <Accordion title="Only some tools are visible">
+    This is by design. MailGreet only returns tools your API key has permission to call. If you expect to see campaign tools but don't, your key may be missing `campaigns:read` or `campaigns:write` scope. See [Authentication → Permission Scopes](/mcp/authentication#permission-scopes).
+  </Accordion>
+
+  <Accordion title="Getting rate limit errors (429)">
+    MailGreet allows 120 MCP requests per minute. If you're running automated workflows in n8n with a high volume, throttle your calls or add a delay between steps.
+  </Accordion>
+
+  <Accordion title="Cursor doesn't find the MCP server">
+    - Confirm the file is at `.cursor/mcp.json` (project) or `~/.cursor/mcp.json` (global)
+    - Run **Reload Window** after any config change
+    - Check that the JSON is valid — Cursor silently ignores malformed config files
+  </Accordion>
+</AccordionGroup>
