@@ -1,6 +1,6 @@
 ---
 title: 'Quickstart'
-description: 'Connect Claude Desktop, Cursor, n8n, or any MCP client to MailGreet in minutes'
+description: 'Connect Claude Desktop, Claude Code, VS Code, Cursor, n8n, or any MCP client to MailGreet in minutes'
 icon: 'rocket'
 ---
 
@@ -90,7 +90,125 @@ alice@example.com, bob@example.com, carol@example.com"
 
 ---
 
-## Option 2: Cursor
+## Option 2: Claude Code (CLI)
+
+Claude Code supports remote MCP servers with a single command using `--transport http`.
+
+<Steps>
+  <Step title="Add the MailGreet MCP server">
+    Run this command in your terminal:
+
+    ```bash
+    claude mcp add --transport http mailgreet https://api.mailgreet.com/mcp \
+      --header "Authorization: Bearer mailgreet_YOUR_API_KEY_HERE"
+    ```
+
+    This adds MailGreet as a **local-scoped** server (available in the current project).
+
+    <Tip>
+      To make MailGreet available across **all** your projects, add `--scope user`:
+      ```bash
+      claude mcp add --transport http --scope user mailgreet https://api.mailgreet.com/mcp \
+        --header "Authorization: Bearer mailgreet_YOUR_API_KEY_HERE"
+      ```
+    </Tip>
+  </Step>
+
+  <Step title="Verify the connection">
+    Inside Claude Code, run:
+
+    ```
+    /mcp
+    ```
+
+    MailGreet should appear in the server list with a ✓ status.
+  </Step>
+
+  <Step title="Test it">
+    Ask Claude Code:
+
+    > *"How many active subscribers do I have in MailGreet?"*
+
+    Claude will call the `get_subscriber_count` tool and return your count.
+  </Step>
+</Steps>
+
+### Alternative: JSON config
+
+You can also add the server via JSON:
+
+```bash
+claude mcp add-json mailgreet '{
+  "type": "http",
+  "url": "https://api.mailgreet.com/mcp",
+  "headers": {
+    "Authorization": "Bearer mailgreet_YOUR_API_KEY_HERE"
+  }
+}'
+```
+
+### Manage your server
+
+```bash
+# List all configured MCP servers
+claude mcp list
+
+# Check details
+claude mcp get mailgreet
+
+# Remove if needed
+claude mcp remove mailgreet
+```
+
+<Warning>
+  Use `--transport http` (not `--transport sse`). MailGreet uses the Streamable HTTP transport. The SSE transport is deprecated and will not work.
+</Warning>
+
+---
+
+## Option 3: VS Code / GitHub Copilot
+
+VS Code with GitHub Copilot supports MCP servers via `.vscode/mcp.json`. This uses the `@mailgreet/mcp-server` npm package with stdio transport.
+
+<Steps>
+  <Step title="Create the MCP config file">
+    Create `.vscode/mcp.json` in your project root:
+
+    ```json .vscode/mcp.json
+    {
+      "servers": {
+        "mailgreet": {
+          "command": "npx",
+          "args": ["@mailgreet/mcp-server"],
+          "env": {
+            "MAILGREET_API_KEY": "mailgreet_YOUR_API_KEY_HERE"
+          }
+        }
+      }
+    }
+    ```
+  </Step>
+
+  <Step title="Open VS Code">
+    VS Code will detect the MCP server automatically when the file is present. GitHub Copilot will discover the available tools.
+  </Step>
+
+  <Step title="Test it">
+    In Copilot Chat, ask:
+
+    > *"Use MailGreet to list my subscriber groups."*
+
+    Copilot will call the `list_groups` tool and return your groups.
+  </Step>
+</Steps>
+
+<Note>
+  The npm package requires **Node.js** (v18+) to be installed. It runs locally and forwards requests to the MailGreet API.
+</Note>
+
+---
+
+## Option 4: Cursor
 
 <Steps>
   <Step title="Create the MCP config file">
@@ -126,7 +244,7 @@ alice@example.com, bob@example.com, carol@example.com"
 
 ---
 
-## Option 3: Windsurf
+## Option 5: Windsurf
 
 Windsurf uses a global MCP config file:
 
@@ -149,7 +267,7 @@ Restart Windsurf after saving the config.
 
 ---
 
-## Option 4: n8n AI Agent
+## Option 6: n8n AI Agent
 
 n8n supports MCP tools natively via the **MCP Client Tool** node.
 
@@ -196,7 +314,7 @@ n8n supports MCP tools natively via the **MCP Client Tool** node.
 
 ---
 
-## Option 5: Direct HTTP (custom clients)
+## Option 7: Direct HTTP (custom clients)
 
 For developers building their own MCP clients or testing manually.
 
@@ -292,5 +410,19 @@ curl -X POST https://api.mailgreet.com/mcp \
     - Confirm the file is at `.cursor/mcp.json` (project) or `~/.cursor/mcp.json` (global)
     - Run **Reload Window** after any config change
     - Check that the JSON is valid — Cursor silently ignores malformed config files
+  </Accordion>
+
+  <Accordion title="Claude Code: tools don't appear">
+    - Make sure you used `--transport http` (not `--transport sse`). MailGreet uses Streamable HTTP transport; SSE is deprecated.
+    - Run `/mcp` inside Claude Code to check the server status
+    - Verify the `--header` flag was included: `--header "Authorization: Bearer mailgreet_..."`
+    - Try `claude mcp get mailgreet` to confirm the server is registered
+  </Accordion>
+
+  <Accordion title="VS Code: MCP server not starting">
+    - Ensure **Node.js v18+** is installed and `npx` is available in your PATH
+    - Check that `.vscode/mcp.json` is in your project root (not a subfolder)
+    - Verify the `MAILGREET_API_KEY` value starts with `mailgreet_`
+    - Reload the VS Code window after config changes
   </Accordion>
 </AccordionGroup>
